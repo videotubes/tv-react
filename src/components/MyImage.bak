@@ -1,0 +1,37 @@
+import React, { useEffect, useState } from 'react';
+import lozad from 'lozad';
+
+// Component for check each image for video thumbnail list spesific for anonymous_upload. Video image at anonymous_upload sometime missing so it will fallback to spesific image for best user experience. This trigger by Thumbnail page component
+const MyImage = ({ dataSrc, alt, getFallbackSrc }) => {
+  const [fallbackIndex, setFallbackIndex] = useState(0);
+
+  useEffect(() => {
+    const observer = lozad('.lozad', {
+      loaded: (el) => {
+        el.src = el.getAttribute('data-src');
+      },
+    });
+    observer.observe();
+  }, []);
+
+  const handleError = (e) => {
+    const fallbackSources = getFallbackSrc();
+    const currentFallback = fallbackSources[fallbackIndex];
+
+    setFallbackIndex((prevIndex) => (prevIndex + 1) % fallbackSources.length);
+
+    e.target.src = currentFallback;
+  };
+
+  return (
+    <img
+      data-src={dataSrc}
+      src="/assets/tubevideos_placeholder.webp"
+      alt={alt}
+      className="lozad"
+      onError={handleError}
+    />
+  );
+};
+
+export default MyImage;
