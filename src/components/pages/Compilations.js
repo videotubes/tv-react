@@ -41,14 +41,15 @@ export default function Compilations ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const prevPage = useRef(0);
+	const prevIsNotFound = useRef(isNotFound);
 	const address = userAddress();
 	
 	// Function for notfound
 	function notFound () {
+		prevIsNotFound.current = true;
 		setCurrentPage(1);
 		setTimeout(() => {
 			setIsNotFound(true);
@@ -106,28 +107,12 @@ export default function Compilations ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentPath[2]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[2]) {
-					if(videoData.file_code !== currentUrl[2]) {
-						const item = await getVideo(currentUrl[2], '', '');
-						if(item && item.status === 200) {
-							setIsNotFound(false);
-							playVideo(item.result[0]);
-						} else {
-							notFound();
-						}
-					}
-				} else {
-					setVideoData([]);
-				}
-				
-				if(prevPage.current !== currentPage) {
+				if(prevPage.current !== currentPage && !prevIsNotFound.current) {
 					prevPage.current = currentPage;
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
@@ -135,6 +120,21 @@ export default function Compilations ({ userAddress }) {
 						setDataVideos(allVideos.compilations.result.files);
 						setTotalPages(Math.ceil(allVideos.compilations.result.results_total / 60));
 					}
+				}
+				
+				if(currentPath[1]) {
+					if(videoData.file_code !== currentPath[1]) {
+						const item = await getVideo(currentPath[1], '', '');
+						if(item && item.compilations.status === 200) {
+							setIsNotFound(false);
+							prevIsNotFound.current = false;
+							playVideo(item.compilations.result[0]);
+						} else {
+							notFound();
+						}
+					}
+				} else {
+					setVideoData([]);
 				}
 			}
 		}
@@ -145,7 +145,7 @@ export default function Compilations ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, currentPage]);
+	}, [pathName, currentPage]);
 	
 	const visibleResults = dataVideos;
 

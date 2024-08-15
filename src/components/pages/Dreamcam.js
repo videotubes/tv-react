@@ -43,10 +43,8 @@ export default function Dreamcam ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
-	const prevPage = useRef(0);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -98,10 +96,8 @@ export default function Dreamcam ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentPath[2]) {
 				notFound();
 			}
 			else {
@@ -112,9 +108,9 @@ export default function Dreamcam ({ userAddress }) {
 					setTotalPages(Math.ceil(allVideos.length / 60));
 				}
 				
-				if(currentUrl[2]) {
-					if(videoData.username !== currentUrl[2]) {
-						const item = allVideos.find(obj => obj.modelNickname === currentUrl[2]);
+				if(currentPath[1]) {
+					if(videoData.username !== currentPath[1]) {
+						const item = allVideos.find(obj => obj.modelNickname === currentPath[1]);
 						if(item) {
 							setIsNotFound(false);
 							playVideo(item);
@@ -134,7 +130,7 @@ export default function Dreamcam ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath]);
+	}, [pathName]);
 
 	const startIndex = (currentPage - 1) * 60;
 	const endIndex = startIndex + 60;
@@ -197,7 +193,7 @@ export default function Dreamcam ({ userAddress }) {
 								<DownloadVideo videoUrl={`https://dreamcam.com/models/${videoData.modelNickname}`} buttonName={'Go to room'} />
 								<span className="details left-flex">{videoData.broadcastTextStatus}</span>
 							</div>
-							<div className="column-2"  style={{paddingBottom: 24}}>
+							<div className="column-2">
 								<CommentForm platformName={'dreamcam'} videoId={videoData.modelNickname} />
 							</div>
 						</div>
