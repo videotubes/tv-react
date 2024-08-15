@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import { ThirdwebProvider, useAddress } from "@thirdweb-dev/react";
 import {
@@ -57,13 +57,14 @@ function App() {
 
 	//**************************************** End Of Handle Theme Dark/Light Mode ****************************************//
 	
+	const clientId = 'ce9156bf65a4cafc9f557c9f4b943c02';
 	
 	
   return (
     <Router>
 			<ThirdwebProvider
 				activeChain={activeChain}
-				clientId={process.env.NEXT_PUBLIC_TEMPLATE_CLIENT_ID}
+				clientId={clientId}
 				supportedWallets={[
 					metamaskWallet({ recommended: true }),
 					coinbaseWallet(),
@@ -79,17 +80,40 @@ function App() {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/compilations" element={<Compilations userAddress={useAddress} />} />
+							<Route path="/compilations/:id" element={<Compilations userAddress={useAddress} />} />
+							
 							<Route path="/camsoda" element={<Camsoda userAddress={useAddress} />} />
+							<Route path="/camsoda/:id" element={<Camsoda userAddress={useAddress} />} />
+							
 							<Route path="/dreamcam" element={<Dreamcam userAddress={useAddress} />} />
+							<Route path="/dreamcam/:id" element={<Dreamcam userAddress={useAddress} />} />
+							
 							<Route path="/cam4" element={<Cam4 userAddress={useAddress} />} />
+							<Route path="/cam4/:id" element={<Cam4 userAddress={useAddress} />} />
+							
 							<Route path="/chaturbate" element={<Chaturbate userAddress={useAddress} />} />
+							<Route path="/chaturbate/:id" element={<Chaturbate userAddress={useAddress} />} />
+							
 							<Route path="/stripchat" element={<Stripchat userAddress={useAddress} />} />
+							<Route path="/stripchat/:id" element={<Stripchat userAddress={useAddress} />} />
+							
 							<Route path="/eplay" element={<Eplay userAddress={useAddress} />} />
+							<Route path="/eplay/:id" element={<Eplay userAddress={useAddress} />} />
+							
 							<Route path="/amateur" element={<Amateur userAddress={useAddress} />} />
+							<Route path="/amateur/:id" element={<Amateur userAddress={useAddress} />} />
+							
 							<Route path="/babestation" element={<Babestation userAddress={useAddress} />} />
+							<Route path="/babestation/:id" element={<Babestation userAddress={useAddress} />} />
+							
 							<Route path="/eporner" element={<Eporner userAddress={useAddress} />} />
+							<Route path="/eporner/:id" element={<Eporner userAddress={useAddress} />} />
+							
 							<Route path="/redtube" element={<Redtube userAddress={useAddress} />} />
+							<Route path="/redtube/:id" element={<Redtube userAddress={useAddress} />} />
+							
 							<Route path="/savedlist" element={<SavedList userAddress={useAddress} />} />
+							
 							<Route path="*" element={<NotFoundPage />} />
 						</Routes>
 					</TrailingSlashEnforcer>

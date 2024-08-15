@@ -114,13 +114,13 @@ export default function Compilations ({ userAddress }) {
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[2]) {
+			if(currentUrl[3]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[1]) {
-					if(videoData.file_code !== currentUrl[1]) {
-						const item = await getVideo(currentUrl[1], '', '');
+				if(currentUrl[2]) {
+					if(videoData.file_code !== currentUrl[2]) {
+						const item = await getVideo(currentUrl[2], '', '');
 						if(item && item.status === 200) {
 							playVideo(item.result[0]);
 						} else {

@@ -106,7 +106,7 @@ export default function Dreamcam ({ userAddress }) {
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[2]) {
+			if(currentUrl[3]) {
 				notFound();
 			}
 			else {
@@ -116,9 +116,9 @@ export default function Dreamcam ({ userAddress }) {
 					setTotalPages(Math.ceil(allVideos.length / 60));
 				}
 				
-				if(currentUrl[1]) {
-					if(videoData.username !== currentUrl[1]) {
-						const item = allVideos.find(obj => obj.modelNickname === currentUrl[1]);
+				if(currentUrl[2]) {
+					if(videoData.username !== currentUrl[2]) {
+						const item = allVideos.find(obj => obj.modelNickname === currentUrl[2]);
 						if(item) {
 							playVideo(item);
 						} else {

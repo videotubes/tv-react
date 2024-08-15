@@ -93,7 +93,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 		const formData = new FormData(e.target);
 		const form_values = Object.fromEntries(formData);
 		if(form_values.search) {
-			navigate(`/${platform}/#/search/${form_values.search}/`, { replace: true });
+			navigate(`/${platform}/search/${form_values.search}/`, { replace: true });
 			const inputMessage = document.getElementById('search');
 			inputMessage.value = '';
 		}
@@ -119,7 +119,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 										<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
 									</svg>
 								</button>
-								<Link to={`/${item.platform}/#/${item.video_id}/`}>
+								<Link to={`/${item.platform}/${item.video_id}/`}>
 									<LazyLoad>
 										<img
 											src={item.image_url}
@@ -270,7 +270,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 								return (
 									<div key={index} style={{textAlign: "left"}} className="thumb">
 										{getOnliveStatus && !item.live && (<div className="thumb-overlay">OFFLINE</div>)}
-										<Link to={`./#/${item[videoId]}/`} onClick={() => playVideo(item)}>
+										<Link to={`/${platform}/${item[videoId]}/`} onClick={() => playVideo(item)}>
 											<LazyLoad>
 												<img
 													src={thumbnailUrl}

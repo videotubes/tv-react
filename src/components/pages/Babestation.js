@@ -112,7 +112,7 @@ export default function Babestation ({ userAddress }) {
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[2]) {
+			if(currentUrl[3]) {
 				notFound();
 			}
 			else {
@@ -122,9 +122,9 @@ export default function Babestation ({ userAddress }) {
 					setTotalPages(allVideos.babestation.pagination.last_page);
 				}
 				
-				if(currentUrl[1]) {
-					if(videoData.Nickname !== currentUrl[1]) {
-						const item = await getVideo(currentUrl[1], '');
+				if(currentUrl[2]) {
+					if(videoData.Nickname !== currentUrl[2]) {
+						const item = await getVideo(currentUrl[2], '');
 						if(item && item.success === true) {
 							playVideo(item);
 						} else {

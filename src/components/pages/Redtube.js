@@ -115,11 +115,11 @@ export default function Redtube ({ userAddress }) {
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentUrl[4]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[1] !== 'search') {
+				if(currentUrl[2] !== 'search') {
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
 						setDataVideos(allVideos.redtube);
@@ -127,17 +127,17 @@ export default function Redtube ({ userAddress }) {
 					}
 				}
 				
-				if(currentUrl[1]) {
-					prevSearch.current = currentUrl[1];
-					if(currentUrl[1] === 'search' && currentUrl[2]) {
-						const allVideos = await getVideo('search', currentUrl[2], currentPage);
+				if(currentUrl[2]) {
+					prevSearch.current = currentUrl[2];
+					if(currentUrl[2] === 'search' && currentUrl[3]) {
+						const allVideos = await getVideo('search', currentUrl[3], currentPage);
 						if(allVideos) {
 							setDataVideos(allVideos.redtube);
 							setTotalPages(Math.ceil(allVideos.count / 60));
 						}
 					} else {
-						if(videoData.video_id !== currentUrl[1]) {
-							const item = await getVideo(currentUrl[1], '', '');
+						if(videoData.video_id !== currentUrl[2]) {
+							const item = await getVideo(currentUrl[2], '', '');
 							if(item && item.success === true) {
 								playVideo(item);
 							} else {

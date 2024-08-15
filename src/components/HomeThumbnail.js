@@ -32,7 +32,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="heading">
 					<h3>Compilations</h3>
 					<h4>
-						<Link to="./compilations/" id="compilations" name="Compilations">
+						<Link to="/compilations/" id="compilations" name="Compilations">
 							View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 						</Link>
 					</h4>
@@ -40,7 +40,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="scrolling-home">
 				{comVideos.map((item) => (
 					<div key={item.file_code} style={{textAlign: "left"}} className="thumb">
-						<Link to={`./compilations/#/${item.file_code}/`} >
+						<Link to={`/compilations/${item.file_code}/`} >
 							<LazyLoad>
 								<img
 									src={`https://laving.cc/${item.file_code}_xt.jpg`}
@@ -70,7 +70,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="heading">
 					<h3>Eporner</h3>
 					<h4>
-						<Link to="./eporner/" id="eporner" name="Eporner">
+						<Link to="/eporner/" id="eporner" name="Eporner">
 							View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 						</Link>
 					</h4>
@@ -78,7 +78,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="scrolling-home">
 				{epVideos.map((item) => (
 					<div key={item.id} className="thumb" style={{textAlign: "left"}}>
-						<Link to={`./eporner/#/${item.id}/`}>
+						<Link to={`/eporner/${item.id}/`}>
 							<LazyLoad>
 								<img
 									src={item.default_thumb.src}
@@ -108,7 +108,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="heading">
 					<h3>Chaturbate</h3>
 					<h4>
-						<Link to="./chaturbate/" id="chaturbate" name="Chaturbate">
+						<Link to="/chaturbate/" id="chaturbate" name="Chaturbate">
 							View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 						</Link>
 					</h4>
@@ -116,7 +116,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="scrolling-home">
 				{ctVideos.map((item) => (
 					<div key={item.username} style={{textAlign: "left"}} className="thumb">
-						<Link to={`./chaturbate/#/${item.username}/`}>
+						<Link to={`/chaturbate/${item.username}/`}>
 							<LazyLoad>
 								<img
 									src={item.image_url}
@@ -146,7 +146,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="heading">
 					<h3>Stripchat</h3>
 					<h4>
-						<Link to="./stripchat/" id="stripchat" name="Stripchat">
+						<Link to="/stripchat/" id="stripchat" name="Stripchat">
 							View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 						</Link>
 					</h4>
@@ -154,7 +154,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="scrolling-home">
 				{stVideos.map((item) => (
 					<div key={item.id} style={{textAlign: "left"}} className="thumb">
-						<Link to={`./stripchat/#/${item.username}/`}>
+						<Link to={`/stripchat/${item.username}/`}>
 							<LazyLoad>
 								<img
 									src={item.snapshotUrl}
@@ -184,7 +184,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="heading">
 					<h3>Cam4</h3>
 					<h4>
-						<Link to="./cam4/" id="cam4" name="Cam4">
+						<Link to="/cam4/" id="cam4" name="Cam4">
 							View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 						</Link>
 					</h4>
@@ -192,7 +192,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				<div className="scrolling-home">
 				{caVideos.map((item) => (
 					<div key={item.nickname} style={{textAlign: "left"}} className="thumb">
-						<Link to={`./cam4/#/${item.nickname}/`}>
+						<Link to={`/cam4/${item.nickname}/`}>
 							<LazyLoad>
 								<img
 									src={item.thumb}
@@ -224,7 +224,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Redtube</h3>
 						<h4>
-							<Link to="./redtube/" id="redtube" name="Redtube">
+							<Link to="/redtube/" id="redtube" name="Redtube">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -232,7 +232,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="scrolling-home">
 					{rtVideos.map((item) => (
 						<div key={item.video_id} className="thumb" style={{textAlign: "left"}}>
-							<Link to={`./redtube/#/${item.video_id}/`}>
+							<Link to={`/redtube/${item.video_id}/`}>
 								<LazyLoad>
 									<img
 										src={item.thumb}
@@ -265,7 +265,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Camsoda</h3>
 						<h4>
-							<Link to="./camsoda/" id="camsoda" name="Camsoda">
+							<Link to="/camsoda/" id="camsoda" name="Camsoda">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -273,7 +273,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="scrolling-home">
 					{csVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
-							<Link to={`./camsoda/#/${item.username}/`}>
+							<Link to={`/camsoda/${item.username}/`}>
 								<LazyLoad>
 									<img
 										src={item.thumbUrl}
@@ -306,7 +306,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Amateur</h3>
 						<h4>
-							<Link to="./amateur/" id="amateur" name="Amateur">
+							<Link to="/amateur/" id="amateur" name="Amateur">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -318,7 +318,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 						const unblured = parts.join('/');
 						return (
 						<div key={item.id} className="thumb" style={{textAlign: "left"}}>
-							<Link to={`./amateur/#/${item.username}/`}>
+							<Link to={`/amateur/${item.username}/`}>
 								<LazyLoad>
 									<img
 										src={unblured}
@@ -352,7 +352,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Dreamcam</h3>
 						<h4>
-							<Link to="./dreamcam/" id="dreamcam" name="dreamcam">
+							<Link to="/dreamcam/" id="dreamcam" name="dreamcam">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -360,7 +360,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="scrolling-home">
 					{drVideos.map((item) => (
 						<div key={item.modelNickname} style={{textAlign: "left"}} className="thumb">
-							<Link to={`./dreamcam/#/${item.modelNickname}/`}>
+							<Link to={`/dreamcam/${item.modelNickname}/`}>
 								<LazyLoad>
 									<img
 										src={item.modelProfilePhotoUrl}
@@ -385,7 +385,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Eplay</h3>
 						<h4>
-							<Link to="./eplay/" id="eplay" name="eplay">
+							<Link to="/eplay/" id="eplay" name="eplay">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -393,7 +393,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="scrolling-home">
 					{eplVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
-							<Link to={`./eplay/#/${item.username}/`}>
+							<Link to={`/eplay/${item.username}/`}>
 								<LazyLoad>
 									<img
 										src={item.ss}
@@ -418,7 +418,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="heading">
 						<h3>Babe Station</h3>
 						<h4>
-							<Link to="./babestation/" id="babestation" name="Babe Station">
+							<Link to="/babestation/" id="babestation" name="Babe Station">
 								View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
 							</Link>
 						</h4>
@@ -426,7 +426,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					<div className="scrolling-home">
 					{bsVideos.map((item) => (
 						<div key={item.PerformerId} style={{textAlign: "left"}} className="thumb">
-							<Link to={`./babestation/#/${item.Nickname}/`}>
+							<Link to={`/babestation/${item.Nickname}/`}>
 								<LazyLoad>
 									<img
 										src={item.Thumbnail}

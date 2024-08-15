@@ -115,11 +115,11 @@ export default function Eporner ({ userAddress }) {
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentUrl[4]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[1] !== 'search') {
+				if(currentUrl[2] !== 'search') {
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
 						setDataVideos(allVideos.videos);
@@ -127,17 +127,18 @@ export default function Eporner ({ userAddress }) {
 					}
 				}
 				
-				if(currentUrl[1]) {
-					prevSearch.current = currentUrl[1];
-					if(currentUrl[1] === 'search' && currentUrl[2]) {
-						const allVideos = await getVideo('search', currentUrl[2], currentPage);
+				if(currentUrl[2]) {
+					console.log(currentUrl)
+					prevSearch.current = currentUrl[2];
+					if(currentUrl[2] === 'search' && currentUrl[3]) {
+						const allVideos = await getVideo('search', currentUrl[3], currentPage);
 						if(allVideos) {
 							setDataVideos(allVideos.videos);
 							setTotalPages(Math.ceil(allVideos.total_pages / 60));
 						}
 					} else {
-						if(videoData.id !== currentUrl[1]) {
-							const item = await getVideo(currentUrl[1], '', '');
+						if(videoData.id !== currentUrl[2]) {
+							const item = await getVideo(currentUrl[2], '', '');
 							if(item && item.length !== 0) {
 								playVideo(item);
 							} else {

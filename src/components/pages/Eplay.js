@@ -120,7 +120,7 @@ activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[2]) {
+			if(currentUrl[3]) {
 				notFound();
 			}
 			else {
@@ -130,9 +130,9 @@ activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest
 					setTotalPages(Math.ceil(allVideos.total / 60));
 				}
 				
-				if(currentUrl[1]) {
-					if(videoData.username !== currentUrl[1]) {
-						const item = await getVideo(currentUrl[1], '');
+				if(currentUrl[2]) {
+					if(videoData.username !== currentUrl[2]) {
+						const item = await getVideo(currentUrl[2], '');
 						if(item && item.total > 0) {
 							playVideo(item);
 						} else {
