@@ -73,6 +73,11 @@ export default function Stripchat ({ userAddress }) {
 
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
+			if(!response.ok) {
+				setDataVideos([]);
+				setIsLoading(false);
+				return;
+			}
 			const data =  await response.json();
 			if(data.models) {
 				setIsReload(false);

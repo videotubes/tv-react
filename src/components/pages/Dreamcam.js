@@ -72,6 +72,11 @@ export default function Dreamcam ({ userAddress }) {
 		const endpointUrl = `https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=128&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false`;
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
+			if(!response.ok) {
+				setDataVideos([]);
+				setIsLoading(false);
+				return;
+			}
 			const data =  await response.json();
 			if(data.totalCount !== 0) {
 				setIsReload(false);

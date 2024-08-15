@@ -71,6 +71,11 @@ export default function Chaturbate ({ userAddress }) {
 		const endpointUrl = `https://chaturbate.com/api/public/affiliates/onlinerooms/?wm=55xr9&limit=500&client_ip=request_ip`;
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
+			if(!response.ok) {
+				setDataVideos([]);
+				setIsLoading(false);
+				return;
+			}
 			const data =  await response.json();
 			if(data.results) {
 				setIsReload(false);

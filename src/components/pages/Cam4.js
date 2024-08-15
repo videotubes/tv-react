@@ -72,6 +72,11 @@ export default function Cam4 ({ userAddress }) {
 		const endpointUrl = `https://api.pinklabel.com/api/v1/cams/online.json?aff_id=64ad0d76c17c866d6c664c50&prog=rs&limit=1000`;
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
+			if(!response.ok) {
+				setDataVideos([]);
+				setIsLoading(false);
+				return;
+			}
 			const data =  await response.json();
 			if(data.length !== 0) {
 				setIsReload(false);
