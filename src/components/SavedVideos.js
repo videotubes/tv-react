@@ -32,7 +32,7 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
 				videoId = videoData.username;
 			}
 			else if(platform === 'stripchat') {
-				imageUrl = videoData.snapshotUrl;
+				imageUrl = videoData.previewUrl;
 				videoId = videoData.username;
 			}
 			else if(platform === 'eplay') {
