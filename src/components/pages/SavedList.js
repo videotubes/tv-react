@@ -42,10 +42,8 @@ export default function SavedList ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
-	const prevPage = useRef(0);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -98,10 +96,8 @@ export default function SavedList ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[2]) {
+			if(currentPath[1]) {
 				notFound();
 			}
 			else {
@@ -125,7 +121,7 @@ export default function SavedList ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, address]);
+	}, [pathName, address]);
 
 	const visibleResults = dataVideos;
 

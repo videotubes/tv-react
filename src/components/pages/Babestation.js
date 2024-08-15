@@ -43,10 +43,10 @@ export default function Babestation ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const prevPage = useRef(0);
+	const prevIsNotFound = useRef(isNotFound);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -59,6 +59,7 @@ export default function Babestation ({ userAddress }) {
 	
 	// Function for notfound
 	function notFound () {
+		prevIsNotFound.current = false;
 		setCurrentPage(1);
 		setTimeout(() => {
 			setIsNotFound(true);
@@ -104,14 +105,12 @@ export default function Babestation ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentPath[2]) {
 				notFound();
 			}
 			else {
-				if(prevPage.current !== currentPage) {
+				if(prevPage.current !== currentPage && !prevIsNotFound.current) {
 					prevPage.current = currentPage;
 					const allVideos = await getVideo('', currentPage);
 					if(allVideos) {
@@ -121,11 +120,12 @@ export default function Babestation ({ userAddress }) {
 					}
 				}
 				
-				if(currentUrl[2]) {
-					if(videoData.Nickname !== currentUrl[2]) {
-						const item = await getVideo(currentUrl[2], '');
+				if(currentPath[1]) {
+					if(videoData.Nickname !== currentPath[1]) {
+						const item = await getVideo(currentPath[1], '');
 						if(item && item.success === true) {
 							setIsNotFound(false);
+							prevIsNotFound.current = false;
 							playVideo(item);
 						} else {
 							notFound();
@@ -143,7 +143,7 @@ export default function Babestation ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, currentPage]);
+	}, [pathName, currentPage]);
 	
 	const visibleResults = dataVideos;
 

@@ -43,10 +43,8 @@ export default function Stripchat ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
-	const prevPage = useRef(0);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -99,10 +97,8 @@ export default function Stripchat ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentPath[2]) {
 				notFound();
 			}
 			else {
@@ -113,9 +109,9 @@ export default function Stripchat ({ userAddress }) {
 					setTotalPages(Math.ceil(5000 / 60));
 				}
 				
-				if(currentUrl[2]) {
-					if(videoData.username !== currentUrl[2]) {
-						const item = allVideos.find(obj => obj.username === currentUrl[2]);
+				if(currentPath[1]) {
+					if(videoData.username !== currentPath[1]) {
+						const item = allVideos.find(obj => obj.username === currentPath[1]);
 						if(item) {
 							setIsNotFound(false);
 							playVideo(item);
@@ -135,7 +131,7 @@ export default function Stripchat ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath]);
+	}, [pathName]);
 	
 	const startIndex = (currentPage - 1) * 60;
 	const endIndex = startIndex + 60;

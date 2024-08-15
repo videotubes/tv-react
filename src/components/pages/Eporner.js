@@ -41,10 +41,11 @@ export default function Eporner ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const prevUrl = useRef(location.hash);
 	const prevPage = useRef(0);
+	const prevIsNotFound = useRef(isNotFound);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -57,6 +58,7 @@ export default function Eporner ({ userAddress }) {
 	
 	// Function for notfound
 	function notFound () {
+		prevIsNotFound.current = false;
 		setCurrentPage(1);
 		setTimeout(() => {
 			setIsNotFound(true);
@@ -101,19 +103,17 @@ export default function Eporner ({ userAddress }) {
 	}
 
 
-
+console.log(dataVideos)
 	//**************************************** All Fetched Video Data ****************************************//
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[4]) {
+			if(currentPath[3]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[2] !== 'search' && prevPage.current !== currentPage) {
+				if(currentPath[1] !== 'search' && prevPage.current !== currentPage && !prevIsNotFound.current) {
 					prevPage.current = currentPage;
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
@@ -123,20 +123,22 @@ export default function Eporner ({ userAddress }) {
 					}
 				}
 				
-				if(currentUrl[2]) {
-					prevUrl.current = currentUrl[2];
-					if(currentUrl[2] === 'search' && currentUrl[3]) {
-						const allVideos = await getVideo('search', currentUrl[3], currentPage);
+				if(currentPath[1]) {
+					prevUrl.current = currentPath[1];
+					if(currentPath[1] === 'search' && currentPath[2]) {
+						const allVideos = await getVideo('search', currentPath[2], currentPage);
 						if(allVideos) {
 							setIsNotFound(false);
+							prevIsNotFound.current = false;
 							setDataVideos(allVideos.videos);
 							setTotalPages(Math.ceil(allVideos.total_pages / 60));
 						}
 					} else {
-						if(videoData.id !== currentUrl[2]) {
-							const item = await getVideo(currentUrl[2], '', '');
+						if(videoData.id !== currentPath[1]) {
+							const item = await getVideo(currentPath[1], '', '');
 							if(item && item.length !== 0) {
 								setIsNotFound(false);
+								prevIsNotFound.current = false;
 								playVideo(item);
 							} else {
 								notFound();
@@ -155,7 +157,7 @@ export default function Eporner ({ userAddress }) {
 	
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, currentPage]);
+	}, [pathName, currentPage]);
 	
 	const visibleResults = dataVideos;
 
@@ -204,7 +206,7 @@ export default function Eporner ({ userAddress }) {
 								<DownloadVideo videoUrl={videoData.url} buttonName={'Download Video'} />
 								<span className="details left-flex">{videoData.keywords}</span>
 							</div>
-							<div className="column-2"  style={{paddingBottom: 24}}>
+							<div className="column-2">
 								<CommentForm platformName={'eporner'} videoId={videoData.id} />
 							</div>
 						</div>

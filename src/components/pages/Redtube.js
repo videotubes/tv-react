@@ -41,10 +41,11 @@ export default function Redtube ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const prevUrl = useRef(location.hash);
 	const prevPage = useRef(0);
+	const prevIsNotFound = useRef(isNotFound);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -57,6 +58,7 @@ export default function Redtube ({ userAddress }) {
 	
 	// Function for notfound
 	function notFound () {
+		prevIsNotFound.current = true;
 		setCurrentPage(1);
 		setTimeout(() => {
 			setIsNotFound(true);
@@ -106,14 +108,12 @@ export default function Redtube ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[4]) {
+			if(currentPath[3]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[2] !== 'search' && prevPage.current !== currentPage) {
+				if(currentPath[1] !== 'search' && prevPage.current !== currentPage && !prevIsNotFound.current) {
 					prevPage.current = currentPage;
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
@@ -123,20 +123,22 @@ export default function Redtube ({ userAddress }) {
 					}
 				}
 				
-				if(currentUrl[2]) {
-					prevUrl.current = currentUrl[2];
-					if(currentUrl[2] === 'search' && currentUrl[3]) {
-						const allVideos = await getVideo('search', currentUrl[3], currentPage);
+				if(currentPath[1]) {
+					prevUrl.current = currentPath[1];
+					if(currentPath[1] === 'search' && currentPath[1]) {
+						const allVideos = await getVideo('search', currentPath[2], currentPage);
 						if(allVideos) {
 							setIsNotFound(false);
+							prevIsNotFound.current = false;
 							setDataVideos(allVideos.redtube);
 							setTotalPages(Math.ceil(allVideos.count / 60));
 						}
 					} else {
-						if(videoData.video_id !== currentUrl[2]) {
-							const item = await getVideo(currentUrl[2], '', '');
+						if(videoData.video_id !== currentPath[1]) {
+							const item = await getVideo(currentPath[1], '', '');
 							if(item && item.success === true) {
 								setIsNotFound(false);
+								prevIsNotFound.current = false;
 								playVideo(item);
 							} else {
 								notFound();
@@ -155,7 +157,7 @@ export default function Redtube ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, currentPage]);
+	}, [pathName, currentPage]);
 	
 	const visibleResults = dataVideos;
 

@@ -43,10 +43,10 @@ export default function Camsoda ({ userAddress }) {
 
 
   const location = useLocation();
-  const currentHash = location.hash;
-	const currentPath = location.pathname;
-	const prevUrl = useRef(location.hash);
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
 	const prevPage = useRef(0);
+	const prevIsNotFound = useRef(isNotFound);
 	const address = userAddress();
 
 	function handleChangeCurrentPage(e) {
@@ -59,6 +59,7 @@ export default function Camsoda ({ userAddress }) {
 	
 	// Function for notfound
 	function notFound () {
+		prevIsNotFound.current = false;
 		setCurrentPage(1);
 		setTimeout(() => {
 			setIsNotFound(true);
@@ -104,28 +105,12 @@ export default function Camsoda ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		const url = new URL(window.location.href);
-		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
-			if(currentUrl[3]) {
+			if(currentPath[2]) {
 				notFound();
 			}
 			else {
-				if(currentUrl[2]) {
-					if(videoData.username !== currentUrl[2]) {
-						const item = await getVideo(currentUrl[2], '');
-						if(item && !item.error) {
-							setIsNotFound(false);
-							playVideo(item);
-						} else {
-							notFound();
-						}
-					}
-				} else {
-					setVideoData([]);
-				}
-
-				if(prevPage.current !== currentPage) {
+				if(prevPage.current !== currentPage && !prevIsNotFound.current) {
 					prevPage.current = currentPage;
 					const allVideos = await getVideo('', currentPage);
 					if(allVideos) {
@@ -133,6 +118,21 @@ export default function Camsoda ({ userAddress }) {
 						setDataVideos(allVideos.userList);
 						setTotalPages(Math.ceil(allVideos.totalCount / 60));
 					}
+				}
+				
+				if(currentPath[1]) {
+					if(videoData.username !== currentPath[1]) {
+						const item = await getVideo(currentPath[1], '');
+						if(item && !item.error) {
+							setIsNotFound(false);
+							prevIsNotFound.current = false;
+							playVideo(item);
+						} else {
+							notFound();
+						}
+					}
+				} else {
+					setVideoData([]);
 				}
 			}
 		}
@@ -143,7 +143,7 @@ export default function Camsoda ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [currentPath, currentPage]);
+	}, [pathName, currentPage]);
 	
 	const visibleResults = dataVideos;
 
@@ -229,7 +229,7 @@ export default function Camsoda ({ userAddress }) {
 								<DownloadVideo videoUrl={`https://camsoda.com/${videoData.username}`} buttonName={'Go to room'} />
 								<span className="details left-flex">{videoData.user ? videoData.chat.subjectText : videoData.subjectText}</span>
 							</div>
-							<div className="column-2"  style={{paddingBottom: 24}}>
+							<div className="column-2">
 								<CommentForm platformName={'camsoda'} videoId={videoData.username} />
 							</div>
 						</div>
