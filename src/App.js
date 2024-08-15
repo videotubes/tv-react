@@ -108,6 +108,7 @@ function App() {
 							
 							<Route path="/eporner" element={<Eporner userAddress={useAddress} />} />
 							<Route path="/eporner/:id" element={<Eporner userAddress={useAddress} />} />
+							<Route path="/eporner/:id/:id" element={<Eporner userAddress={useAddress} />} />
 							
 							<Route path="/redtube" element={<Redtube userAddress={useAddress} />} />
 							<Route path="/redtube/:id" element={<Redtube userAddress={useAddress} />} />

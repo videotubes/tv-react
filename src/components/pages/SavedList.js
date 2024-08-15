@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import CommentForm from '../CommentForm';
 import DownloadVideo from '../DownloadVideo';
@@ -37,24 +37,16 @@ export default function SavedList ({ userAddress }) {
 	const [isReload, setIsReload] = useState(false);
 	const [videoData, setVideoData] = useState([]);
 	const [isNotFound, setIsNotFound] = useState(false);
-	const [urlHash, setUrlHash] = useState('');
 	
 	//**************************************** End Of All State ****************************************//
 
 
   const location = useLocation();
   const currentHash = location.hash;
+	const currentPath = location.pathname;
+	const prevUrl = useRef(location.hash);
+	const prevPage = useRef(0);
 	const address = userAddress();
-	
-	useEffect(() => {
-		window.onhashchange = function() {
-			const newHash = window.location.hash;
-			setUrlHash(newHash);
-			if(isNotFound) {
-				setIsLoading(true);
-			}
-		};
-	}, [isNotFound]);
 
 	function handleChangeCurrentPage(e) {
 		setCurrentPage(e);
@@ -101,8 +93,6 @@ export default function SavedList ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		setIsNotFound(false);
-		
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
@@ -113,6 +103,7 @@ export default function SavedList ({ userAddress }) {
 				if(address) {
 					const allVideos = await getVideo(address);
 					if(allVideos) {
+						setIsNotFound(false);
 						setDataVideos(allVideos.saved_list);
 						setTotalPages(Math.ceil(allVideos.saved_list.length / 60));
 					}
@@ -129,7 +120,7 @@ export default function SavedList ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [urlHash, currentHash, address]);
+	}, [currentPath, address]);
 
 	const visibleResults = dataVideos;
 

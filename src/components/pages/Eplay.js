@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import CommentForm from '../CommentForm';
 import DownloadVideo from '../DownloadVideo';
@@ -38,7 +38,6 @@ export default function Eplay ({ userAddress }) {
 	const [isReload, setIsReload] = useState(false);
 	const [videoData, setVideoData] = useState([]);
 	const [isNotFound, setIsNotFound] = useState(false);
-	const [urlHash, setUrlHash] = useState('');
 	const [isLive, setIsLive] = useState(true);
 	
 	//**************************************** End Of All State ****************************************//
@@ -46,17 +45,10 @@ export default function Eplay ({ userAddress }) {
 
   const location = useLocation();
   const currentHash = location.hash;
+	const currentPath = location.pathname;
+	const prevUrl = useRef(location.hash);
+	const prevPage = useRef(0);
 	const address = userAddress();
-	
-	useEffect(() => {
-		window.onhashchange = function() {
-			const newHash = window.location.hash;
-			setUrlHash(newHash);
-			if(isNotFound) {
-				setIsLoading(true);
-			}
-		};
-	}, [isNotFound]);
 
 	function handleChangeCurrentPage(e) {
 		setCurrentPage(e);
@@ -115,8 +107,6 @@ activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		setIsNotFound(false);
-		
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
@@ -124,16 +114,21 @@ activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest
 				notFound();
 			}
 			else {
-				const allVideos = await getVideo('', currentPage);
-				if(allVideos) {
-					setDataVideos(allVideos.results);
-					setTotalPages(Math.ceil(allVideos.total / 60));
+				if(prevPage.current !== currentPage) {
+					prevPage.current = currentPage;
+					const allVideos = await getVideo('', currentPage);
+					if(allVideos) {
+						setIsNotFound(false);
+						setDataVideos(allVideos.results);
+						setTotalPages(Math.ceil(allVideos.total / 60));
+					}
 				}
 				
 				if(currentUrl[2]) {
 					if(videoData.username !== currentUrl[2]) {
 						const item = await getVideo(currentUrl[2], '');
 						if(item && item.total > 0) {
+							setIsNotFound(false);
 							playVideo(item);
 						} else {
 							notFound();
@@ -151,7 +146,7 @@ activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest
 
 	useEffect(() => {
 		fetchData();
-	}, [urlHash, currentPage, currentHash]);
+	}, [currentPath, currentPage]);
 	
 	const visibleResults = dataVideos;
 

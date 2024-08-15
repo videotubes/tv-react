@@ -36,25 +36,16 @@ export default function Redtube ({ userAddress }) {
 	const [isReload, setIsReload] = useState(false);
 	const [videoData, setVideoData] = useState([]);
 	const [isNotFound, setIsNotFound] = useState(false);
-	const [urlHash, setUrlHash] = useState('');
 	
 	//**************************************** End Of All State ****************************************//
 
 
   const location = useLocation();
   const currentHash = location.hash;
-	const prevSearch = useRef(location.hash);
+	const currentPath = location.pathname;
+	const prevUrl = useRef(location.hash);
+	const prevPage = useRef(0);
 	const address = userAddress();
-	
-	useEffect(() => {
-		window.onhashchange = function() {
-			const newHash = window.location.hash;
-			setUrlHash(newHash);
-			if(isNotFound) {
-				setIsLoading(true);
-			}
-		};
-	}, [isNotFound]);
 
 	function handleChangeCurrentPage(e) {
 		setCurrentPage(e);
@@ -110,8 +101,6 @@ export default function Redtube ({ userAddress }) {
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
 	const fetchData = async () => {
-		setIsNotFound(false);
-		
 		const url = new URL(window.location.href);
 		const currentUrl = url.hash.split('/').filter(Boolean);
 		try {
@@ -119,19 +108,22 @@ export default function Redtube ({ userAddress }) {
 				notFound();
 			}
 			else {
-				if(currentUrl[2] !== 'search') {
+				if(currentUrl[2] !== 'search' && prevPage.current !== currentPage) {
+					prevPage.current = currentPage;
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
+						setIsNotFound(false);
 						setDataVideos(allVideos.redtube);
 						setTotalPages(Math.ceil(allVideos.count / 60));
 					}
 				}
 				
 				if(currentUrl[2]) {
-					prevSearch.current = currentUrl[2];
+					prevUrl.current = currentUrl[2];
 					if(currentUrl[2] === 'search' && currentUrl[3]) {
 						const allVideos = await getVideo('search', currentUrl[3], currentPage);
 						if(allVideos) {
+							setIsNotFound(false);
 							setDataVideos(allVideos.redtube);
 							setTotalPages(Math.ceil(allVideos.count / 60));
 						}
@@ -139,6 +131,7 @@ export default function Redtube ({ userAddress }) {
 						if(videoData.video_id !== currentUrl[2]) {
 							const item = await getVideo(currentUrl[2], '', '');
 							if(item && item.success === true) {
+								setIsNotFound(false);
 								playVideo(item);
 							} else {
 								notFound();
@@ -157,13 +150,13 @@ export default function Redtube ({ userAddress }) {
 
 	useEffect(() => {
 		fetchData();
-	}, [urlHash, currentPage, currentHash]);
+	}, [currentPath, currentPage]);
 	
 	const visibleResults = dataVideos;
 
 	// Function that trigger on clicked video thumb for play a video
 	const playVideo = async (item) => {
-		if(prevSearch.current === 'search') {
+		if(prevUrl.current === 'search') {
 			setCurrentPage(1);
 		}
 		
@@ -210,7 +203,7 @@ export default function Redtube ({ userAddress }) {
 								<CommentForm platformName={'redtube'} videoId={videoData.video_id} />
 							</div>
 						</div>
-						<VideoThumbnail isSearch={prevSearch.current} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'redtube'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
+						<VideoThumbnail isSearch={prevUrl.current} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'redtube'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
 					</div>
 				</div>
 			</section>
