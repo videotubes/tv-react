@@ -95,9 +95,8 @@ export default function Homepage () {
 			const resOk = successfulResponses.map((sourceUrl) => {
 				
 				// compilations
-				if(sourceUrl.result) {
-					const compilationVideos = sourceUrl.result.files;
-					setComVideos(sourceUrl.result.files);
+				if(sourceUrl.compilations) {
+					setComVideos(sourceUrl.compilations.result.files);
 				}
 				// eporner
 				else if(sourceUrl.videos) {
@@ -292,7 +291,7 @@ export default function Homepage () {
 	
 	// The list of API url that will executed first on page load at homepage
 	const apiUrls = [
-		'https:///vidhideapi.com/api/file/list?key=31016xm1yv74ecr2kgyy9&per_page=6',
+		'https://tubevideos-api.vercel.app/api/compilations?limit=6',
 		'https://www.eporner.com/api/v2/video/search/?per_page=6',
 		'https://chaturbate.com/api/public/affiliates/onlinerooms/?wm=55xr9 &limit=6&client_ip=request_ip',
 		'https://go.xlirdr.com/api/models?limit=6&isNew=1',

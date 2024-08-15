@@ -70,19 +70,19 @@ export default function Compilations ({ userAddress }) {
 		let endpointUrl;
 		if(secondPath) {
 			if(secondPath === 'search') {
-				endpointUrl = `https://vidhideapi.com/api/file/list?key=31016xm1yv74ecr2kgyy9&page=${page}&per_page=60&title=${query}`;
+				endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?page=${page}&per_page=60&titla=${query}`;
 			}
 			else {
-				endpointUrl = `https://vidhideapi.com/api/file/info?key=31016xm1yv74ecr2kgyy9&file_code=${secondPath}`;
+				endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?filecode=${secondPath}`;
 			}
 		}
 		else {
-			endpointUrl = `https://vidhideapi.com/api/file/list?key=31016xm1yv74ecr2kgyy9&page=${page}&per_page=60`;
+			endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?page=${page}&per_page=60`;
 		}
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
 			const data =  await response.json();
-			if(data.status === 200) {
+			if(data.compilations.status === 200) {
 				setIsReload(false);
 				setTimeout(() => {
 					setIsLoading(false);
@@ -127,8 +127,8 @@ export default function Compilations ({ userAddress }) {
 					const allVideos = await getVideo('', '', currentPage);
 					if(allVideos) {
 						setIsNotFound(false);
-						setDataVideos(allVideos.result.files);
-						setTotalPages(Math.ceil(allVideos.result.results_total / 60));
+						setDataVideos(allVideos.compilations.result.files);
+						setTotalPages(Math.ceil(allVideos.compilations.result.results_total / 60));
 					}
 				}
 			}
