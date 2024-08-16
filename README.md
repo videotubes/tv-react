@@ -40,9 +40,9 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 	`REACT_APP_CHATURBATE_VIDEO_ENDPOINT`
 
 	Apart from what's in the .env, you can use it directly exactly the same as what's on the page.
-### `Finally`
 
-`npx thirdweb@latest upload build -k <your secret key>`
+### `Finally`
+`npm run build` then `npx thirdweb@latest upload build -k <your secret key>`
 
 ### `Sample site`
 
