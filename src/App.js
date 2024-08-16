@@ -112,6 +112,7 @@ function App() {
 							
 							<Route path="/redtube" element={<Redtube userAddress={useAddress} />} />
 							<Route path="/redtube/:id" element={<Redtube userAddress={useAddress} />} />
+							<Route path="/redtube/:id/:id" element={<Redtube userAddress={useAddress} />} />
 							
 							<Route path="/savedlist" element={<SavedList userAddress={useAddress} />} />
 							
