@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are free to use anything else for IPFS storage or Web3 wallet and need to change the wrapping provider structure.
 
-### `Fiture`
+### `Fitures`
 
 - Web3 wallet for user can connect and get to their saved videos
 - Saved videos, user can save videos to their list
