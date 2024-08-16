@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link  } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 
 export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur }) {
 	
@@ -41,15 +40,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{comVideos.map((item) => (
 					<div key={item.file_code} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/compilations/${item.file_code}/`} >
-							<LazyLoad>
-								<img
-									src={`https://laving.cc/${item.file_code}_xt.jpg`}
-									alt={item.file_code}
-									title={item.file_code}
-									width="214"
-									height="142"
-								/>
-							</LazyLoad>
+							<img
+								src={`https://laving.cc/${item.file_code}_xt.jpg`}
+								alt={item.file_code}
+								title={item.file_code}
+								width="214"
+								height="142"
+							/>
 							<span className="thumb-title">
 								<span className="wrap">{item.file_code}</span>
 								<span style={{display: "flex"}}>
@@ -79,15 +76,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{epVideos.map((item) => (
 					<div key={item.id} className="thumb" style={{textAlign: "left"}}>
 						<Link to={`/eporner/${item.id}/`}>
-							<LazyLoad>
-								<img
-									src={item.default_thumb.src}
-									alt={item.title}
-									title={item.title}
-									width="214"
-									height="142"
-								/>
-							</LazyLoad>
+							<img
+								src={item.default_thumb.src}
+								alt={item.title}
+								title={item.title}
+								width="214"
+								height="142"
+							/>
 							<span className="thumb-title">
 								<span className="wrap">{item.title}</span>
 								<span style={{display: "flex"}}>
@@ -117,15 +112,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{ctVideos.map((item) => (
 					<div key={item.username} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/chaturbate/${item.username}/`}>
-							<LazyLoad>
-								<img
-									src={item.image_url}
-									alt={item.username}
-									title={item.username}
-									width="214"
-									height="142"
-								/>
-							</LazyLoad>
+							<img
+								src={item.image_url}
+								alt={item.username}
+								title={item.username}
+								width="214"
+								height="142"
+							/>
 							<span className="thumb-title">
 								<span>{item.username}</span>
 								<span>
@@ -155,15 +148,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{stVideos.map((item) => (
 					<div key={item.id} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/stripchat/${item.username}/`}>
-							<LazyLoad>
-								<img
-									src={item.snapshotUrl}
-									alt={item.username}
-									title={item.username}
-									width="214"
-									height="142"
-								/>
-							</LazyLoad>
+							<img
+								src={item.snapshotUrl}
+								alt={item.username}
+								title={item.username}
+								width="214"
+								height="142"
+							/>
 							<span className="thumb-title">
 								<span className="wrap">{item.username}</span>
 								<span style={{display: "flex"}}>
@@ -193,15 +184,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{caVideos.map((item) => (
 					<div key={item.nickname} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/cam4/${item.nickname}/`}>
-							<LazyLoad>
-								<img
-									src={item.thumb}
-									alt={item.nickname}
-									title={item.nickname}
-									width="214"
-									height="142"
-								/>
-							</LazyLoad>
+							<img
+								src={item.thumb}
+								alt={item.nickname}
+								title={item.nickname}
+								width="214"
+								height="142"
+							/>
 							<span className="thumb-title">
 								<span className="wrap">{item.nickname}</span>
 								<span style={{display: "flex"}}>
@@ -233,15 +222,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{rtVideos.map((item) => (
 						<div key={item.video_id} className="thumb" style={{textAlign: "left"}}>
 							<Link to={`/redtube/${item.video_id}/`}>
-								<LazyLoad>
-									<img
-										src={item.thumb}
-										alt={item.title}
-										title={item.title}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={item.thumb}
+									alt={item.title}
+									title={item.title}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">
 									<span className="wrap">{item.title}</span>
 									<span style={{display: "flex"}}>
@@ -274,15 +261,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{csVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/camsoda/${item.username}/`}>
-								<LazyLoad>
-									<img
-										src={item.thumbUrl}
-										alt={item.username}
-										title={item.username}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={item.thumbUrl}
+									alt={item.username}
+									title={item.username}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">
 									<span className="wrap">{item.username}</span>
 									<span style={{display: "flex"}}>
@@ -319,15 +304,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 						return (
 						<div key={item.id} className="thumb" style={{textAlign: "left"}}>
 							<Link to={`/amateur/${item.username}/`}>
-								<LazyLoad>
-									<img
-										src={unblured}
-										alt={item.username}
-										title={item.username}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={unblured}
+									alt={item.username}
+									title={item.username}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">
 									<span className="wrap">{item.username}</span>
 									<span style={{display: "flex"}}>
@@ -361,15 +344,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{drVideos.map((item) => (
 						<div key={item.modelNickname} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/dreamcam/${item.modelNickname}/`}>
-								<LazyLoad>
-									<img
-										src={item.modelProfilePhotoUrl}
-										alt={item.modelNickname}
-										title={item.modelNickname}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={item.modelProfilePhotoUrl}
+									alt={item.modelNickname}
+									title={item.modelNickname}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">{item.modelNickname}</span>
 							</Link>
 						</div>
@@ -394,15 +375,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{eplVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/eplay/${item.username}/`}>
-								<LazyLoad>
-									<img
-										src={item.ss}
-										alt={item.username}
-										title={item.username}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={item.ss}
+									alt={item.username}
+									title={item.username}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">{item.username}</span>
 							</Link>
 						</div>
@@ -427,15 +406,13 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{bsVideos.map((item) => (
 						<div key={item.PerformerId} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/babestation/${item.Nickname}/`}>
-								<LazyLoad>
-									<img
-										src={item.Thumbnail}
-										alt={item.Nickname}
-										title={item.Nickname}
-										width="214"
-										height="142"
-									/>
-								</LazyLoad>
+								<img
+									src={item.Thumbnail}
+									alt={item.Nickname}
+									title={item.Nickname}
+									width="214"
+									height="142"
+								/>
 								<span className="thumb-title">
 									<span className="wrap">{item.Nickname}</span>
 								</span>

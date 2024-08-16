@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import LazyLoad from 'react-lazyload';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 
@@ -121,15 +120,13 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 									</svg>
 								</button>
 								<Link to={`/${item.platform}/${item.video_id}/`}>
-									<LazyLoad>
-										<img
-											src={item.image_url}
-											alt={item.video_id}
-											title={item.video_id}
-											width="214"
-											height="142"										
-										/>
-									</LazyLoad>
+									<img
+										src={item.image_url}
+										alt={item.video_id}
+										title={item.video_id}
+										width="214"
+										height="142"										
+									/>
 									<span className="thumb-title">
 										<span className="wrap">{item.video_id}</span>
 									</span>
@@ -272,15 +269,13 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 									<div key={index} style={{textAlign: "left"}} className="thumb">
 										{getOnliveStatus && !item.live && (<div className="thumb-overlay">OFFLINE</div>)}
 										<Link to={`/${platform}/${item[videoId]}/`} onClick={() => playVideo(item)}>
-											<LazyLoad>
-												<img
-													src={thumbnailUrl}
-													alt={item[videoTitle]}
-													title={item[videoTitle]}
-													width="214"
-													height="142"
-												/>
-											</LazyLoad>
+											<img
+												src={thumbnailUrl}
+												alt={item[videoTitle]}
+												title={item[videoTitle]}
+												width="214"
+												height="142"
+											/>
 											<span className="thumb-title">
 												<span className="wrap">{item[videoTitle]}</span>
 												{isHaveViewCount && (

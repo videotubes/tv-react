@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import DelayedLink from './DelayedLink';
 import { ConnectWallet } from "@thirdweb-dev/react";
 
 // Navigation Bar and Sidebar
 export default function Navbar ({ handleDarkModeChange, darkMode }) {
-  const location = useLocation();
-  const currentPath = location.pathname;
-	
+	const location = useLocation();
+	const pathName = location.pathname;
+	const currentPath = pathName.split('/').filter(Boolean);
+
 	const [selectedLinkId, setSelectedLinkId] = useState(null);
 	const [copyright, setCopyright] = useState([]);
-	
+
 	useEffect(() => {
-		setSelectedLinkId(currentPath);
+		if(currentPath[0]) {
+			setSelectedLinkId(currentPath[0]);
+		} else {
+			setSelectedLinkId(null);
+		}
 	}, [currentPath, selectedLinkId]);
 	
 	useEffect(() => {
@@ -161,17 +166,17 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 			</nav>
 			<div className="sidebar">
 				<div className="type">
-					<span><DelayedLink  to="/compilations/" id="compilations" name="Compilations" className={`type-bg ${selectedLinkId === '/compilations/' ? 'current' : ''}`} >Compilations</DelayedLink></span>
-					<span><DelayedLink  to="/eporner/" id="eporner" name="Eporner" className={`type-bg ${selectedLinkId === '/eporner/' ? 'current' : ''}`} >Eporner</DelayedLink></span>
+					<span><DelayedLink  to="/compilations/" id="compilations" name="Compilations" className={`type-bg ${selectedLinkId === 'compilations' ? 'current' : ''}`} >Compilations</DelayedLink></span>
+					<span><DelayedLink  to="/eporner/" id="eporner" name="Eporner" className={`type-bg ${selectedLinkId === 'eporner' ? 'current' : ''}`} >Eporner</DelayedLink></span>
 					<span><DelayedLink  to="/chaturbate/" id="chaturbate" name="Chaturbate" className={`type-bg ${selectedLinkId === '/chaturbate/' ? 'current' : ''}`} >Chaturbate</DelayedLink></span>
-					<span><DelayedLink  to="/stripchat/" id="stripchat" name="Stripchat" className={`type-bg ${selectedLinkId === '/stripchat/' ? 'current' : ''}`} >Stripchat</DelayedLink></span>
-					<span><DelayedLink  to="/cam4/" id="cam4" name="Cam4" className={`type-bg ${selectedLinkId === '/cam4/' ? 'current' : ''}`} >Cam4</DelayedLink></span>
-					<span><DelayedLink  to="/redtube/" id="redtube" name="Redtube" className={`type-bg ${selectedLinkId === '/redtube/' ? 'current' : ''}`} >Redtube</DelayedLink></span>
-					<span><DelayedLink  to="/camsoda/" id="camsoda" name="Camsoda" className={`type-bg ${selectedLinkId === '/camsoda/' ? 'current' : ''}`} >Camsoda</DelayedLink></span>
-					<span><DelayedLink  to="/amateur/" id="amateur" name="Amateur" className={`type-bg ${selectedLinkId === '/amateur/' ? 'current' : ''}`} >Amateur</DelayedLink></span>
-					<span><DelayedLink  to="/dreamcam/" id="dreamcam" name="Dreamcam" className={`type-bg ${selectedLinkId === '/dreamcam/' ? 'current' : ''}`} >Dreamcam</DelayedLink></span>
-					<span><DelayedLink  to="/eplay/" id="eplay" name="Eplay" className={`type-bg ${selectedLinkId === '/eplay/' ? 'current' : ''}`} >Eplay</DelayedLink></span>
-					<span><DelayedLink  to="/babestation/" id="babestation" name="Babe Station" className={`type-bg ${selectedLinkId === '/babestation/' ? 'current' : ''}`} >Babe Station</DelayedLink></span>
+					<span><DelayedLink  to="/stripchat/" id="stripchat" name="Stripchat" className={`type-bg ${selectedLinkId === 'stripchat' ? 'current' : ''}`} >Stripchat</DelayedLink></span>
+					<span><DelayedLink  to="/cam4/" id="cam4" name="Cam4" className={`type-bg ${selectedLinkId === 'cam4' ? 'current' : ''}`} >Cam4</DelayedLink></span>
+					<span><DelayedLink  to="/redtube/" id="redtube" name="Redtube" className={`type-bg ${selectedLinkId === 'redtube' ? 'current' : ''}`} >Redtube</DelayedLink></span>
+					<span><DelayedLink  to="/camsoda/" id="camsoda" name="Camsoda" className={`type-bg ${selectedLinkId === 'camsoda' ? 'current' : ''}`} >Camsoda</DelayedLink></span>
+					<span><DelayedLink  to="/amateur/" id="amateur" name="Amateur" className={`type-bg ${selectedLinkId === 'amateur' ? 'current' : ''}`} >Amateur</DelayedLink></span>
+					<span><DelayedLink  to="/dreamcam/" id="dreamcam" name="Dreamcam" className={`type-bg ${selectedLinkId === 'dreamcam' ? 'current' : ''}`} >Dreamcam</DelayedLink></span>
+					<span><DelayedLink  to="/eplay/" id="eplay" name="Eplay" className={`type-bg ${selectedLinkId === 'eplay' ? 'current' : ''}`} >Eplay</DelayedLink></span>
+					<span><DelayedLink  to="/babestation/" id="babestation" name="Babe Station" className={`type-bg ${selectedLinkId === 'babestation' ? 'current' : ''}`} >Babe Station</DelayedLink></span>
 					<div className="nav-btn">
 						<DelayedLink  to="/savedlist/" id="saved_list" className="type-bg" >Saved List</DelayedLink>
 						<div className="form-check form-switch">
