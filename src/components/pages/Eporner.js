@@ -103,7 +103,7 @@ export default function Eporner ({ userAddress }) {
 	}
 
 
-console.log(dataVideos)
+
 	//**************************************** All Fetched Video Data ****************************************//
 
 	// Fetch data from API according url path. The source of all data is inside and start from this function
