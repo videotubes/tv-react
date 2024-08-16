@@ -20,21 +20,21 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 
 - Create and input your API in .env
 
-	# Thirdweb client id
+	### Thirdweb client id
 	REACT_APP_TEMPLATE_CLIENT_ID
 
-	# Database endpoint for saved videos and user comment
+	### Database endpoint for saved videos and user comment
 	REACT_APP_SAVED_VIDEOS_ENDPOINT
 	REACT_APP_COMMENT_LIST_ENDPOINT
 	REACT_APP_POST_COMMENT_ENDPOINT
 
-	# Shortener API url from thirdparty site
+	### Shortener API url from thirdparty site
 	REACT_APP_SHORTENER_URL_ENDPOINT
 
-	# Your backend API endpoint for fetch videos from external sites that error on CORS
+	### Your backend API endpoint for fetch videos from external sites that error on CORS
 	REACT_APP_BACKEND_VIDEO_ENDPOINT
 
-	# Your API with webmaster id
+	### Your API with webmaster id
 	REACT_APP_CHATURBATE_VIDEO_ENDPOINT
 
 	Apart from what's in the .env, you can use it directly exactly the same as what's on the page.
