@@ -168,7 +168,7 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 				<div className="type">
 					<span><DelayedLink  to="/compilations/" id="compilations" name="Compilations" className={`type-bg ${selectedLinkId === 'compilations' ? 'current' : ''}`} >Compilations</DelayedLink></span>
 					<span><DelayedLink  to="/eporner/" id="eporner" name="Eporner" className={`type-bg ${selectedLinkId === 'eporner' ? 'current' : ''}`} >Eporner</DelayedLink></span>
-					<span><DelayedLink  to="/chaturbate/" id="chaturbate" name="Chaturbate" className={`type-bg ${selectedLinkId === '/chaturbate/' ? 'current' : ''}`} >Chaturbate</DelayedLink></span>
+					<span><DelayedLink  to="/chaturbate/" id="chaturbate" name="Chaturbate" className={`type-bg ${selectedLinkId === 'chaturbate' ? 'current' : ''}`} >Chaturbate</DelayedLink></span>
 					<span><DelayedLink  to="/stripchat/" id="stripchat" name="Stripchat" className={`type-bg ${selectedLinkId === 'stripchat' ? 'current' : ''}`} >Stripchat</DelayedLink></span>
 					<span><DelayedLink  to="/cam4/" id="cam4" name="Cam4" className={`type-bg ${selectedLinkId === 'cam4' ? 'current' : ''}`} >Cam4</DelayedLink></span>
 					<span><DelayedLink  to="/redtube/" id="redtube" name="Redtube" className={`type-bg ${selectedLinkId === 'redtube' ? 'current' : ''}`} >Redtube</DelayedLink></span>
