@@ -6,7 +6,7 @@ const DownloadVideo = ({ videoUrl, buttonName }) => {
 		return /Mobi|Android/i.test(navigator.userAgent);
 	}
 	
-	// Download video if source is Anonymous_upload if else it will redirect to user room, before that this will generate to short link url.
+	// Download video if source is VideoThumbnail if else it will redirect to user room, before that this will generate to short link url.
 	const downloadPopUp = async (e) => {
 		const longUrl = e.target.value;
 		const url = `https://api.cuty.io/quick?token=95df5e8536f6406ad900971ad&url=${longUrl}`;

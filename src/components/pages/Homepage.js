@@ -59,7 +59,7 @@ export default function Homepage () {
 
 
 
-	// Set state form loading animation at homepage on load more button trigger. This state trigger from Thumbnail page component
+	// Set state form loading animation at homepage on load more button trigger. This state trigger from VideoThumbnail page component
 	function setHomeLoading(e) {
 		if(e === 'redtube') {
 			setLoadingRedtube(false);

@@ -7,27 +7,7 @@ import 'video.js/dist/video-js.css';
 import VideoThumbnail from '../VideoThumbnail';
 import SavedVideos from '../SavedVideos';
 
-export default function Stripchat ({ userAddress }) {
-	
-	/**********************************************************************************************************************
-	For Redtube, Amateur, Babestation CORS will be error if directly request from client browser,
-	so you must use you mine backend server for fetch API from them then return to your client browser.
-	
-	Some Video API endpoint here is purely public that everyone can get and access without register like
-	API from Redtube and Eporner. Stripchat you can get after register as Webmaster not User but
-	actually the API endpoint	url not parameters for authentication so you can use API endpoint on this page.
-	Chaturbate and Cam4	require	you to register as Partner or Webmaster for get the key.
-	For Dreamcam, Camsoda, Babestation, Amateur and Eplay i don't see link for register as Webmaster or partner
-	so the enpoint for that is the result I searched for manually myself. I don't know how long this endpoint can be used.
-	
-	Spesifically for Compilations it's your mine video from a video streaming service that serve big storage space
-	for upload a video for free so it's your choice. You can use doodstream, filemoon, streamwish, vidhide, streamtape,
-	vtube and many more.
-	
-	For user comment you also must have your mine backend for database.
-	************************************************************************************************************************/
-	
-	
+export default function Stripchat ({ userAddress }) {	
 	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
