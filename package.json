@@ -9,6 +9,7 @@
     "@thirdweb-dev/react": "^4.9.4",
     "assert": "^2.0.0",
     "browserify-zlib": "latest",
+    "dotenv": "^16.4.5",
     "http": "npm:http-browserify",
     "http-browserify": "latest",
     "https": "npm:https-browserify",

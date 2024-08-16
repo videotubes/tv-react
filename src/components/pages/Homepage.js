@@ -25,12 +25,12 @@ export default function Homepage () {
 	For API Endpoint that can't directly from browser cause CORS and should use backend for fetching, you can use enpoint
 	same as on this page for development only on localhost:3000, it can't accessed outside that also from other domain.
 	
-	So for Redtube, Amature, Babestation you can use https://tubevideos-api.vercel.app/api/{platform name}, also if you also
-	want use for Compilations you can.
 	************************************************************************************************************************/
 	
 	
 	
+	const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+
 	//**************************************** All State ****************************************//
 	const [comVideos, setComVideos] = useState([]);
 	const [epVideos, setEpVideos] = useState([]);
@@ -136,13 +136,13 @@ export default function Homepage () {
 	
 	// API list than will fetched on trigger load more button at homepage, this will fetch one by one sequentially
 	const moreApiUrls = [
-		'https://tubevideos-api.vercel.app/api/redtube?limit=6',
+		`${backendVideosUrl}/redtube?limit=6`,
 		'https://www.camsoda.com/api/v1/browse/react?&p=1&gender-hide=m,t&perPage=6',
-		'https://tubevideos-api.vercel.app/api/amateur?limit=6',
+		`${backendVideosUrl}/amateur?limit=6`,
 		'https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=6&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false',
 		`https://search-cf.eplay.com/channels?size=6&from=0&fields
 	activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`,
-		'https://tubevideos-api.vercel.app/api/babestation?limit=6',
+		`${backendVideosUrl}/babestation?limit=6`,
 	];
 	
 	// Fetch next API video function, condition check based url
@@ -151,7 +151,7 @@ export default function Homepage () {
 		if (currentIndex < moreApiUrls.length) {
 			const apiUrl = moreApiUrls[currentIndex];
 			switch (apiUrl) {
-				case 'https://tubevideos-api.vercel.app/api/redtube?limit=6':
+				case `${backendVideosUrl}/redtube?limit=6`:
 					setLoadingRedtube(true);
 				break;
 				
@@ -159,7 +159,7 @@ export default function Homepage () {
 					setLoadingCamsoda(true);
 				break;
 				
-				case 'https://tubevideos-api.vercel.app/api/amateur?limit=6':
+				case `${backendVideosUrl}/amateur?limit=6`:
 					setLoadingAmateur(true);
 				break;
 				
@@ -173,7 +173,7 @@ export default function Homepage () {
 					setLoadingEplay(true);
 				break;
 				
-				case 'https://tubevideos-api.vercel.app/api/babestation?limit=6':
+				case `${backendVideosUrl}/babestation?limit=6`:
 					setLoadingBabestation(true);
 				break;
 				
@@ -187,7 +187,7 @@ export default function Homepage () {
 				if(data) {
 					switch (apiUrl) {
 						// redtube
-						case 'https://tubevideos-api.vercel.app/api/redtube?limit=6':
+						case `${backendVideosUrl}/redtube?limit=6`:
 							setRtVideos(data.redtube);
 						break;
 						
@@ -197,7 +197,7 @@ export default function Homepage () {
 						break;
 						
 						// amateur
-						case 'https://tubevideos-api.vercel.app/api/amateur?limit=6':
+						case `${backendVideosUrl}/amateur?limit=6`:
 							setAmVideos(data.amateur);
 						break;
 						
@@ -214,7 +214,7 @@ export default function Homepage () {
 						break;
 				
 						// babe station
-						case 'https://tubevideos-api.vercel.app/api/babestation?limit=6':
+						case `${backendVideosUrl}/babestation?limit=6`:
 							setBsVideos(data.babestation);
 						break;
 						
@@ -227,7 +227,7 @@ export default function Homepage () {
 			catch (error) {
 				switch (apiUrl) {
 					// redtube
-					case 'https://tubevideos-api.vercel.app/api/redtube?limit=6':
+					case `${backendVideosUrl}/redtube?limit=6`:
 						setLoadingRedtube(false);
 						setRtVideos([]);
 					break;
@@ -239,7 +239,7 @@ export default function Homepage () {
 					break;
 					
 					// amateur
-					case 'https://tubevideos-api.vercel.app/api/amateur?limit=6':
+					case `${backendVideosUrl}/amateur?limit=6`:
 						setLoadingAmateur(false);
 						setAmVideos([]);
 					break;
@@ -259,7 +259,7 @@ export default function Homepage () {
 					break;
 				
 					// babe station
-					case 'https://tubevideos-api.vercel.app/api/babestation?limit=6':
+					case `${backendVideosUrl}/babestation?limit=6`:
 						setLoadingBabestation(false);
 						setBsVideos([]);
 					break;
@@ -298,7 +298,7 @@ export default function Homepage () {
 	
 	// The list of API url that will executed first on page load at homepage
 	const apiUrls = [
-		'https://tubevideos-api.vercel.app/api/compilations?limit=6',
+		`${backendVideosUrl}/compilations?limit=6`,
 		'https://www.eporner.com/api/v2/video/search/?per_page=6',
 		'https://chaturbate.com/api/public/affiliates/onlinerooms/?wm=55xr9 &limit=6&client_ip=request_ip',
 		'https://go.xlirdr.com/api/models?limit=6&isNew=1',

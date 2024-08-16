@@ -9,6 +9,8 @@ import SavedVideos from '../SavedVideos';
 
 export default function Babestation ({ userAddress }) {	
 	
+	const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -52,9 +54,9 @@ export default function Babestation ({ userAddress }) {
 	const getVideo = async (username, page) => {
 		let endpointUrl;
 		if(username) {
-			endpointUrl = `https://tubevideos-api.vercel.app/api/babestation?show=${username}`;
+			endpointUrl = `${backendVideosUrl}/babestation?show=${username}`;
 		} else {
-			endpointUrl = `https://tubevideos-api.vercel.app/api/babestation?page=${page}`;
+			endpointUrl = `${backendVideosUrl}/babestation?page=${page}`;
 		}
 
 		try {
@@ -140,7 +142,7 @@ export default function Babestation ({ userAddress }) {
 		
 		const getServer = async () => {
 			try {
-				const src = await fetch(`https://tubevideos-api.vercel.app/api/babestation?show=${item.Nickname}`);
+				const src = await fetch(`${backendVideosUrl}/babestation?show=${item.Nickname}`);
 				const res = await src.json();
 				
 				if(res.success === true) {

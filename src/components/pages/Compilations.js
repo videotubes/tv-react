@@ -7,6 +7,8 @@ import SavedVideos from '../SavedVideos';
 
 export default function Compilations ({ userAddress }) {
 
+	const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -51,14 +53,14 @@ export default function Compilations ({ userAddress }) {
 		let endpointUrl;
 		if(secondPath) {
 			if(secondPath === 'search') {
-				endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?page=${page}&per_page=60&titla=${query}`;
+				endpointUrl = `${backendVideosUrl}/compilations?page=${page}&per_page=60&titla=${query}`;
 			}
 			else {
-				endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?filecode=${secondPath}`;
+				endpointUrl = `${backendVideosUrl}/compilations?filecode=${secondPath}`;
 			}
 		}
 		else {
-			endpointUrl = `https://tubevideos-api.vercel.app/api/compilations?page=${page}&per_page=60`;
+			endpointUrl = `${backendVideosUrl}/compilations?page=${page}&per_page=60`;
 		}
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
@@ -134,13 +136,6 @@ export default function Compilations ({ userAddress }) {
 		window.scrollTo({top: 0, behavior: 'smooth'});
 		setVideoData(item);
 
-/* 			const res = await encodingCheck(item.file_code);
-		if(res.result.length === 0) {
-			player = `<iframe id="iframe-player" src="https://vidhidepre.com/eembed/${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
-		}
-		else {
-			player = `<iframe id="iframe-player" src="/embed?filecode=${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
-		} */
 		const player = `<iframe id="iframe-player" src="https://vidhidepre.com/embed/${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
 		//document.getElementById("video-preview").innerHTML = player;
 		

@@ -9,6 +9,8 @@ import SavedVideos from '../SavedVideos';
 
 export default function Amateur ({ userAddress }) {	
 	
+	const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +49,7 @@ export default function Amateur ({ userAddress }) {
 
 	// Fetch amateur
 	const getVideo = async () => {
-		const endpointUrl = `https://tubevideos-api.vercel.app/api/amateur`;
+		const endpointUrl = `${backendVideosUrl}/amateur`;
 
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
@@ -130,7 +132,7 @@ export default function Amateur ({ userAddress }) {
 
 		const getServer = async () => {
 			try {
-				const src = await fetch(`https://tubevideos-api.vercel.app/api/amateur?show=${item.username}`);
+				const src = await fetch(`${backendVideosUrl}/amateur?show=${item.username}`);
 				const res = await src.json();
 				
 				if(res.success === true) {

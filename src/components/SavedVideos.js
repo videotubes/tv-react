@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
+	
+	const savedVideosUrl = process.env.REACT_APP_SAVED_VIDEOS_ENDPOINT;
+	
 	const [isWarning, setIsWarning] = useState(false);
 	const [warningText, setWarningText] = useState('');
 	
@@ -56,7 +59,8 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
 				videoId = videoData.username;
 			}
 			try {
-				const response = await fetch(`https://videotubes.serv00.net/api/videos?action=save&user=${address}&platform=${platform}&video_id=${videoId}&image_url=${imageUrl}`);
+				// Your saved videos endpoint should have two params like 'save' for save a video and 'delete' for delete a video from your saved list, also have other params like platform or site the video source, video id and image url for thumbnail video 
+				const response = await fetch(`${savedVideosUrl}?action=save&user=${address}&platform=${platform}&video_id=${videoId}&image_url=${imageUrl}`);
 				const data = await response.json();
 				if(data.success === true) {
 					setIsWarning(true);

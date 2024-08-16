@@ -8,6 +8,8 @@ import VideoThumbnail from '../VideoThumbnail';
 
 export default function SavedList ({ userAddress }) {	
 	
+	const savedVideosUrl = process.env.REACT_APP_SAVED_VIDEOS_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +48,7 @@ export default function SavedList ({ userAddress }) {
 
 	// Fetch savedlist
 	const getVideo = async (user) => {
-		const endpointUrl = `https://videotubes.serv00.net/api/videos?user=${user}`;
+		const endpointUrl = `${savedVideosUrl}?user=${user}`;
 
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
@@ -141,7 +143,7 @@ export default function SavedList ({ userAddress }) {
 
 	async function deleteThis(e) {
 		if(address) {
-		const response = await fetch(`https://videotubes.serv00.net/api/videos?action=delete&user=${address}&platform=${e.platform}&video_id=${e.video_id}&image_url=${e.image_url}`);
+		const response = await fetch(`${savedVideosUrl}?action=delete&user=${address}&platform=${e.platform}&video_id=${e.video_id}&image_url=${e.image_url}`);
 			const data = await response.json();
 			if(data.success === true) {
 				fetchData();
@@ -161,19 +163,6 @@ export default function SavedList ({ userAddress }) {
 								<h2 className="uid">{`${isNotFound ? 'Not Found' : 'Your Saved Videos'}`}</h2>
 								</>
 							)}
-						</div>
-						<div id="show-video" className="column vid-col">
-							<div className="column-1">
-								<div id="video-title" className="heading left-flex" style={{ marginTop: 20 }}>
-									<h3><strong>{videoData.username}</strong></h3>
-								</div>
-								<div id="video-preview"></div>
-								<DownloadVideo videoUrl={`https://stripchat.com/${videoData.username}`} buttonName={'Go to room'} />
-								<span className="details left-flex"></span>
-							</div>
-							<div className="column-2">
-								<CommentForm platformName={'savedlist'} videoId={videoData.username} />
-							</div>
 						</div>
 						<VideoThumbnail deleteThis={deleteThis} address={address} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'savedlist'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
 					</div>

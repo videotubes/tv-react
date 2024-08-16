@@ -7,6 +7,8 @@ import SavedVideos from '../SavedVideos';
 
 export default function Chaturbate ({ userAddress }) {
 	
+	const chaturbateUrl = process.env.REACT_APP_CHATURBATE_VIDEO_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +48,7 @@ export default function Chaturbate ({ userAddress }) {
 
 	// Fetch dreamcam
 	const getVideo = async () => {
-		const endpointUrl = `https://chaturbate.com/api/public/affiliates/onlinerooms/?wm=55xr9&limit=500&client_ip=request_ip`;
+		const endpointUrl = chaturbateUrl;
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
 			if(!response.ok) {

@@ -32,6 +32,8 @@ const activeChain = 'ethereum';
 
 function App() {
 	
+	const clientId = process.env.REACT_APP_TEMPLATE_CLIENT_ID;
+	
 	// Set theme dark/light trigger by button, the setting saved at localStorage
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -57,9 +59,8 @@ function App() {
 
 	//**************************************** End Of Handle Theme Dark/Light Mode ****************************************//
 	
-	const clientId = 'ce9156bf65a4cafc9f557c9f4b943c02';
 	
-	
+
   return (
     <Router>
 			<ThirdwebProvider

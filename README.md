@@ -18,9 +18,6 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 
 ### `Replace with yours`
 
-- Thirdweb clientId on src/App.js
-- Database enpoint for saved videos on src/components/SavedVideos.js
-- Database endpoint for comment form on src/components/CommentForm.js
-- Url shortener endpoint on src/components/DownloadVideo.js
-- All videos API endpoint on src/components/pages/Homepage.js
-- And each platform page components on src/components/page/
+- Create and input your API in .env
+
+Apart from what's in the .env, you can use it directly exactly the same as what's on the page

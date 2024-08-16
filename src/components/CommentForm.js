@@ -3,6 +3,10 @@ import { useLocation, Link  } from 'react-router-dom';
 
 // Comment form called from Home page component specific at playing video or at opened video player. This will show comment list that fetced from database and for who want to send comment at spesific video
 export default function CommentForm ({ platformName, videoId }) {
+	
+	const commentListUrl = process.env.REACT_APP_COMMENT_LIST_ENDPOINT;
+	const submitCommentUrl = process.env.REACT_APP_POST_COMMENT_ENDPOINT;
+	
   const location = useLocation();
   const currentPath = location.pathname;
 	
@@ -20,7 +24,7 @@ export default function CommentForm ({ platformName, videoId }) {
 					if(platformName === 'eporner' || platformName === 'dreamcam' || platformName === 'camsoda' || platformName === 'babestation' || platformName === 'amateur' || platformName === 'redtube' || platformName === 'chaturbate' || platformName === 'stripchat' || platformName === 'cam4' || platformName === 'compilations' || platformName === 'eplay') {
 						setPlatform(platformName);
 						setSlug(videoId);
-						const res = await fetch(`https://videotubes.serv00.net/api/commentList?platform=${platformName}&slug=${videoId}`);
+						const res = await fetch(`${commentListUrl}?platform=${platformName}&slug=${videoId}`);
 						data = await res.json();
 					}
 					
@@ -71,7 +75,7 @@ export default function CommentForm ({ platformName, videoId }) {
 			const formData = new FormData(form);
 			formData.append('platform', platform);
 			formData.append('slug', slug);
-			const response = await fetch('https://videotubes.serv00.net/api/submitComment', {
+			const response = await fetch(submitCommentUrl, {
 				method: 'POST',
 				body: formData
 			});

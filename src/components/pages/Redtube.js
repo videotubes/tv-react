@@ -7,6 +7,8 @@ import SavedVideos from '../SavedVideos';
 
 export default function Redtube ({ userAddress }) {
 
+	const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+	
 	//**************************************** All State ****************************************//
 	const [dataVideos, setDataVideos] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -52,13 +54,13 @@ export default function Redtube ({ userAddress }) {
 		let endpointUrl;
 		if(secondPath) {
 			if(secondPath === 'search') {
-				endpointUrl = `https://tubevideos-api.vercel.app/api/redtube?search=${query}&page=${page}&per_page=60`;
+				endpointUrl = `${backendVideosUrl}/redtube?search=${query}&page=${page}&per_page=60`;
 			} else {
-				endpointUrl = `https://tubevideos-api.vercel.app/api/redtube?id=${secondPath}`;
+				endpointUrl = `${backendVideosUrl}/redtube?id=${secondPath}`;
 			}
 		}
 		else {
-			endpointUrl = `https://tubevideos-api.vercel.app/api/redtube?page=${page}&per_page=60`;
+			endpointUrl = `${backendVideosUrl}/redtube?page=${page}&per_page=60`;
 		}
 		try {
 			const response = await fetch(endpointUrl, {cache: 'no-store'});
