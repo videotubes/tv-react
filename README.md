@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# The Web3 adult live cam website consists of several sites combined into one
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
