@@ -15,3 +15,12 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 - Download button (for live video it trigger for got to room at their platform, other that it trigger for download videos)
 - Shortener url, that will trigger with download button, this will shorten the url and go to shortnener url site before go to main url
 - Comment form, user can post a comment
+
+### `Replace with yours`
+
+- Thirdweb clientId on src/App.js
+- Database enpoint for saved videos on src/components/SavedVideos.js
+- Database endpoint for comment form on src/components/CommentForm.js
+- Url shortener endpoint on src/components/DownloadVideo.js
+- All videos API endpoint on src/components/pages/Homepage.js
+- And each platform page components on src/components/page/
