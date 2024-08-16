@@ -39,4 +39,6 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 
 	Apart from what's in the .env, you can use it directly exactly the same as what's on the page.
 
-Sample site with Web3 domain `tubevideos.raiin`
+### `Sample site`
+
+- Sample site with Web3 domain `tubevideos.raiin`
