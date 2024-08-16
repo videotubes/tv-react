@@ -3810,64 +3810,64 @@ fieldset:disabled .btn {
 .navbar > .container-sm,
 .navbar > .container-xl,
 .navbar > .container-xxl {
-    display: flex;
-    flex-wrap: inherit;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	flex-wrap: inherit;
+	align-items: center;
+	justify-content: space-between;
 }
 .navbar-brand {
-    padding-top: 0.3125rem;
-    padding-bottom: 0.3125rem;
+	padding-top: 0.3125rem;
+	padding-bottom: 0.3125rem;
 	margin-left: 1rem;
-    text-decoration: none;
-    white-space: nowrap;
+	text-decoration: none;
+	white-space: nowrap;
 	transition: opacity .5s;
+	padding-right: 5px;
 }
 .navbar-nav {
-    display: flex;
-    flex-direction: column;
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
+	display: flex;
+	flex-direction: column;
+	padding-left: 0;
+	margin-bottom: 0;
+	list-style: none;
 	align-items: flex-end;
 }
 .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 0;
+	padding-right: 0;
+	padding-left: 0;
 }
 .navbar-nav .dropdown-menu {
-    position: static;
+	position: static;
 }
 .navbar-text {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 }
 .navbar-collapse {
-    flex-basis: 100%;
-    /* flex-grow: 1; */
-    align-items: center;
+	flex-basis: 100%;
+	align-items: center;
 }
 .navbar-collapse form {
 	width: 100%;
 	margin-right: 10px;
 }
 .navbar-toggler {
-    padding: 0.45rem 0;
+	padding: 0.45rem 0;
 	margin: 0;
-    font-size: 1.25rem;
-    line-height: 1;
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    transition: box-shadow 0.15s ease-in-out;
+	font-size: 1.25rem;
+	line-height: 1;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: 0.25rem;
+	transition: box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-    .navbar-toggler {
-        transition: none;
-    }
+	.navbar-toggler {
+	transition: none;
+	}
 }
 .navbar-toggler:hover {
-    text-decoration: none;
+	text-decoration: none;
 }
 .navbar-toggler:focus {
     text-decoration: none;
