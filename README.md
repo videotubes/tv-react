@@ -2,14 +2,27 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Thirdweb as the IPFS Storage and Web3 Wallet
 
-In the project directory, you can run:
+Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are free to use anything else for IPFS storage or Web3 wallet and need to change the wrapping provider structure.
 
-### `npm start`
+### `Fiture`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Web3 wallet for user can connect and get to their saved videos
+- Saved videos, user can save videos to their list
+- PWA supported, and overlay PWA on footer make it easy to spot and install by button
+- Light and dark mode
+- Download button (for live video it trigger for got to room at their platform, other that it trigger for download videos)
+- Shortener url, that will trigger with download button, this will shorten the url and go to shortnener url site before go to main url
+
+### `Replace with yours`
+
+- Thirdweb clientId on src/App.js
+- Database enpoint for saved videos on src/components/SavedVideos.js
+- Database endpoint for comment form on src/components/CommentForm.js
+- Url shortener endpoint on src/components/DownloadVideo.js
+- All videos API endpoint on src/components/pages/Homepage.js
+- And each platform page components on src/components/page/
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
