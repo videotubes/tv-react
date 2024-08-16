@@ -10,16 +10,23 @@ export default function Homepage () {
 	
 	Some Video API endpoint here is purely public that everyone can get and access without register like
 	API from Redtube and Eporner. Stripchat you can get after register as Webmaster not User but
-	actually the API endpoint	url not parameters for authentication so you can use API endpoint on this page.
+	actually the API endpoint	url not parameters for authentication so you can use API endpoint same as on this page.
 	Chaturbate and Cam4	require	you to register as Partner or Webmaster for get the key.
 	For Dreamcam, Camsoda, Babestation, Amateur and Eplay i don't see link for register as Webmaster or partner
 	so the enpoint for that is the result I searched for manually myself. I don't know how long this endpoint can be used.
 	
 	Spesifically for Compilations it's your mine video from a video streaming service that serve big storage space
 	for upload a video for free so it's your choice. You can use doodstream, filemoon, streamwish, vidhide, streamtape,
-	vtube and many more.
+	vtube and many more, use can use that directly with their API url or hide that behind your backend because the API key
+	will be exposed if you directly use that on client side.
 	
-	For user comment you also must have your mine backend for database.
+	For user comment and saved videos you also must have your mine backend for database.
+	
+	For API Endpoint that can't directly from browser cause CORS and should use backend for fetching, you can use enpoint
+	same as on this page for development only on localhost:3000, it can't accessed outside that also from other domain.
+	
+	So for Redtube, Amature, Babestation you can use https://tubevideos-api.vercel.app/api/{platform name}, also if you also
+	want use for Compilations you can.
 	************************************************************************************************************************/
 	
 	
