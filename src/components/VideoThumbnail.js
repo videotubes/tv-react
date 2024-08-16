@@ -149,21 +149,21 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 		}
 		else {
 			if(visibleResults.length === 0) {
-					if(isSearch === 'search' && platform === 'eporner' || isSearch === 'search' && platform === 'redtube') {
-						setVideoThumb(
-							<>
-								<form className="form-inline" onSubmit={searchVid}>
-									<input className="form-control mr-sm-2" name="search" type="search" id="search" placeholder="Search videos" aria-label="Search" />
-								</form>
-								<div className="loading-animation" style={{color: "var(--red-bg)", fontSize: 24, fontWeight: 600}}>No results</div>
-							</>
-						)
-					}
-					else {
-						setVideoThumb(
-							<div className="loading-animation" style={{color: "var(--red-bg)", fontSize: 24, fontWeight: 600}}>Failed to fetch videos</div>
-						)
-					}
+				if(isSearch === 'search' && platform === 'eporner' || isSearch === 'search' && platform === 'redtube') {
+					setVideoThumb(
+						<>
+							<form className="form-inline" onSubmit={searchVid}>
+								<input className="form-control mr-sm-2" name="search" type="search" id="search" placeholder="Search videos" aria-label="Search" />
+							</form>
+							<div className="loading-animation" style={{color: "var(--red-bg)", fontSize: 24, fontWeight: 600}}>No results</div>
+						</>
+					)
+				}
+				else {
+					setVideoThumb(
+						<div className="loading-animation" style={{color: "var(--red-bg)", fontSize: 24, fontWeight: 600}}>Failed to fetch videos</div>
+					)
+				}
 				setIsPagination(false);
 			}
 			else {
