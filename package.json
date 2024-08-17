@@ -29,7 +29,7 @@
     "build": "react-scripts build && node copyFile.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-		"postinstall": "node fix-dependencies.js"
+    "postinstall": "node fix-dependencies.js"
   },
   "eslintConfig": {
     "extends": [
