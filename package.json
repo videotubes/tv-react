@@ -9,7 +9,6 @@
     "@thirdweb-dev/react": "^4.9.4",
     "assert": "^2.0.0",
     "browserify-zlib": "latest",
-    "dotenv": "^16.4.5",
     "http": "npm:http-browserify",
     "http-browserify": "latest",
     "https": "npm:https-browserify",
@@ -28,9 +27,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && node copyFile.js",
-    "deploy": "react-scripts build && node copyFile.js && npx thirdweb upload build -k De5wnxz9kcO6j20s07KtUU5n0Mj8CwGlxRLv067pX4kOhYLjoxIIwU0nZURbj_IYkuvo-etewbu6-Jx3J4Tz4g",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+		"postinstall": "node fix-dependencies.js"
   },
   "eslintConfig": {
     "extends": [
