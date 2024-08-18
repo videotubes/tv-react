@@ -68,7 +68,9 @@ export default function Amateur ({ userAddress }) {
 			return data.amateur;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch amateur');
 		}
 	}

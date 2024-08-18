@@ -79,6 +79,9 @@ export default function Compilations ({ userAddress }) {
 			return data;
 		}
 		catch (error) {
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch compilations');
 		}
 	}

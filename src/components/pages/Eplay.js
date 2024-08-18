@@ -81,7 +81,9 @@ export default function Eplay ({ userAddress }) {
 			return data;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch eplay');
 		}
 	}

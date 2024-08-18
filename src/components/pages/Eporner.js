@@ -77,7 +77,9 @@ export default function Eporner ({ userAddress }) {
 			return data;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch eporner');
 		}
 	}

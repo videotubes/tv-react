@@ -65,7 +65,9 @@ export default function Dreamcam ({ userAddress }) {
 			return data.pageItems;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch dreamcam');
 		}
 	}

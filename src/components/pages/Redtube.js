@@ -79,7 +79,9 @@ export default function Redtube ({ userAddress }) {
 			return data;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch redtube');
 		}
 	}

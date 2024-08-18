@@ -66,7 +66,9 @@ export default function Chaturbate ({ userAddress }) {
 			return data.results;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch chaturbate');
 		}
 	}

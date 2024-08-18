@@ -66,7 +66,9 @@ export default function Stripchat ({ userAddress }) {
 			return data.models;
 		}
 		catch (error) {
-			notFound();
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 1000);
 			throw new Error('Failed fetch stripchat');
 		}
 	}
