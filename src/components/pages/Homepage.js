@@ -67,7 +67,8 @@ export default function Homepage () {
 
 
 	// Set state form loading animation at homepage on load more button trigger. This state trigger from VideoThumbnail page component
-	function setHomeLoading(e) {
+	let thumbChild = 6;
+	function setHomeLoading(e) {		
 		if(e === 'redtube') {
 			setLoadingRedtube(false);
 		}
@@ -86,6 +87,10 @@ export default function Homepage () {
 		else if(e === 'eplay') {
 			setLoadingEplay(false);
 		}
+		
+		setTimeout(() => {
+			window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+		}, 500)
 	}
 	
 	

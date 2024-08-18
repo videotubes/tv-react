@@ -55,11 +55,14 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 				const viewportWidth = hasScrollbar ? window.innerWidth : document.documentElement.clientWidth;
 				
 				if(viewportWidth < 500){
-					const navbarMobile = document.querySelector(".sidebar");
-					if (navbarMobile.classList.contains("hide-sidebar-mobile")) {
-						window.$('.sidebar').removeClass('hide-sidebar-mobile');
-						window.$('.sidebar').removeClass('hide-sidebar');
-						window.$('section').removeClass('hide-div');
+					const sections = document.querySelectorAll('section');
+					const sidebar = document.querySelector(".sidebar");
+					if (sidebar.classList.contains("hide-sidebar-mobile")) {
+						sidebar.classList.remove('hide-sidebar-mobile');
+						sidebar.classList.remove('hide-sidebar');
+						sections.forEach(section => {
+							section.classList.remove('hide-div');
+						});
 					}
 				}
 			}
@@ -68,9 +71,14 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 
 	// Show and hide sidebar menu
 	const showMenu = () => {
-		window.$('section').toggleClass('hide-div');
-		window.$('.sidebar').toggleClass('hide-sidebar');
-		window.$('.sidebar').toggleClass('hide-sidebar-mobile');
+		const sections = document.querySelectorAll('section');
+		const sidebar = document.querySelector('.sidebar');
+		
+		sections.forEach(section => {
+			section.classList.toggle('hide-div');
+		});
+		sidebar.classList.toggle('hide-sidebar');
+		sidebar.classList.toggle('hide-sidebar-mobile');
 	};
 	
 	// Handle screen resize
@@ -78,30 +86,46 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 		const hasScrollbar = window.innerWidth > document.documentElement.clientWidth;
 		const viewportWidth = hasScrollbar ? window.innerWidth : document.documentElement.clientWidth;
 
+		const navBtn = document.querySelector('.nav-btn');
+		const btnList = document.querySelector('.btn-list');
+		const formCheck = document.querySelector('.form-check');
+		const savedList = document.getElementById('saved_list');
+		const sidebar = document.querySelector('.sidebar');
+		
 		if(viewportWidth < 500){
-			window.$('.nav-btn').appendTo('.type');
-			window.$('.nav-btn').css({'margin-top': '13px', 'padding-top': '12px', 'border-top': '1px solid rgb(255 255 255 / 40%)', 'width': '100%'});
-			window.$('.nav-btn').addClass('show-btn');
-			window.$('.btn-list').css('width', '100%');
-			window.$('.form-check').css({'margin-top': '20px'});
-			window.$('#saved_list').css({'display': 'unset', 'font-size': 'unset'});
+			const typeContainer = document.querySelector('.type');
+			
+			typeContainer.appendChild(navBtn);
+			navBtn.style.marginTop = '13px';
+			navBtn.style.paddingTop = '12px';
+			navBtn.style.borderTop = '1px solid rgba(255, 255, 255, 0.4)';
+			navBtn.style.width = '100%';
+			navBtn.classList.add('show-btn');
+			btnList.style.width = '100%';
+			formCheck.style.marginTop = '20px';
+			savedList.style.display = 'unset';
+			savedList.style.fontSize = 'unset';
 		}
 		else {
-			const navbarMobile = document.querySelector(".sidebar");
-			if (navbarMobile) {
-				if (navbarMobile.classList.contains("hide-sidebar-mobile")) {
-					window.$('.sidebar').removeClass('hide-sidebar-mobile');
-					window.$('.sidebar').removeClass('hide-sidebar');
-					window.$('section').removeClass('hide-div');
-				}
+			if (sidebar && sidebar.classList.contains('hide-sidebar-mobile')) {
+				sidebar.classList.remove('hide-sidebar-mobile');
+				sidebar.classList.remove('hide-sidebar');
+				document.querySelectorAll('section').forEach(section => {
+					section.classList.remove('hide-div');
+				});
 			}
-
-			window.$('.nav-btn').appendTo('.container');
-			window.$('.nav-btn').css({'margin-top': 'unset', 'padding-top': 'unset', 'border-top': 'unset', 'width': 'unset'});
-			window.$('.nav-btn').addClass('show-btn');
-			window.$('.btn-list').css('width', 'unset');
-			window.$('.form-check').css({'margin-top': 'unset'});
-			window.$('#saved_list').css({'display': 'flex', 'font-size': '14px'});
+			
+			const container = document.querySelector('.container');
+			container.appendChild(navBtn);
+			navBtn.style.marginTop = 'unset';
+			navBtn.style.paddingTop = 'unset';
+			navBtn.style.borderTop = 'unset';
+			navBtn.style.width = 'unset';
+			navBtn.classList.add('show-btn');
+			btnList.style.width = 'unset';
+			formCheck.style.marginTop = 'unset';
+			savedList.style.display = 'flex';
+			savedList.style.fontSize = '14px';
 		}
 		
 		const windowHeight = window.innerHeight;
@@ -136,11 +160,10 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
 
 	// handleResize first on page load
 	useEffect(() => {
-		window.$(document).ready(function () {
-			setTimeout(function() {
-				handleResize();
-			}, 100);
-		});
+		const timer = setTimeout(() => {
+			handleResize();
+		}, 100);
+		return () => clearTimeout(timer);
 	}, []);
 	
 	//**************************************** End Of Handle Viewport And Sidebar ****************************************//

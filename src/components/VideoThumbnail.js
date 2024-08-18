@@ -52,21 +52,27 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 	};
 
 	function closePlayer () {
+		const playerEl = document.getElementById('show-video');
+		const sidebar = document.querySelector('.sidebar');
+		const sections = document.querySelectorAll('section');
+		
+		playerEl.classList.remove('open');
 		window.scrollTo({top: 0, behavior: 'smooth'});
-		window.$('#show-video').removeClass('open');
 		
 		const hasScrollbar = window.innerWidth > document.documentElement.clientWidth;
 		const viewportWidth = hasScrollbar ? window.innerWidth : document.documentElement.clientWidth;
 
 		if(viewportWidth < 500){
 			setTimeout(() => {
-				window.$('.sidebar').removeClass('hide-sidebar-mobile');
+				sidebar.classList.remove('hide-sidebar-mobile');
 			}, 1000);
 		}
 		
 		setTimeout(() => {
-			window.$('section').removeClass('hide-div');
-			window.$('.sidebar').removeClass('hide-sidebar');
+			sections.forEach(section => {
+				section.classList.remove('hide-div');
+			});
+			sidebar.classList.remove('hide-sidebar');
 		}, 1000);
 
 		const vplayer = document.getElementById('video-player');

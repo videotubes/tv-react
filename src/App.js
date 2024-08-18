@@ -8,7 +8,7 @@ import {
 	trustWallet,
 	rainbowWallet,
 } from "@thirdweb-dev/react";
-import './styles/bootstrap.css';
+
 import './styles/global.css';
 import TrailingSlashEnforcer from './components/TrailingSlashEnforcer';
 import InstallPWA from './components/InstallPWA';

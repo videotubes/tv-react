@@ -81,6 +81,7 @@ export default function CommentForm ({ platformName, videoId }) {
 			});
 			const resData = await response.json();
 			if (resData.success === true) {
+				const buttonBox = document.querySelector('.btn-overlay');
 				setIsSubmitted(false);
 				setInputs(initialInputs);
 				const arr = document.querySelector('.box');
@@ -90,7 +91,7 @@ export default function CommentForm ({ platformName, videoId }) {
 				else {
 					setIsOpen(true);
 				}
-				window.$('.btn-overlay').toggleClass('box');
+				buttonBox.classList.toggle('box');
 			}
 			else {
 				setIsSubmitted(false);
@@ -104,6 +105,7 @@ export default function CommentForm ({ platformName, videoId }) {
 
 	const openBox = async (e) => {
 		e.preventDefault();
+		const buttonBox = document.querySelector('.btn-overlay');
 		const arr = document.querySelector('.box');
 		if(arr) {
 			setIsOpen(false);
@@ -111,15 +113,16 @@ export default function CommentForm ({ platformName, videoId }) {
 		else {
 			setIsOpen(true);
 		}
-		window.$('.btn-overlay').toggleClass('box');
+		buttonBox.classList.toggle('box');
 	}
 
 	const handleClose = (e) => {
 		if (!e.target.closest('form')) {
+			const buttonBox = document.querySelector('.btn-overlay');
 			const arr = document.querySelector('.box');
 			if(arr) {
 				setIsOpen(false);
-				window.$('.btn-overlay').removeClass('box');
+				buttonBox.classList.remove('box');
 			}
 		}
 	};

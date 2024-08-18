@@ -125,11 +125,14 @@ export default function Amateur ({ userAddress }) {
 	const playVideo = async (item) => {
 		window.scrollTo({top: 0, behavior: 'smooth'});
 		setVideoData(item);
-		
+
+		const playerEl = document.getElementById('show-video');
+		const sidebar = document.querySelector('.sidebar');
+		const sections = document.querySelectorAll('section');
 		const vplayer = document.getElementById('video-player');
 		const player = `<video id="video-player" class="video-js vjs-big-play-centered" controls playsInline preload="auto" width="600" height="480" autoPlay={${true}}></video>`
 		if(!vplayer){
-			window.$("#video-preview").html(player);
+			document.getElementById("video-preview").innerHTML = player;
 		}
 
 		const getServer = async () => {
@@ -162,12 +165,14 @@ export default function Amateur ({ userAddress }) {
 		});
 		
 		setTimeout(() => {
-			window.$('#show-video').addClass('open');
+			playerEl.classList.add('open');
 		}, 1000);
 		
 		setTimeout(() => {
-			window.$('section').addClass('hide-div');
-			window.$('.sidebar').addClass('hide-sidebar');
+			sections.forEach(section => {
+				section.classList.add('hide-div');
+			});
+			sidebar.classList.add('hide-sidebar');
 		}, 1300);
 	}
 

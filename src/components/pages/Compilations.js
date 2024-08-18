@@ -138,19 +138,22 @@ export default function Compilations ({ userAddress }) {
 	const playVideo = async (item) => {
 		window.scrollTo({top: 0, behavior: 'smooth'});
 		setVideoData(item);
-
+		
+		const playerEl = document.getElementById('show-video');
+		const sidebar = document.querySelector('.sidebar');
+		const sections = document.querySelectorAll('section');
 		const player = `<iframe id="iframe-player" src="https://vidhidepre.com/embed/${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
-		//document.getElementById("video-preview").innerHTML = player;
-		
-		window.$("#video-preview").html(player);
-		
+		document.getElementById("video-preview").innerHTML = player;
+
 		setTimeout(() => {
-			window.$('#show-video').addClass('open');
+			playerEl.classList.add('open');
 		}, 1000);
 		
 		setTimeout(() => {
-			window.$('section').addClass('hide-div');
-			window.$('.sidebar').addClass('hide-sidebar');
+			sections.forEach(section => {
+				section.classList.add('hide-div');
+			});
+			sidebar.classList.add('hide-sidebar');
 		}, 1300);
 	}
 	

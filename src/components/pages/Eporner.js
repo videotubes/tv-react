@@ -151,17 +151,23 @@ export default function Eporner ({ userAddress }) {
 		
 		window.scrollTo({top: 0, behavior: 'smooth'});
 		setVideoData(item);
+		
+		const playerEl = document.getElementById('show-video');
+		const sidebar = document.querySelector('.sidebar');
+		const sections = document.querySelectorAll('section');
 		const vplayer = document.getElementById('video-player');
 		const player = `<iframe id="iframe-player" src="${item.embed}" width="600" height="500" allowfullscreen></iframe>`
-		window.$("#video-preview").html(player);
+		document.getElementById("video-preview").innerHTML = player;
 		
 		setTimeout(() => {
-			window.$('#show-video').addClass('open');
+			playerEl.classList.add('open');
 		}, 1000);
 		
 		setTimeout(() => {
-			window.$('section').addClass('hide-div');
-			window.$('.sidebar').addClass('hide-sidebar');
+			sections.forEach(section => {
+				section.classList.add('hide-div');
+			});
+			sidebar.classList.add('hide-sidebar');
 		}, 1300);
 	}
 

@@ -9,8 +9,10 @@ function DelayedLink({ to, delay = 1800, children, ...props }) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    const videoDiv = document.getElementById('show-video');
-    const hasOpenClass = videoDiv && videoDiv.classList.contains('open');
+    const playerEl = document.getElementById('show-video');
+		const sidebar = document.querySelector('.sidebar');
+		const sections = document.querySelectorAll('section');
+    const hasOpenClass = playerEl && playerEl.classList.contains('open');
 		
     if(!hasOpenClass) {
       navigate(to);
@@ -18,7 +20,7 @@ function DelayedLink({ to, delay = 1800, children, ...props }) {
 		else {
 			window.scrollTo({top: 0, behavior: 'smooth'});
 			setTimeout(() => {
-				window.$('#show-video').removeClass('open');
+				playerEl.classList.remove('open');
 			}, 1000);
 			
 			const hasScrollbar = window.innerWidth > document.documentElement.clientWidth;
@@ -26,12 +28,14 @@ function DelayedLink({ to, delay = 1800, children, ...props }) {
 			
 			if(viewportWidth < 500){
 				setTimeout(() => {
-					window.$('.sidebar').removeClass('hide-sidebar-mobile');
+					sidebar.classList.remove('hide-sidebar-mobile');
 				}, 1300);
 			}
 			setTimeout(() => {
-				window.$('section').removeClass('hide-div');
-				window.$('.sidebar').removeClass('hide-sidebar');
+				sections.forEach(section => {
+					section.classList.remove('hide-div');
+				});
+				sidebar.classList.remove('hide-sidebar');
 			}, 1300);
 
 			const vplayer = document.getElementById('video-player');
