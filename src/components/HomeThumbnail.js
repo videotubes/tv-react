@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link  } from 'react-router-dom';
+import Image from './Image';
 
 export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur }) {
 	
@@ -40,8 +41,11 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{comVideos.map((item) => (
 					<div key={item.file_code} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/compilations/${item.file_code}/`} >
-							<img
-								src={`https://laving.cc/${item.file_code}_xt.jpg`}
+							<Image
+								src={`https://laving.cc/${item.file_code}_xt.jpg?${timestamp}`}
+								getFallbackSrc={() => [
+									`/assets/no-image.webp`,
+								]}
 								alt={item.file_code}
 								title={item.file_code}
 								width="214"
