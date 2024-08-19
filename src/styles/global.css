@@ -145,7 +145,7 @@ iframe {
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 [type="search"] {
-	outline-offset: -2px;
+	outline: 0;
 	-webkit-appearance: textfield;
 }
 .form-check-input {
@@ -160,7 +160,7 @@ iframe {
 	border: none;
 	appearance: none;
 	-webkit-print-color-adjust: exact;
-	color-adjust: exact;
+	print-color-adjust: exact;
 }
 .form-check {
 	display: flex;
@@ -1075,7 +1075,7 @@ span#text a {
 	width: 100%;
 	max-width: 640px;
 	display: flex;
-    justify-content: center;
+  justify-content: center;
 }
 .list-form {
 	display: flex;
@@ -1085,7 +1085,7 @@ span#text a {
 textarea {
 	height: 300px;
 }
-input, select {
+input, select, textarea {
 	padding: 5px;
 }
 .upload-notice {

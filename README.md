@@ -20,10 +20,10 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 
 ### `Replace with yours`
 
-- Create and input your API in .env
+- Create and input your API in .env file or on environment platform dashboard
 
 	### Thirdweb client id
-	REACT_APP_TEMPLATE_CLIENT_ID
+	`REACT_APP_TEMPLATE_CLIENT_ID`
 
 	### Database endpoint for saved videos and user comment
 	`REACT_APP_SAVED_VIDEOS_ENDPOINT`
@@ -39,7 +39,7 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 	### Your API with webmaster id
 	`REACT_APP_CHATURBATE_VIDEO_ENDPOINT`
 
-	Apart from what's in the .env, you can use it directly exactly the same as what's on the page.
+	Apart from that, for other API video URLs you can use the ones that already exist on each platform page.
 
 ### `Finally`
 `npm run build` then `npx thirdweb@latest upload build -k <your secret key>`
