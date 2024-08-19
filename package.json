@@ -24,11 +24,11 @@
     "web-vitals": "^2.1.4",
     "zlib": "npm:browserify-zlib"
   },
-	"overrides": {
-		"react-scripts": {
-			"typescript": "^5.5.4"
-		}
-	},
+  "overrides": {
+    "react-scripts": {
+    "typescript": "^5.5.4"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
