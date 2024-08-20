@@ -123,7 +123,7 @@ export default function Homepage () {
 					setStVideos(sourceUrl.models);
 				}
 				// cam4
-				else {
+				else if(sourceUrl.length) {
 					setCaVideos(sourceUrl);
 				}
 				setIsLoading(false);

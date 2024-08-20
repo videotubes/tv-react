@@ -155,7 +155,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 		}
 		else {
 			if(visibleResults.length === 0) {
-				if(isSearch === 'search' && platform === 'eporner' || isSearch === 'search' && platform === 'redtube') {
+				if(isSearch === 'search' && (platform === 'eporner' || platform === 'redtube')) {
 					setVideoThumb(
 						<>
 							<form className="form-inline" onSubmit={searchVid}>

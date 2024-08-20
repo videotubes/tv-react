@@ -160,7 +160,7 @@ export default function CommentForm ({ platformName, videoId }) {
 			<div className="ads-scroll">
 				{commentData.map((visitor) => (
 					<div key={visitor.id} className="comment">
-						<span><strong><a href={visitor.website} title={visitor.name} target="_blank">{visitor.name}</a></strong></span>
+						<span><strong><Link to={visitor.website} title={visitor.name} target="_blank" rel="noopener">{visitor.name}</Link></strong></span>
 						<span>{visitor.comment}</span>
 					</div>
 				))}
