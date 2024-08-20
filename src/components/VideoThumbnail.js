@@ -99,7 +99,6 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 		const formData = new FormData(e.target);
 		const form_values = Object.fromEntries(formData);
 		if(form_values.search) {
-			console.log('1')
 			navigate(`/${platform}/search/${form_values.search}/`, { replace: true });
 			const inputMessage = document.getElementById('search');
 			inputMessage.value = '';
