@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link  } from 'react-router-dom';
-import Image from './Image';
 
 export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur }) {
 	
@@ -41,11 +40,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{comVideos.map((item) => (
 					<div key={item.file_code} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/compilations/${item.file_code}/`} >
-							<Image
+							<img
 								src={`https://laving.cc/${item.file_code}_xt.jpg?${timestamp}`}
-								getFallbackSrc={() => [
-									`/assets/no-image.webp`,
-								]}
 								alt={item.file_code}
 								title={item.file_code}
 								width="214"
@@ -80,11 +76,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{epVideos.map((item) => (
 					<div key={item.id} className="thumb" style={{textAlign: "left"}}>
 						<Link to={`/eporner/${item.id}/`}>
-							<Image
+							<img
 								src={item.default_thumb.src}
-								getFallbackSrc={() => [
-									`/assets/no-image.webp`,
-								]}
 								alt={item.title}
 								title={item.title}
 								width="214"
@@ -119,11 +112,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{ctVideos.map((item) => (
 					<div key={item.username} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/chaturbate/${item.username}/`}>
-							<Image
+							<img
 								src={item.image_url}
-								getFallbackSrc={() => [
-									`/assets/no-image.webp`,
-								]}
 								alt={item.username}
 								title={item.username}
 								width="214"
@@ -158,11 +148,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{stVideos.map((item) => (
 					<div key={item.id} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/stripchat/${item.username}/`}>
-							<Image
+							<img
 								src={item.snapshotUrl}
-								getFallbackSrc={() => [
-									`/assets/no-image.webp`,
-								]}
 								alt={item.username}
 								title={item.username}
 								width="214"
@@ -197,11 +184,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 				{caVideos.map((item) => (
 					<div key={item.nickname} style={{textAlign: "left"}} className="thumb">
 						<Link to={`/cam4/${item.nickname}/`}>
-							<Image
+							<img
 								src={item.thumb}
-								getFallbackSrc={() => [
-									`/assets/no-image.webp`,
-								]}
 								alt={item.nickname}
 								title={item.nickname}
 								width="214"
@@ -238,11 +222,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{rtVideos.map((item) => (
 						<div key={item.video_id} className="thumb" style={{textAlign: "left"}}>
 							<Link to={`/redtube/${item.video_id}/`}>
-								<Image
+								<img
 									src={item.thumb}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.title}
 									title={item.title}
 									width="214"
@@ -280,11 +261,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{csVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/camsoda/${item.username}/`}>
-								<Image
+								<img
 									src={item.thumbUrl}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.username}
 									title={item.username}
 									width="214"
@@ -326,11 +304,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 						return (
 						<div key={item.id} className="thumb" style={{textAlign: "left"}}>
 							<Link to={`/amateur/${item.username}/`}>
-								<Image
+								<img
 									src={unblured}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.username}
 									title={item.username}
 									width="214"
@@ -369,11 +344,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{drVideos.map((item) => (
 						<div key={item.modelNickname} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/dreamcam/${item.modelNickname}/`}>
-								<Image
+								<img
 									src={item.modelProfilePhotoUrl}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.modelNickname}
 									title={item.modelNickname}
 									width="214"
@@ -403,11 +375,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{eplVideos.map((item) => (
 						<div key={item.id} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/eplay/${item.username}/`}>
-								<Image
+								<img
 									src={item.ss}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.username}
 									title={item.username}
 									width="214"
@@ -437,11 +406,8 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
 					{bsVideos.map((item) => (
 						<div key={item.PerformerId} style={{textAlign: "left"}} className="thumb">
 							<Link to={`/babestation/${item.Nickname}/`}>
-								<Image
+								<img
 									src={item.Thumbnail}
-									getFallbackSrc={() => [
-										`/assets/no-image.webp`,
-									]}
 									alt={item.Nickname}
 									title={item.Nickname}
 									width="214"
