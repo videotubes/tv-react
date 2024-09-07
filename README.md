@@ -23,7 +23,7 @@ For install [thirdweb-dev](https://portal.thirdweb.com/react/v4/getting-started)
 
 - Create and input your API in .env file or on environment platform dashboard
 
-	### Thirdweb client id
+	### ThirdWeb client id
 	`REACT_APP_TEMPLATE_CLIENT_ID`
 
 	### Database endpoint for saved videos and user comment
