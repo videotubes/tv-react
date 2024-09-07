@@ -1,43 +1,43 @@
 {
-	"name": "TubeVideos",
-	"short_name": "tVideos",
-	"description": "Decentralized Streaming Videos",
-	"categories": ["photo"],
-	"lang": "en-US",
-	"icons": [
-		{
-			"src": "/android-chrome-192x192.png",
-			"sizes": "192x192",
-			"type": "image/png"
-		},
-		{
-			"src": "/android-chrome-512x512.png",
-			"sizes": "512x512",
-			"type": "image/png"
-		}
-	],
-	"screenshots" : [
-		{
-			"src": "/assets/tubevideos.webp",
-			"sizes": "1280x720",
-			"type": "image/webp",
-			"platform": "wide",
-			"label": "Homescreen",
-			"form_factor": "wide"
-		},
-		{
-			"src": "/assets/tubevideos-640x360.webp",
-			"sizes": "640x360",
-			"type": "image/webp",
-			"platform": "narrow",
-			"label": "Homescreen",
-			"form_factor": "narrow"
-		}
-	],
-	"start_url": "/",
-	"theme_color": "#b00505",
-	"background_color": "#b00505",
-	"display_override": ["window-controls-overlay"],
-	"display": "standalone",
-	"orientation": "any"
+  "name": "TubeVideos",
+  "short_name": "tVideos",
+  "description": "Decentralized Streaming Videos",
+  "categories": ["photo"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "screenshots" : [
+    {
+      "src": "/assets/tubevideos.webp",
+      "sizes": "1280x720",
+      "type": "image/webp",
+      "platform": "wide",
+      "label": "Homescreen",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/assets/tubevideos-640x360.webp",
+      "sizes": "640x360",
+      "type": "image/webp",
+      "platform": "narrow",
+      "label": "Homescreen",
+      "form_factor": "narrow"
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#b00505",
+  "background_color": "#b00505",
+  "display_override": ["window-controls-overlay"],
+  "display": "standalone",
+  "orientation": "any"
 }
