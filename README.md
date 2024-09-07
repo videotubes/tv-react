@@ -1,4 +1,4 @@
-# The Web3 adult live cam website consists of several sites combined into one
+# Decentralized Adult Cam Sites
 
 ## Getting Started with Create React App
 
