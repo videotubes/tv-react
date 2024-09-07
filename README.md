@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Thirdweb as the IPFS Storage and Web3 Wallet
 
-Here ThirdWeb is used as IPFS storage and also as a Web3 wallet, you are free to use anything else for IPFS storage or Web3 wallet and need to change the wrapping provider structure.
+Here ThirdWeb is used as IPFS storage and also as a Web3 wallet, you are free to use anything else for IPFS storage or Web3 wallet.
 For install [thirdweb-dev](https://portal.thirdweb.com/react/v4/getting-started).
 
 ### `Fitures`
