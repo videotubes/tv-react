@@ -15,14 +15,14 @@ const Image = ({ src, alt, title, getFallbackSrc }) => {
   };
 
   return (
-		<LazyLoad>
-			<img
-				src={src}
-				alt={alt}
-				title={title}
-				onError={handleError}
-			/>
-		</LazyLoad>
+    <LazyLoad>
+      <img
+        src={src}
+        alt={alt}
+        title={title}
+        onError={handleError}
+      />
+    </LazyLoad>
   );
 };
 
