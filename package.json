@@ -35,7 +35,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "react-scripts build && npx thirdweb@latest upload build -k De5wnxz9kcO6j20s07KtUU5n0Mj8CwGlxRLv067pX4kOhYLjoxIIwU0nZURbj_IYkuvo-etewbu6-Jx3J4Tz4g",
     "postinstall": "node fix-dependencies.js"
   },
   "eslintConfig": {
