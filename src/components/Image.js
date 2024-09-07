@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import LazyLoad from 'react-lazyload';
 
 // Component for check each image for video VideoThumbnail list spesific for compilations. Video image at compilations sometime missing so it will fallback to spesific image for best user experience. This trigger by VideoThumbnail page component
 const Image = ({ src, alt, title, getFallbackSrc }) => {
@@ -14,12 +15,14 @@ const Image = ({ src, alt, title, getFallbackSrc }) => {
   };
 
   return (
-    <img
-      src={src}
-			alt={alt}
-			title={title}
-      onError={handleError}
-    />
+		<LazyLoad>
+			<img
+				src={src}
+				alt={alt}
+				title={title}
+				onError={handleError}
+			/>
+		</LazyLoad>
   );
 };
 
