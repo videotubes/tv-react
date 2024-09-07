@@ -1,4 +1,4 @@
-# Decentralized Adult Cam Sites
+# Adult Cam Sites
 
 ## Getting Started with Create React App
 
@@ -7,6 +7,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Thirdweb as the IPFS Storage and Web3 Wallet
 
 Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are free to use anything else for IPFS storage or Web3 wallet and need to change the wrapping provider structure.
+For install [thirdweb-dev](https://portal.thirdweb.com/react/v4/getting-started).
 
 ### `Fitures`
 
@@ -40,9 +41,6 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 	`REACT_APP_CHATURBATE_VIDEO_ENDPOINT`
 
 	Apart from that, for other API video URLs you can use the ones that already exist on each platform page.
-
-### `Finally`
-`npm run build` then `npx thirdweb@latest upload build -k <your secret key>`
 
 ### `Sample site`
 
