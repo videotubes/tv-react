@@ -41,7 +41,7 @@ Here ThirdWeb is used as IPFS storage and also as a Web3 wallet, you are free to
 
   Apart from that, for other API video URLs you can use the ones that already exist on each platform page.
 - npm install
-- npm build
+- npm run build
 - npx thirdweb@latest upload build -k `<secret key>`
 
 ### `Sample site`
