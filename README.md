@@ -46,4 +46,4 @@ Here Thirdweb is used as IPFS website storage and also as a Web3 wallet, you are
 
 ### `Sample site`
 
-- Sample site with Web3 domain `tubevideos.raiin`
+- Sample site with Web3 domain `0xtubevideos.crypto`
