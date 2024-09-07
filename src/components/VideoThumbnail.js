@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
+import Image from './Image';
 
 export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFound, isLoading, onChangeCurrentPage, onChangeIsReload, playVideo, isReload, visibleResults, videoData, platform, currentPage, totalPages, handleChangeIsReload }) {
 	
@@ -125,8 +126,11 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 									</svg>
 								</button>
 								<Link to={`/${item.platform}/${item.video_id}/`}>
-									<img
+									<Image
 										src={item.image_url}
+										getFallbackSrc={() => [
+											`/assets/no-image.webp`,
+										]}
 										alt={item.video_id}
 										title={item.video_id}
 										width="214"
@@ -186,7 +190,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 					videoTitle = 'file_code';
 					viewCount = 'views';
 					isHaveViewCount = true;
-					getThumbnailUrl = item => `https://laving.cc/${item.file_code}_xt.jpg?${timestamp}`;
+					getThumbnailUrl = item => `https://laving.cc/${item.file_code}_xt.jpg?v=1`;
 				}
 				else if(platform === 'dreamcam') {
 					videoId = 'modelNickname';
@@ -274,7 +278,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
 									<div key={index} style={{textAlign: "left"}} className="thumb">
 										{getOnliveStatus && !item.live && (<div className="thumb-overlay">OFFLINE</div>)}
 										<Link to={`/${platform}/${item[videoId]}/`} onClick={() => playVideo(item)}>
-											<img
+											<Image
 												src={thumbnailUrl}
 												getFallbackSrc={() => [
 													`/assets/no-image.webp`,
