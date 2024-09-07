@@ -40,10 +40,9 @@ Here ThirdWeb is used as IPFS storage and also as a Web3 wallet, you are free to
   `REACT_APP_CHATURBATE_VIDEO_ENDPOINT`
 
   Apart from that, for other API video URLs you can use the ones that already exist on each platform page.
-- Create and input your API in .env file or on environment platform dashboard
-npm install
-npm build
-npx thirdweb@latest upload build -k <secret key>
+- npm install
+- npm build
+- npx thirdweb@latest upload build -k `<secret key>`
 
 ### `Sample site`
 
