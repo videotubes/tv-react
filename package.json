@@ -15,6 +15,7 @@
     "https-browserify": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-lazyload": "^3.2.1",
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "stream": "^0.0.2",
@@ -34,6 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "deploy": "react-scripts build && npx thirdweb@latest upload build -k De5wnxz9kcO6j20s07KtUU5n0Mj8CwGlxRLv067pX4kOhYLjoxIIwU0nZURbj_IYkuvo-etewbu6-Jx3J4Tz4g",
     "postinstall": "node fix-dependencies.js"
   },
   "eslintConfig": {
