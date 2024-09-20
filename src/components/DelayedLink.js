@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 
-
 // Delay the route from Navbar for wait closed video elemen animation and sidebar animation
 function DelayedLink({ to, delay = 1800, children, ...props }) {
   const navigate = useNavigate();
