@@ -175,7 +175,6 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
         setIsPagination(false);
       }
       else {
-        const timestamp = Date.now();
         let videoId, videoTitle, getThumbnailUrl, viewCount, getOnliveStatus = false, isHaveViewCount = false, isHaveSearchForm = false;
         
         if(platform === 'camsoda') {
