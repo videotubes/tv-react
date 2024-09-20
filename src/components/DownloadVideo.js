@@ -9,7 +9,7 @@ const DownloadVideo = ({ videoUrl, buttonName }) => {
     return /Mobi|Android/i.test(navigator.userAgent);
   }
   
-  // Download video if source is VideoThumbnail if else it will redirect to user room, before that this will generate to short link url.
+  // Download video if video can downloaded (not live stream) if else it will redirect to user room, before that this will generate to short link url.
   const downloadPopUp = async (e) => {
     const longUrl = e.target.value;
     const url = `${shortLinkUrl}&url=${longUrl}`;
