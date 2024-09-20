@@ -9,10 +9,9 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
   
   async function saveThis() {
     if(address) {
-      const timestamp = Date.now();
       let imageUrl, videoId;
       if(platform === 'compilations') {
-        imageUrl = `https://laving.cc/${videoData.file_code}_xt.jpg?${timestamp}`;
+        imageUrl = `https://laving.cc/${videoData.file_code}_xt.jpg?v=1`;
         videoId = videoData.file_code;
       }
       else if(platform === 'eporner') {
