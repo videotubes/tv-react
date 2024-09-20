@@ -97,7 +97,7 @@ export default function Redtube ({ userAddress }) {
         notFound();
       }
       else {
-        if(currentPath[1] !== 'search' && prevPage.current !== currentPage && !prevIsNotFound.current) {
+        if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
           prevPage.current = currentPage;
           const allVideos = await getVideo('', '', currentPage);
           if(allVideos) {
