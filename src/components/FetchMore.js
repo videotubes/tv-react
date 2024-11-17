@@ -11,4 +11,4 @@ const FetchMore = async (apiUrl) => {
   }
 };
 
-module.exports = FetchMore;
+export default FetchMore;

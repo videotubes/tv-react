@@ -13,19 +13,19 @@ import './styles/global.css';
 import TrailingSlashEnforcer from './components/TrailingSlashEnforcer';
 import InstallPWA from './components/InstallPWA';
 import Navbar from './components/Navbar';
-import Home from './components/pages/Homepage';
-import Compilations from './components/pages/Compilations';
-import Camsoda from './components/pages/Camsoda';
-import Dreamcam from './components/pages/Dreamcam';
-import Cam4 from './components/pages/Cam4';
-import Chaturbate from './components/pages/Chaturbate';
-import Stripchat from './components/pages/Stripchat';
-import Eplay from './components/pages/Eplay';
-import Amateur from './components/pages/Amateur';
-import Babestation from './components/pages/Babestation';
-import Eporner from './components/pages/Eporner';
-import Redtube from './components/pages/Redtube';
-import SavedList from './components/pages/SavedList';
+import Home from './pages/Homepage';
+import Compilations from './pages/Compilations';
+import Camsoda from './pages/Camsoda';
+import Dreamcam from './pages/Dreamcam';
+import Cam4 from './pages/Cam4';
+import Chaturbate from './pages/Chaturbate';
+import Stripchat from './pages/Stripchat';
+import Eplay from './pages/Eplay';
+import Amateur from './pages/Amateur';
+import Babestation from './pages/Babestation';
+import Eporner from './pages/Eporner';
+import Redtube from './pages/Redtube';
+import SavedList from './pages/SavedList';
 import NotFoundPage from './components/404';
 
 const activeChain = 'ethereum';
@@ -45,7 +45,7 @@ function App() {
   });
 
   // State dark/light mode that trigger from Navbar page component
-  const handleDarkModeChange = (event) => {
+  const darkModeChange = (event) => {
     const isChecked = event.target.checked;
     setDarkMode(isChecked);
   };
@@ -102,7 +102,7 @@ function App() {
         ]}
         >
         <InstallPWA />
-        <Navbar handleDarkModeChange={handleDarkModeChange} darkMode={darkMode} />
+        <Navbar handleDarkModeChange={darkModeChange} darkMode={darkMode} />
         <main className={darkMode ? 'dark-mode' : 'light-mode'}>
           <TrailingSlashEnforcer>
             <Routes>
