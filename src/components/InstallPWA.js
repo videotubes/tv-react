@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import UAParser from 'ua-parser-js';
 
-// This component for show div overlay PWA on footer
 function InstallPWA() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [showPwa, setShowPwa] = useState(false);
@@ -18,7 +17,6 @@ function InstallPWA() {
         console.log('PWA installation declined');
       }
 
-      // Clear the deferred prompt
       setDeferredPrompt(null);
     }
   };
@@ -34,7 +32,6 @@ function InstallPWA() {
       setIsMobile(true);
     }
 
-    // Listen for beforeinstallprompt event
     const handleBeforeInstallPrompt = (event) => {
       setDeferredPrompt(event);
       setShowPwa(true);
@@ -43,7 +40,6 @@ function InstallPWA() {
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
-      // Cleanup event listener
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
