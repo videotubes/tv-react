@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 
 const NotFoundPage = () => {
   function closePlayer () {
-    const playerEl = document.getElementById('show-video');
     const sidebar = document.querySelector('.sidebar');
     const sections = document.querySelectorAll('section');
     

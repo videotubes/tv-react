@@ -1,5 +1,3 @@
-import React, { useEffect, useState } from 'react';
-
 const DownloadVideo = ({ videoUrl, buttonName }) => {
   
   const shortLinkUrl = process.env.REACT_APP_SHORTENER_URL_ENDPOINT;

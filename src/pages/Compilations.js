@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
@@ -14,7 +14,6 @@ export default function Compilations ({ userAddress }) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState('');
-  const [videoThumb, setVideoThumb] = useState('');
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);

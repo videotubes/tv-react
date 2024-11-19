@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link  } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 
 // Comment form called from Home page component specific at playing video or at opened video player. This will show comment list that fetced from database and for who want to send comment at spesific video
 export default function CommentForm ({ platformName, videoId }) {
   
   const commentListUrl = process.env.REACT_APP_COMMENT_LIST_ENDPOINT;
   const submitCommentUrl = process.env.REACT_APP_POST_COMMENT_ENDPOINT;
-  
-  const location = useLocation();
-  const currentPath = location.pathname;
   
   const [commentData, setCommentData] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -56,13 +53,6 @@ export default function CommentForm ({ platformName, videoId }) {
       ...inputs,
       [e.target.name]: e.target.value,
     });
-  };
-
-   const handleKeyPress = (event) => {
-    console.log(inputs.comment.length)
-    if(inputs.comment.length >= maxLength) {
-      event.preventDefault();
-    }
   };
 
   const charRemaining = maxLength - inputs.comment.length;

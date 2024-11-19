@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import VideoThumbnail from '../components/VideoThumbnail';
 
@@ -11,7 +11,6 @@ export default function SavedList ({ userAddress }) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState('');
-  const [videoThumb, setVideoThumb] = useState('');
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);

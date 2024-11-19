@@ -23,7 +23,6 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
   // The main div element for all video thumbnail also for upload url path
   useEffect(() => {
     const replaceImg = 'capture';
-    const timestamp = Date.now();
     setVideoThumb(
       <>
       

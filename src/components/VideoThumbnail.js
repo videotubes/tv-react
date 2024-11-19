@@ -10,7 +10,6 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
   const [isPagination, setIsPagination] = useState(false);
   const navigate = useNavigate();
 
-  let itemsPerPage = 60;
   const buttonsPerPage = 5;
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalPages); i++) {

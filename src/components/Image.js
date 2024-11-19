@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import LazyLoad from 'react-lazyload';
 
 // Component for check each image for video VideoThumbnail list spesific for compilations. Video image at compilations sometime missing so it will fallback to spesific image for best user experience. This trigger by VideoThumbnail page component

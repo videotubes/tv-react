@@ -54,20 +54,12 @@ export default function Homepage () {
   const abortControllerRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadMore, setLoadMore] = useState(false);
-  const [videoThumb, setVideoThumb] = useState('');
-  const [redtubeThumb, setRedtubeThumb] = useState('');
-  const [eplayThumb, setEplayThumb] = useState('');
-  const [camsodaThumb, setCamsodaThumb] = useState('');
-  const [amateurThumb, setAmateurThumb] = useState('');
-  const [babestationThumb, setBabestationThumb] = useState('');
-  const [dreamcamThumb, setDreamcamThumb] = useState('');
   
   //**************************************** End Of All State ****************************************//
 
 
 
   // Set state form loading animation at homepage on load more button trigger. This state trigger from VideoThumbnail page component
-  let thumbChild = 6;
   function setHomeLoading(e) {    
     if(e === 'redtube') {
       setLoadingRedtube(false);
@@ -104,7 +96,7 @@ export default function Homepage () {
     try {
       const results = await Promise.all(apiUrls.map((url) => fetchUrlList(url)));
       const successfulResponses = results.filter((data) => data !== null);
-      const resOk = successfulResponses.map((sourceUrl) => {
+      successfulResponses.map((sourceUrl) => {
         
         // compilations
         if(sourceUrl.compilations) {

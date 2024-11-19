@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
@@ -12,7 +12,6 @@ export default function Eporner ({ userAddress }) {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState('');
-  const [videoThumb, setVideoThumb] = useState('');
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
@@ -159,7 +158,6 @@ export default function Eporner ({ userAddress }) {
     const playerEl = document.getElementById('show-video');
     const sidebar = document.querySelector('.sidebar');
     const sections = document.querySelectorAll('section');
-    const vplayer = document.getElementById('video-player');
     const player = `<iframe id="iframe-player" src="${item.embed}" width="600" height="500" allowfullscreen></iframe>`
     document.getElementById("video-preview").innerHTML = player;
     

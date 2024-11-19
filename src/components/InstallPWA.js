@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import UAParser from 'ua-parser-js';
 
 function InstallPWA() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -22,13 +21,10 @@ function InstallPWA() {
   };
   
   useEffect(() => {
-    const parser = new UAParser();
     const isTouchDevice = 'ontouchstart' in window;
-    const browserName = parser.getBrowser().name.toLowerCase();
-    const supportedBrowsers = ['chrome', 'brave', 'edge'];
 
     // Mobile detection
-    if (isTouchDevice && supportedBrowsers.includes(browserName)) {
+    if (isTouchDevice) {
       setIsMobile(true);
     }
 

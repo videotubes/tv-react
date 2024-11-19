@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import DelayedLink from './DelayedLink';
 import { ConnectWallet } from "@thirdweb-dev/react";
 
@@ -21,7 +21,6 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
   }, [currentPath, selectedLinkId]);
   
   useEffect(() => {
-    const notice = new Date().getFullYear();
     setCopyright(
       <div className="copyright">
         <div className="wallet-connect">
@@ -127,26 +126,6 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
       savedList.style.display = 'flex';
       savedList.style.fontSize = '14px';
     }
-    
-    const windowHeight = window.innerHeight;
-    let windowWidth;
-    let windowInnerWidth;
-    if(viewportWidth >= 1366) {
-      windowWidth = 1366;
-      windowInnerWidth = windowWidth - 70;
-    }
-    else {
-      windowWidth = viewportWidth;
-      if(viewportWidth <= 500) {
-        windowInnerWidth = windowWidth - 30;
-      }
-      else {
-        windowInnerWidth = windowWidth - 250;
-      }
-    }
-    const windowInnerHeight = windowHeight;
-    const itemWidth = 200;
-    const itemHeigh = 150;
   };
     
   // Executed handleResize realtime
