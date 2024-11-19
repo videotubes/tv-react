@@ -19,7 +19,6 @@
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
     "stream": "^0.0.2",
-    "ua-parser-js": "^1.0.39",
     "url": "latest",
     "video.js": "^8.19.1",
     "web-vitals": "^2.1.4",
