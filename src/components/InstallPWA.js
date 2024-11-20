@@ -19,28 +19,33 @@ function InstallPWA() {
       setDeferredPrompt(null);
     }
   };
-  
+
+  const handleBeforeInstallPrompt = (event) => {
+    setDeferredPrompt(event);
+  };
+    
   useEffect(() => {
-    setShowPwa(true);
     const isTouchDevice = 'ontouchstart' in window;
 
     // Mobile detection
     if (isTouchDevice) {
+      setShowPwa(true);
       setIsMobile(true);
     } else {
-      setIsMobile(false);
+      if (deferredPrompt) {
+        setShowPwa(true);
+        setIsMobile(false);
+      } else {
+        setShowPwa(false);
+      }
     }
-
-    const handleBeforeInstallPrompt = (event) => {
-      setDeferredPrompt(event);
-    };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, []);
+  }, [deferredPrompt]);
 
   const closePwa = () => {
     setShowPwa(false);
