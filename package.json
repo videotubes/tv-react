@@ -18,16 +18,11 @@
     "react-lazyload": "^3.2.1",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
-    "stream": "^0.0.2",
+    "stream": "^0.0.3",
     "url": "latest",
     "video.js": "^8.19.1",
-    "web-vitals": "^2.1.4",
+    "web-vitals": "^4.2.4",
     "zlib": "npm:browserify-zlib"
-  },
-  "overrides": {
-    "react-scripts": {
-      "typescript": "^5.5.4"
-    }
   },
   "scripts": {
     "start": "react-scripts start",
@@ -52,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "typescript": "5.5.4"
   }
 }
