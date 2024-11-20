@@ -23,7 +23,19 @@ function InstallPWA() {
   const handleBeforeInstallPrompt = (event) => {
     setDeferredPrompt(event);
   };
-    
+
+  const closePwa = () => {
+    setShowPwa(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
+  }, []);
+  
   useEffect(() => {
     const isTouchDevice = 'ontouchstart' in window;
 
@@ -39,17 +51,7 @@ function InstallPWA() {
         setShowPwa(false);
       }
     }
-
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    };
   }, [deferredPrompt]);
-
-  const closePwa = () => {
-    setShowPwa(false);
-  };
   
   return (
     <>
