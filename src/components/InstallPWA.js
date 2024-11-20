@@ -21,16 +21,18 @@ function InstallPWA() {
   };
   
   useEffect(() => {
+    setShowPwa(true);
     const isTouchDevice = 'ontouchstart' in window;
 
     // Mobile detection
     if (isTouchDevice) {
       setIsMobile(true);
+    } else {
+      setIsMobile(false);
     }
 
     const handleBeforeInstallPrompt = (event) => {
       setDeferredPrompt(event);
-      setShowPwa(true);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
