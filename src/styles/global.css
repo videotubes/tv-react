@@ -1183,7 +1183,6 @@ footer {
   padding-right: 8px;
   transition: opacity .5s;
   margin-top: 0;
-  height: 27px;
 }
 .button-delete {
   background: rgba(0,0,0,.8);
@@ -1204,6 +1203,7 @@ footer {
   background-position-x: right;
   background-position-y: center;
   padding-right: 22px;
+  padding-bottom: 4px;
 }
 .link-preview {
   display: flex;
