@@ -119,7 +119,7 @@ export default function CommentForm ({ platformName, videoId }) {
 
   return (
     <>
-    <div className="heading left-flex" style={{ marginTop: 23 }} >
+    <div className="heading left-flex" style={{ marginTop: 27 }} >
       <h4><strong style={{color: "#b00505"}}>{`${commentData.length} Comments`}</strong></h4>
     </div>
     <div id="ads" onClick={handleClose}>
