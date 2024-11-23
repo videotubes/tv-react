@@ -5,7 +5,7 @@ import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Eporner ({ userAddress }) {
+export default function Eporner ({ userAccount }) {
   
   //**************************************** All State ****************************************//
   const [dataVideos, setDataVideos] = useState([]);
@@ -25,7 +25,8 @@ export default function Eporner ({ userAddress }) {
   const prevUrl = useRef(location.hash);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

@@ -5,7 +5,7 @@ import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Chaturbate ({ userAddress }) {
+export default function Chaturbate ({ userAccount }) {
   
   const chaturbateUrl = process.env.REACT_APP_CHATURBATE_VIDEO_ENDPOINT;
   
@@ -24,7 +24,8 @@ export default function Chaturbate ({ userAddress }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

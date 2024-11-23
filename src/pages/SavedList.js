@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import VideoThumbnail from '../components/VideoThumbnail';
 
-export default function SavedList ({ userAddress }) {  
+export default function SavedList ({ userAccount }) {  
   
   const savedVideosUrl = process.env.REACT_APP_SAVED_VIDEOS_ENDPOINT;
   
@@ -21,7 +21,8 @@ export default function SavedList ({ userAddress }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

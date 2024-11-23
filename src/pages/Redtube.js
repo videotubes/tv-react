@@ -5,7 +5,7 @@ import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Redtube ({ userAddress }) {
+export default function Redtube ({ userAccount }) {
 
   const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
   
@@ -27,7 +27,8 @@ export default function Redtube ({ userAddress }) {
   const prevUrl = useRef(location.hash);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

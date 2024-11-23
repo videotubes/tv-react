@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import DelayedLink from './DelayedLink';
-import { ConnectWallet } from "@thirdweb-dev/react";
 
 // Navigation Bar and Sidebar
-export default function Navbar ({ handleDarkModeChange, darkMode }) {
+export default function Navbar ({ handleDarkModeChange, darkMode, clientId, wallets, ConnectButton, chains }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
@@ -24,13 +23,13 @@ export default function Navbar ({ handleDarkModeChange, darkMode }) {
     setCopyright(
       <div className="copyright">
         <div className="wallet-connect">
-          <ConnectWallet
-            theme={"dark"}
-            modalSize={"compact"}
-            modalTitleIconUrl={
-              "./assets/tubevideos.svg"
-            }
-            showThirdwebBranding={false}
+          <ConnectButton
+            client={clientId}
+            wallets={wallets}
+            chains={chains}
+            theme="dark"
+            connectModal={{ size: "compact", showThirdwebBranding: false, titleIcon: "./assets/tubevideos.svg" }}
+            connectButton={{ label: "Connect Wallet" }}
           />
         </div>
         <span className="year">&copy; TubeVideos. {new Date().getFullYear()}</span>

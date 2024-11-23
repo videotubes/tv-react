@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Camsoda ({ userAddress }) {
+export default function Camsoda ({ userAccount }) {
   
   //**************************************** All State ****************************************//
   const [dataVideos, setDataVideos] = useState([]);
@@ -26,7 +26,8 @@ export default function Camsoda ({ userAddress }) {
   const currentPath = pathName.split('/').filter(Boolean);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

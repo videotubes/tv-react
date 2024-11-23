@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Babestation ({ userAddress }) {  
+export default function Babestation ({ userAccount }) {  
   
   const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
   
@@ -28,7 +28,8 @@ export default function Babestation ({ userAddress }) {
   const currentPath = pathName.split('/').filter(Boolean);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

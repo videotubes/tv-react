@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Eplay ({ userAddress }) {
+export default function Eplay ({ userAccount }) {
   
   //**************************************** All State ****************************************//
   const [dataVideos, setDataVideos] = useState([]);
@@ -27,7 +27,8 @@ export default function Eplay ({ userAddress }) {
   const currentPath = pathName.split('/').filter(Boolean);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
 
   function handleChangeCurrentPage(e) {
     setCurrentPage(e);

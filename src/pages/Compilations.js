@@ -5,7 +5,7 @@ import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Compilations ({ userAddress }) {
+export default function Compilations ({ userAccount }) {
 
   const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
   
@@ -26,7 +26,8 @@ export default function Compilations ({ userAddress }) {
   const currentPath = pathName.split('/').filter(Boolean);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
-  const address = userAddress();
+  const account = userAccount();
+  const address = account ? account.address : undefined;
   
   // Function for notfound
   function notFound () {
