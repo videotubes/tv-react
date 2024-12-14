@@ -46,9 +46,8 @@ export default function CommentForm ({ platformName, videoId }) {
   };
 
   const [inputs, setInputs] = useState(initialInputs);
-  const [maxLength, setMaxLength] = useState(500);
+  const maxLength = 500;
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setInputs({
       ...inputs,
       [e.target.name]: e.target.value,
