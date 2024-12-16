@@ -177,6 +177,7 @@ export default function Navbar ({ handleDarkModeChange, darkMode, clientId, wall
           <span><DelayedLink to="/amateur/" id="amateur" name="Amateur" className={`type-bg ${selectedLinkId === 'amateur' ? 'current' : ''}`} >Amateur</DelayedLink></span>
           <span><DelayedLink to="/dreamcam/" id="dreamcam" name="Dreamcam" className={`type-bg ${selectedLinkId === 'dreamcam' ? 'current' : ''}`} >Dreamcam</DelayedLink></span>
           <span><DelayedLink to="/eplay/" id="eplay" name="Eplay" className={`type-bg ${selectedLinkId === 'eplay' ? 'current' : ''}`} >Eplay</DelayedLink></span>
+          <span><DelayedLink to="/xlovecam/" id="xlovecam" name="Xlovecam" className={`type-bg ${selectedLinkId === 'xlovecam' ? 'current' : ''}`} >Xlovecam</DelayedLink></span>
           <span><DelayedLink to="/babestation/" id="babestation" name="Babe Station" className={`type-bg ${selectedLinkId === 'babestation' ? 'current' : ''}`} >Babe Station</DelayedLink></span>
           <div className="nav-btn">
             <DelayedLink  to="/savedlist/" id="saved_list" className="type-bg" >Saved List</DelayedLink>

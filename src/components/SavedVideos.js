@@ -22,6 +22,10 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
         imageUrl = videoData.thumbUrl;
         videoId = videoData.username;
       }
+      else if(platform === 'xlovecam') {
+        imageUrl = videoData.imgUrl;
+        videoId = videoData.name;
+      }
       else if(platform === 'dreamcam') {
         imageUrl = videoData.modelProfilePhotoUrl;
         videoId = videoData.modelNickname;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link  } from 'react-router-dom';
 import Image from './Image';
 
-export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur }) {
+export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur, loadingXlovecam }) {
   
   const [videoThumb, setVideoThumb] = useState('');
   const [redtubeThumb, setRedtubeThumb] = useState('');
@@ -11,6 +11,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
   const [amateurThumb, setAmateurThumb] = useState('');
   const [babestationThumb, setBabestationThumb] = useState('');
   const [dreamcamThumb, setDreamcamThumb] = useState('');
+  const [xlovecamThumb, setXlovecamThumb] = useState('');
   
   function handleHomeLoading(e) {
     setHomeLoading(e);
@@ -22,7 +23,6 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
   
   // The main div element for all video thumbnail also for upload url path
   useEffect(() => {
-    const replaceImg = 'capture';
     setVideoThumb(
       <>
       
@@ -307,6 +307,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
       handleHomeLoading('camsoda');;
     }
     if(amVideos.length > 0) {
+      const replaceImg = 'capture';
       setAmateurThumb(
         <div className="category">
           <div className="heading">
@@ -421,6 +422,40 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
       )
       handleHomeLoading('eplay');
     }
+    if(xlVideos.length > 0) {
+      setXlovecamThumb(
+        <div className="category">
+          <div className="heading">
+            <h3>Xlovecam</h3>
+            <h4>
+              <Link to="/xlovecam/" id="xlovecam" name="xlovecam">
+                View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
+              </Link>
+            </h4>
+          </div>
+          <div className="scrolling-home">
+          {xlVideos.map((item) => (
+            <div key={item.id} style={{textAlign: "left"}} className="thumb">
+              <Link to={`/xlovecam/${item.username}/`}>
+                <Image
+                  src={`https:${item.imgLive}`}
+                  getFallbackSrc={() => [
+                    `/assets/no-image.webp`,
+                  ]}
+                  alt={item.name}
+                  title={item.name}
+                  width="214"
+                  height="142"
+                />
+                <span className="thumb-title">{item.name}</span>
+              </Link>
+            </div>
+          ))}
+          </div>
+        </div>
+      )
+      handleHomeLoading('xlovecam');
+    }
     if(bsVideos.length > 0) {
       setBabestationThumb(
         <div className="category">
@@ -457,7 +492,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
       )
       handleHomeLoading('babestation');
     }
-  }, [isLoading, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos]);
+  }, [isLoading, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos]);
   
   return (
     <>
@@ -468,6 +503,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
         {loadingAmateur ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (amateurThumb)}
         {loadingDreamcam ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (dreamcamThumb)}
         {loadingEplay ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (eplayThumb)}
+        {loadingXlovecam ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (xlovecamThumb)}
         {loadingBabestation ? (<div className="loading-animation" style={{height: "auto", marginBottom: "3rem"}}><div className="loading-spinner"></div></div>) : (babestationThumb)}
       </div>
       {!isEnd && videoThumb && <div className="more-btn"><button name="more" className="type-bg" onClick={onChangeHandleMore}>Load more</button></div>}

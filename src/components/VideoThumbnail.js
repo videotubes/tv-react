@@ -195,6 +195,11 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           videoTitle = 'modelNickname';
           getThumbnailUrl = item => item.modelProfilePhotoUrl;
         }
+        else if(platform === 'xlovecam') {
+          videoId = 'name';
+          videoTitle = 'name';
+          getThumbnailUrl = item => `https:${item.imgLive}`;
+        }
         else if(platform === 'cam4') {
           videoId = 'nickname';
           videoTitle = 'nickname';
