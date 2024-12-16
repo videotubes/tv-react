@@ -192,7 +192,7 @@ export default function Homepage () {
         
         // bongacams
         case `${backendVideosUrl}/bongacams?limit=6`:
-          setLoadingXlovecam(true);
+          setLoadingBongacams(true);
         break;
         
         // babestation
