@@ -43,12 +43,14 @@ export default function Homepage () {
   const [amVideos, setAmVideos] = useState([]);
   const [rtVideos, setRtVideos] = useState([]);
   const [bsVideos, setBsVideos] = useState([]);
+  const [xlVideos, setXlVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingRedtube, setLoadingRedtube] = useState(false);
   const [loadingCamsoda, setLoadingCamsoda] = useState(false);
   const [loadingAmateur, setLoadingAmateur] = useState(false);
   const [loadingDreamcam, setLoadingDreamcam] = useState(false);
   const [loadingEplay, setLoadingEplay] = useState(false);
+  const [loadingXlovecam, setLoadingXlovecam] = useState(false);
   const [loadingBabestation, setLoadingBabestation] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
   const abortControllerRef = useRef(null);
@@ -78,6 +80,9 @@ export default function Homepage () {
     }
     else if(e === 'eplay') {
       setLoadingEplay(false);
+    }
+    else if(e === 'xlovecam') {
+      setLoadingXlovecam(false);
     }
     
     setTimeout(() => {
@@ -137,8 +142,8 @@ export default function Homepage () {
     'https://www.camsoda.com/api/v1/browse/react?&p=1&gender-hide=m,t&perPage=6',
     `${backendVideosUrl}/amateur?limit=6`,
     'https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=6&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false',
-    `https://search-cf.eplay.com/channels?size=6&from=0&fields
-  activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`,
+    `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`,
+    `${backendVideosUrl}/xlovecam?limit=6`,
     `${backendVideosUrl}/babestation?limit=6`,
   ];
   
@@ -164,10 +169,12 @@ export default function Homepage () {
           setLoadingDreamcam(true);
         break;
         
-        case
-        `https://search-cf.eplay.com/channels?size=6&from=0&fields
-  activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
+        case `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
           setLoadingEplay(true);
+        break;
+
+        case `${backendVideosUrl}/xlovecam?limit=6`:
+          setLoadingXlovecam(true);
         break;
         
         case `${backendVideosUrl}/babestation?limit=6`:
@@ -204,12 +211,15 @@ export default function Homepage () {
             break;
             
             // eplay
-            case
-            `https://search-cf.eplay.com/channels?size=6&from=0&fields
-  activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
+            case `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
               setEplVideos(data.results);
             break;
-        
+
+            // xlovecam
+            case `${backendVideosUrl}/xlovecam?limit=6`:
+              setXlVideos(data.xlovecam);
+            break;
+            
             // babe station
             case `${backendVideosUrl}/babestation?limit=6`:
               setBsVideos(data.babestation);
@@ -248,13 +258,17 @@ export default function Homepage () {
           break;
           
           // eplay
-          case
-          `https://search-cf.eplay.com/channels?size=6&from=0&fields
-  activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
+          case `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
             setLoadingEplay(false);
             setEplVideos([]);
           break;
-        
+
+          // xlovecam
+          case `${backendVideosUrl}/xlovecam?limit=6`:
+            setLoadingXlovecam(false);
+            setXlVideos([]);
+          break;
+          
           // babe station
           case `${backendVideosUrl}/babestation?limit=6`:
             setLoadingBabestation(false);
@@ -336,7 +350,7 @@ export default function Homepage () {
               </div>
             ):(
               <>
-              <HomeThumbnail isEnd={isEnd} handleMore={handleMore} setHomeLoading={setHomeLoading} loadingRedtube={loadingRedtube} loadingCamsoda={loadingCamsoda} loadingAmateur={loadingAmateur} loadingDreamcam={loadingDreamcam} loadingEplay={loadingEplay} loadingBabestation={loadingBabestation} isLoading={isLoading} rtVideos={rtVideos} csVideos={csVideos} amVideos={amVideos} drVideos={drVideos} eplVideos={eplVideos} bsVideos={bsVideos} comVideos={comVideos} stVideos={stVideos} caVideos={caVideos} ctVideos={ctVideos} epVideos={epVideos} />
+              <HomeThumbnail isEnd={isEnd} handleMore={handleMore} setHomeLoading={setHomeLoading} loadingXlovecam={loadingXlovecam} loadingRedtube={loadingRedtube} loadingCamsoda={loadingCamsoda} loadingAmateur={loadingAmateur} loadingDreamcam={loadingDreamcam} loadingEplay={loadingEplay} loadingBabestation={loadingBabestation} isLoading={isLoading} xlVideos={xlVideos} rtVideos={rtVideos} csVideos={csVideos} amVideos={amVideos} drVideos={drVideos} eplVideos={eplVideos} bsVideos={bsVideos} comVideos={comVideos} stVideos={stVideos} caVideos={caVideos} ctVideos={ctVideos} epVideos={epVideos} />
               </>
             )}
           </div>

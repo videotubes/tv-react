@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import DownloadVideo from '../components/DownloadVideo';
@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Babestation ({ userAccount }) {
+export default function Xlovecam ({ userAccount }) {
   
   const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
   
@@ -26,8 +26,6 @@ export default function Babestation ({ userAccount }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
-  const prevPage = useRef(0);
-  const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
 
@@ -41,7 +39,6 @@ export default function Babestation ({ userAccount }) {
   
   // Function for notfound
   function notFound () {
-    prevIsNotFound.current = false;
     setCurrentPage(1);
     setTimeout(() => {
       setIsNotFound(true);
@@ -50,14 +47,9 @@ export default function Babestation ({ userAccount }) {
     }, 1000);
   }
 
-  // Fetch babestation
-  const getVideo = async (username, page) => {
-    let endpointUrl;
-    if(username) {
-      endpointUrl = `${backendVideosUrl}/babestation?show=${username}`;
-    } else {
-      endpointUrl = `${backendVideosUrl}/babestation?page=${page}`;
-    }
+  // Fetch xlovecam
+  const getVideo = async () => {
+    const endpointUrl = `${backendVideosUrl}/xlovecam`;
 
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
@@ -73,13 +65,13 @@ export default function Babestation ({ userAccount }) {
           setIsLoading(false);
         }, 1000);
       }
-      return data.babestation;
+      return data.xlovecam;
     }
     catch (error) {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
-      throw new Error('Failed fetch babestation');
+      throw new Error('Failed fetch xlovecam');
     }
   }
 
@@ -94,22 +86,18 @@ export default function Babestation ({ userAccount }) {
         notFound();
       }
       else {
-        if(prevPage.current !== currentPage && !prevIsNotFound.current) {
-          prevPage.current = currentPage;
-          const allVideos = await getVideo('', currentPage);
-          if(allVideos) {
-            setIsNotFound(false);
-            setDataVideos(allVideos.streamate);
-            setTotalPages(allVideos.pagination.last_page);
-          }
+        const allVideos = await getVideo();
+        if(allVideos) {
+          setIsNotFound(false);
+          setDataVideos(allVideos);
+          setTotalPages(Math.ceil(allVideos.length / 60));
         }
         
         if(currentPath[1]) {
-          if(videoData.Nickname !== currentPath[1]) {
-            const item = await getVideo(currentPath[1], '');
-            if(item && item.success === true) {
+          if(videoData.name !== currentPath[1]) {
+            const item = allVideos.find(obj => obj.name === currentPath[1]);
+            if(item) {
               setIsNotFound(false);
-              prevIsNotFound.current = false;
               playVideo(item);
             } else {
               notFound();
@@ -127,9 +115,11 @@ export default function Babestation ({ userAccount }) {
 
   useEffect(() => {
     fetchData();
-  }, [pathName, currentPage]);
+  }, [pathName]);
   
-  const visibleResults = dataVideos;
+  const startIndex = (currentPage - 1) * 60;
+  const endIndex = startIndex + 60;
+  const visibleResults = dataVideos.slice(startIndex, endIndex);
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {
@@ -144,14 +134,18 @@ export default function Babestation ({ userAccount }) {
     if(!vplayer){
       document.getElementById("video-preview").innerHTML = player;
     }
-    
+
     const getServer = async () => {
       try {
-        const src = await fetch(`${backendVideosUrl}/babestation?show=${item.Nickname}`);
+        const src = await fetch(`${backendVideosUrl}/xlovecam?show=${item.id}`);
         const res = await src.json();
         
         if(res.success === true) {
-          const stream = res.babestation['mp4-hls']['manifest'];
+          const serverId = res['xlovecam']['serverId'];
+          const showId = res['xlovecam']['showId'];
+          const durationId = res['xlovecam']['rtmpWs']['mediaHlsSegmentDurationId'];
+          const stream = `https://spg1-eu-nl.wlresources.com/live-g10/eu-nl/g${serverId}/${durationId}s/playlist/${item.id}/free/${showId}/playlist.m3u8?xpa=70a`;
+          
           return stream;
         }
       }
@@ -166,7 +160,7 @@ export default function Babestation ({ userAccount }) {
       src: streamUrl,
       type: 'application/x-mpegURL'
     });
-    videoPlayer.poster(item.Thumbnail);
+    videoPlayer.poster(item.imgUrl);
     videoPlayer.on('loadedmetadata', () => {
       videoPlayer.play().catch((e) => {
         console.log(e);
@@ -185,7 +179,7 @@ export default function Babestation ({ userAccount }) {
       sidebar.classList.add('hide-sidebar');
     }, 1300);
   }
-
+  
   return (
     <>
       <section>
@@ -194,7 +188,7 @@ export default function Babestation ({ userAccount }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Babestation ${videoData.Nickname ? '| ' + videoData.Nickname : ''}`}</h1>
+                <h1>{`Xlovecam ${videoData.name ? '| ' + videoData.name : ''}`}</h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
@@ -202,18 +196,18 @@ export default function Babestation ({ userAccount }) {
             <div id="show-video" className="column vid-col">
               <div className="column-1">
                 <div id="video-title" className="heading left-flex" style={{ marginTop: 20 }}>
-                  <h3><strong>{videoData.Nickname}</strong></h3>
+                  <h3><strong>{videoData.name}</strong></h3>
                 </div>
-                <SavedVideos address={address} videoData={videoData} isNotFound={isNotFound} platform={'babestation'} />
+                <SavedVideos address={address} videoData={videoData} isNotFound={isNotFound} platform={'xlovecam'} />
                 <div id="video-preview"></div>
-                <DownloadVideo videoUrl={`https://www.babestation.tv/cams/world-cams/${videoData.Nickname}`} buttonName={'Go to room'} />
-                <span className="details left-flex">{videoData.Heading}</span>
+                <DownloadVideo videoUrl={`https://www.xlovecam.com/en/chat/${videoData.name}`} buttonName={'Go to room'} />
+                <span className="details left-flex"></span>
               </div>
               <div className="column-2">
-                <CommentForm platformName={'babestation'} videoId={videoData.Nickname} />
+                <CommentForm platformName={'xlovecam'} videoId={videoData.name} />
               </div>
             </div>
-            <VideoThumbnail isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'babestation'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
+            <VideoThumbnail isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'xlovecam'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
           </div>
         </div>
       </section>
