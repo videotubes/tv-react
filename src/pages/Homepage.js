@@ -44,6 +44,7 @@ export default function Homepage () {
   const [rtVideos, setRtVideos] = useState([]);
   const [bsVideos, setBsVideos] = useState([]);
   const [xlVideos, setXlVideos] = useState([]);
+  const [bcVideos, setBcVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingRedtube, setLoadingRedtube] = useState(false);
   const [loadingCamsoda, setLoadingCamsoda] = useState(false);
@@ -51,6 +52,7 @@ export default function Homepage () {
   const [loadingDreamcam, setLoadingDreamcam] = useState(false);
   const [loadingEplay, setLoadingEplay] = useState(false);
   const [loadingXlovecam, setLoadingXlovecam] = useState(false);
+  const [loadingBongacams, setLoadingBongacams] = useState(false);
   const [loadingBabestation, setLoadingBabestation] = useState(false);
   const [isEnd, setIsEnd] = useState(false);
   const abortControllerRef = useRef(null);
@@ -83,6 +85,9 @@ export default function Homepage () {
     }
     else if(e === 'xlovecam') {
       setLoadingXlovecam(false);
+    }
+    else if(e === 'bongacams') {
+      setLoadingBongacams(false);
     }
     
     setTimeout(() => {
@@ -144,6 +149,7 @@ export default function Homepage () {
     'https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=6&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false',
     `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`,
     `${backendVideosUrl}/xlovecam?limit=6`,
+    `${backendVideosUrl}/bongacams?limit=6`,
     `${backendVideosUrl}/babestation?limit=6`,
   ];
   
@@ -153,30 +159,43 @@ export default function Homepage () {
     if (currentIndex < moreApiUrls.length) {
       const apiUrl = moreApiUrls[currentIndex];
       switch (apiUrl) {
+        
+        // redtube
         case `${backendVideosUrl}/redtube?limit=6`:
           setLoadingRedtube(true);
         break;
         
+        // camsoda
         case 'https://www.camsoda.com/api/v1/browse/react?&p=1&gender-hide=m,t&perPage=6':
           setLoadingCamsoda(true);
         break;
         
+        // amateur
         case `${backendVideosUrl}/amateur?limit=6`:
           setLoadingAmateur(true);
         break;
         
+        // dreamcam
         case 'https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=6&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false':
           setLoadingDreamcam(true);
         break;
         
+        // eplay
         case `https://search-cf.eplay.com/channels?size=6&from=0&fieldsactivityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`:
           setLoadingEplay(true);
         break;
-
+        
+        // xlovecam
         case `${backendVideosUrl}/xlovecam?limit=6`:
           setLoadingXlovecam(true);
         break;
         
+        // bongacams
+        case `${backendVideosUrl}/bongacams?limit=6`:
+          setLoadingXlovecam(true);
+        break;
+        
+        // babestation
         case `${backendVideosUrl}/babestation?limit=6`:
           setLoadingBabestation(true);
         break;
@@ -190,6 +209,7 @@ export default function Homepage () {
         more = data;
         if(data) {
           switch (apiUrl) {
+            
             // redtube
             case `${backendVideosUrl}/redtube?limit=6`:
               setRtVideos(data.redtube);
@@ -219,6 +239,11 @@ export default function Homepage () {
             case `${backendVideosUrl}/xlovecam?limit=6`:
               setXlVideos(data.xlovecam);
             break;
+
+            // bongacams
+            case `${backendVideosUrl}/bongacams?limit=6`:
+              setBcVideos(data.bongacams);
+            break;
             
             // babe station
             case `${backendVideosUrl}/babestation?limit=6`:
@@ -233,6 +258,7 @@ export default function Homepage () {
       }
       catch (error) {
         switch (apiUrl) {
+          
           // redtube
           case `${backendVideosUrl}/redtube?limit=6`:
             setLoadingRedtube(false);
@@ -267,6 +293,12 @@ export default function Homepage () {
           case `${backendVideosUrl}/xlovecam?limit=6`:
             setLoadingXlovecam(false);
             setXlVideos([]);
+          break;
+
+          // bongacams
+          case `${backendVideosUrl}/bongacams?limit=6`:
+            setLoadingBongacams(false);
+            setBcVideos([]);
           break;
           
           // babe station
@@ -350,7 +382,7 @@ export default function Homepage () {
               </div>
             ):(
               <>
-              <HomeThumbnail isEnd={isEnd} handleMore={handleMore} setHomeLoading={setHomeLoading} loadingXlovecam={loadingXlovecam} loadingRedtube={loadingRedtube} loadingCamsoda={loadingCamsoda} loadingAmateur={loadingAmateur} loadingDreamcam={loadingDreamcam} loadingEplay={loadingEplay} loadingBabestation={loadingBabestation} isLoading={isLoading} xlVideos={xlVideos} rtVideos={rtVideos} csVideos={csVideos} amVideos={amVideos} drVideos={drVideos} eplVideos={eplVideos} bsVideos={bsVideos} comVideos={comVideos} stVideos={stVideos} caVideos={caVideos} ctVideos={ctVideos} epVideos={epVideos} />
+              <HomeThumbnail isEnd={isEnd} handleMore={handleMore} setHomeLoading={setHomeLoading} loadingBongacams={loadingBongacams} loadingXlovecam={loadingXlovecam} loadingRedtube={loadingRedtube} loadingCamsoda={loadingCamsoda} loadingAmateur={loadingAmateur} loadingDreamcam={loadingDreamcam} loadingEplay={loadingEplay} loadingBabestation={loadingBabestation} isLoading={isLoading} bcVideos={bcVideos} xlVideos={xlVideos} rtVideos={rtVideos} csVideos={csVideos} amVideos={amVideos} drVideos={drVideos} eplVideos={eplVideos} bsVideos={bsVideos} comVideos={comVideos} stVideos={stVideos} caVideos={caVideos} ctVideos={ctVideos} epVideos={epVideos} />
               </>
             )}
           </div>
