@@ -195,6 +195,18 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           videoTitle = 'modelNickname';
           getThumbnailUrl = item => item.modelProfilePhotoUrl;
         }
+        else if(platform === 'bongacams') {
+          videoId = 'username';
+          videoTitle = 'username';
+          viewCount = 'viewers';
+          isHaveViewCount = true;
+          getThumbnailUrl = item => {
+            let url = item.thumb_image;
+            url = `https:${url}`
+              .replace("{ext}", "jpg"); 
+            return url;
+          };
+        }
         else if(platform === 'xlovecam') {
           videoId = 'name';
           videoTitle = 'name';

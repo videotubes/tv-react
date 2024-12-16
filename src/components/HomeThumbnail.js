@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link  } from 'react-router-dom';
 import Image from './Image';
 
-export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur, loadingXlovecam }) {
+export default function HomeThumbnail ({ isEnd, handleMore, bcVideos, comVideos, ctVideos, stVideos, caVideos, epVideos, setHomeLoading, isLoading, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos, loadingRedtube, loadingCamsoda, loadingEplay, loadingBabestation, loadingDreamcam, loadingAmateur, loadingXlovecam, loadingBongacams }) {
   
   const [videoThumb, setVideoThumb] = useState('');
   const [redtubeThumb, setRedtubeThumb] = useState('');
@@ -12,6 +12,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
   const [babestationThumb, setBabestationThumb] = useState('');
   const [dreamcamThumb, setDreamcamThumb] = useState('');
   const [xlovecamThumb, setXlovecamThumb] = useState('');
+  const [bongacamsThumb, setBongacamsThumb] = useState('');
   
   function handleHomeLoading(e) {
     setHomeLoading(e);
@@ -436,7 +437,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
           <div className="scrolling-home">
           {xlVideos.map((item) => (
             <div key={item.id} style={{textAlign: "left"}} className="thumb">
-              <Link to={`/xlovecam/${item.username}/`}>
+              <Link to={`/xlovecam/${item.name}/`}>
                 <Image
                   src={`https:${item.imgLive}`}
                   getFallbackSrc={() => [
@@ -455,6 +456,53 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
         </div>
       )
       handleHomeLoading('xlovecam');
+    }
+    if(bcVideos.length > 0) {
+      setBongacamsThumb(
+        <div className="category">
+          <div className="heading">
+            <h3>Bongacams</h3>
+            <h4>
+              <Link to="/bongacams/" id="bongacams" name="bongacams">
+                View all<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -900 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
+              </Link>
+            </h4>
+          </div>
+          <div className="scrolling-home">
+          {bcVideos.map((item) => {
+            let imgUrl = item.thumb_image;
+            imgUrl = `https:${imgUrl}`
+              .replace("{ext}", "jpg");
+            return (
+              <div key={item.username} style={{textAlign: "left"}} className="thumb">
+                <Link to={`/bongacams/${item.username}/`}>
+                  <Image
+                    src={imgUrl}
+                    getFallbackSrc={() => [
+                      `/assets/no-image.webp`,
+                    ]}
+                    alt={item.username}
+                    title={item.username}
+                    width="214"
+                    height="142"
+                  />
+                  <span className="thumb-title">
+                    <span className="wrap">{item.username}</span>
+                    <span style={{display: "flex"}}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 12">
+                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                        <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                      </svg>&nbsp;{item.viewers}
+                    </span>
+                  </span>
+                </Link>
+              </div>
+            );
+          })}
+          </div>
+        </div>
+      )
+      handleHomeLoading('bongacams');
     }
     if(bsVideos.length > 0) {
       setBabestationThumb(
@@ -481,9 +529,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
                   width="214"
                   height="142"
                 />
-                <span className="thumb-title">
-                  <span className="wrap">{item.Nickname}</span>
-                </span>
+                <span className="thumb-title">{item.Nickname}</span>
               </Link>
             </div>
           ))}
@@ -492,7 +538,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
       )
       handleHomeLoading('babestation');
     }
-  }, [isLoading, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos]);
+  }, [isLoading, bcVideos, xlVideos, rtVideos, csVideos, amVideos, drVideos, eplVideos, bsVideos]);
   
   return (
     <>
@@ -504,6 +550,7 @@ export default function HomeThumbnail ({ isEnd, handleMore, comVideos, ctVideos,
         {loadingDreamcam ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (dreamcamThumb)}
         {loadingEplay ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (eplayThumb)}
         {loadingXlovecam ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (xlovecamThumb)}
+        {loadingBongacams ? (<div className="loading-animation" style={{height: "auto"}}><div className="loading-spinner"></div></div>) : (bongacamsThumb)}
         {loadingBabestation ? (<div className="loading-animation" style={{height: "auto", marginBottom: "3rem"}}><div className="loading-spinner"></div></div>) : (babestationThumb)}
       </div>
       {!isEnd && videoThumb && <div className="more-btn"><button name="more" className="type-bg" onClick={onChangeHandleMore}>Load more</button></div>}

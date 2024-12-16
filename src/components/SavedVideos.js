@@ -54,6 +54,13 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
         imageUrl = videoData.thumb;
         videoId = videoData.video_id;
       }
+      else if(platform === 'bongacams') {
+        let imgUrl = videoData.thumb_image;
+        imgUrl = `https:${imgUrl}`
+          .replace("{ext}", "jpg");
+        imageUrl = imgUrl;
+        videoId = videoData.username;
+      }
       else if(platform === 'amateur') {
         const parts = videoData.capture.split('/');
         parts[4] = 'capture';

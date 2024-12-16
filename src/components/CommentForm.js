@@ -18,7 +18,7 @@ export default function CommentForm ({ platformName, videoId }) {
       try {
         let data;
         if(videoId) {
-          if(platformName === 'eporner' || platformName === 'dreamcam' || platformName === 'camsoda' || platformName === 'babestation' || platformName === 'amateur' || platformName === 'redtube' || platformName === 'chaturbate' || platformName === 'stripchat' || platformName === 'cam4' || platformName === 'compilations' || platformName === 'eplay' || platformName === 'xlovecam') {
+          if(platformName === 'eporner' || platformName === 'dreamcam' || platformName === 'camsoda' || platformName === 'babestation' || platformName === 'amateur' || platformName === 'redtube' || platformName === 'chaturbate' || platformName === 'stripchat' || platformName === 'cam4' || platformName === 'compilations' || platformName === 'eplay' || platformName === 'xlovecam' || platformName === 'bongacams') {
             setPlatform(platformName);
             setSlug(videoId);
             const res = await fetch(`${commentListUrl}?platform=${platformName}&slug=${videoId}`);
