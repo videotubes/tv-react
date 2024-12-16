@@ -23,6 +23,7 @@ import Babestation from './pages/Babestation';
 import Eporner from './pages/Eporner';
 import Redtube from './pages/Redtube';
 import Xlovecam from './pages/Xlovecam';
+import Bongacams from './pages/Bongacams';
 import SavedList from './pages/SavedList';
 import NotFoundPage from './components/404';
 
@@ -132,6 +133,9 @@ function App() {
 
               <Route path="/xlovecam" element={<Xlovecam userAccount={useActiveAccount} />} />
               <Route path="/xlovecam/:id" element={<Xlovecam userAccount={useActiveAccount} />} />
+
+              <Route path="/bongacams" element={<Bongacams userAccount={useActiveAccount} />} />
+              <Route path="/bongacams/:id" element={<Bongacams userAccount={useActiveAccount} />} />
               
               <Route path="/eporner" element={<Eporner userAccount={useActiveAccount} />} />
               <Route path="/eporner/:id" element={<Eporner userAccount={useActiveAccount} />} />
