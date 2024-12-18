@@ -5,7 +5,7 @@ import DownloadVideo from '../components/DownloadVideo';
 import VideoThumbnail from '../components/VideoThumbnail';
 import SavedVideos from '../components/SavedVideos';
 
-export default function Chaturbate ({ userAccount }) {
+export default function Chaturbate ({ userAccount, clientIp }) {
   
   const chaturbateUrl = process.env.REACT_APP_CHATURBATE_VIDEO_ENDPOINT;
   
@@ -47,7 +47,7 @@ export default function Chaturbate ({ userAccount }) {
 
   // Fetch dreamcam
   const getVideo = async () => {
-    const endpointUrl = chaturbateUrl;
+    const endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=500&client_ip=${clientIp}`;
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
       if(!response.ok) {
@@ -111,8 +111,10 @@ export default function Chaturbate ({ userAccount }) {
   };
 
   useEffect(() => {
-    fetchData();
-  }, [pathName]);
+    if (clientIp) {
+      fetchData();
+    }
+  }, [pathName, clientIp]);
 
   const startIndex = (currentPage - 1) * 60;
   const endIndex = startIndex + 60;
