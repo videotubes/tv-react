@@ -128,7 +128,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
     const playerEl = document.getElementById('show-video');
     const sidebar = document.querySelector('.sidebar');
     const sections = document.querySelectorAll('section');
-    const player = `<iframe id="iframe-player" src="https://chaturbate.com/embed/${item.username}" width="600" height="500" allowfullscreen></iframe>`
+    const player = `<iframe id="iframe-player" src="https://chaturbate.com/embed/${item.username}/" width="600" height="500" allowfullscreen></iframe>`
     document.getElementById("video-preview").innerHTML = player;
     
     setTimeout(() => {
