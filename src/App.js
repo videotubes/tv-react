@@ -5,12 +5,12 @@ import { createThirdwebClient } from "thirdweb";
 import { createWallet } from "thirdweb/wallets";
 import { ConnectButton, useActiveAccount } from "thirdweb/react";
 import { ethereum, polygon, fantom, bsc } from "thirdweb/chains";
-
+import ClientIP from './components/clientIP';
 import './styles/global.css';
 import TrailingSlashEnforcer from './components/TrailingSlashEnforcer';
 import InstallPWA from './components/InstallPWA';
 import Navbar from './components/Navbar';
-import Home from './pages/Homepage';
+import Homepage from './pages/Homepage';
 import Compilations from './pages/Compilations';
 import Camsoda from './pages/Camsoda';
 import Dreamcam from './pages/Dreamcam';
@@ -40,6 +40,16 @@ const chains = [ethereum, polygon, fantom, bsc];
 
 function App() {
   const client = createThirdwebClient({ clientId: process.env.REACT_APP_TEMPLATE_CLIENT_ID });
+  const [clientIp, setClientIp] = useState('');
+
+  const getClientIP = async () => {
+    const ipAdd = await ClientIP();
+    setClientIp(ipAdd.ip);
+  };
+  
+  useEffect(() => {
+    getClientIP();
+  }, []);
   
   // Set theme dark/light trigger by button, the setting saved at localStorage
   const [darkMode, setDarkMode] = useState(() => {
@@ -103,7 +113,8 @@ function App() {
         <main className={darkMode ? 'dark-mode' : 'light-mode'}>
           <TrailingSlashEnforcer>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Homepage clientIp={clientIp} />} />
+              
               <Route path="/compilations" element={<Compilations userAccount={useActiveAccount} />} />
               <Route path="/compilations/:id" element={<Compilations userAccount={useActiveAccount} />} />
               
@@ -116,8 +127,8 @@ function App() {
               <Route path="/cam4" element={<Cam4 userAccount={useActiveAccount} />} />
               <Route path="/cam4/:id" element={<Cam4 userAccount={useActiveAccount} />} />
               
-              <Route path="/chaturbate" element={<Chaturbate userAccount={useActiveAccount} />} />
-              <Route path="/chaturbate/:id" element={<Chaturbate userAccount={useActiveAccount} />} />
+              <Route path="/chaturbate" element={<Chaturbate userAccount={useActiveAccount} clientIp={clientIp} />} />
+              <Route path="/chaturbate/:id" element={<Chaturbate userAccount={useActiveAccount} clientIp={clientIp} />} />
               
               <Route path="/stripchat" element={<Stripchat userAccount={useActiveAccount} />} />
               <Route path="/stripchat/:id" element={<Stripchat userAccount={useActiveAccount} />} />
