@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import FetchMore from '../components/FetchMore';
 import HomeThumbnail from '../components/HomeThumbnail';
 
-export default function Homepage () {
+export default function Homepage ({ clientIp }) {
   
   /**********************************************************************************************************************
   For Redtube, Amateur, Babestation CORS will be error if directly request from client browser,
@@ -30,6 +30,7 @@ export default function Homepage () {
   
   
   const backendVideosUrl = process.env.REACT_APP_BACKEND_VIDEO_ENDPOINT;
+  const chaturbateUrl = process.env.REACT_APP_CHATURBATE_VIDEO_ENDPOINT;
 
   //**************************************** All State ****************************************//
   const [comVideos, setComVideos] = useState([]);
@@ -128,18 +129,20 @@ export default function Homepage () {
         else if(sourceUrl.length) {
           setCaVideos(sourceUrl);
         }
-        setIsLoading(false);
       });
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching data:', error);
       return;
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (clientIp) {
+      fetchData();
+    }
+  }, [clientIp]);
   
   // API list than will fetched on trigger load more button at homepage, this will fetch one by one sequentially
   const moreApiUrls = [
@@ -343,7 +346,7 @@ export default function Homepage () {
   const apiUrls = [
     `${backendVideosUrl}/compilations?limit=6`,
     'https://www.eporner.com/api/v2/video/search/?per_page=6',
-    'https://chaturbate.com/api/public/affiliates/onlinerooms/?wm=55xr9 &limit=6&client_ip=request_ip',
+    `${chaturbateUrl}/?wm=55xr9&limit=500&client_ip=${clientIp}`,
     'https://go.xlirdr.com/api/models?limit=6&isNew=1',
     'https://api.pinklabel.com/api/v1/cams/online.json?aff_id=64ad0d76c17c866d6c664c50&prog=rs&limit=6'
   ];
