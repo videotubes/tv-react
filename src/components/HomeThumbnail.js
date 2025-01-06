@@ -42,8 +42,9 @@ export default function HomeThumbnail ({ isEnd, handleMore, bcVideos, comVideos,
           <div key={item.file_code} style={{textAlign: "left"}} className="thumb">
             <Link to={`/compilations/${item.file_code}/`} >
               <Image
-                src={`https://laving.cc/${item.file_code}_xt.jpg?v=1`}
+                src={`https://videothumbs.me/${item.file_code}_xt.jpg`}
                 getFallbackSrc={() => [
+                  `https://videothumbs.me/${item.file_code}_t.jpg`,
                   `/assets/no-image.webp`,
                 ]}
                 alt={item.file_code}
