@@ -11,7 +11,7 @@ const SavedVideos = ({ address, platform, videoData, isNotFound }) => {
     if(address) {
       let imageUrl, videoId;
       if(platform === 'compilations') {
-        imageUrl = `https://laving.cc/${videoData.file_code}_xt.jpg?v=1`;
+        imageUrl = `https://videothumbs.me/${videoData.file_code}_xt.jpg`;
         videoId = videoData.file_code;
       }
       else if(platform === 'eporner') {
