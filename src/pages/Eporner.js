@@ -15,6 +15,7 @@ export default function Eporner ({ userAccount }) {
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   //**************************************** End Of All State ****************************************//
 
@@ -52,8 +53,10 @@ export default function Eporner ({ userAccount }) {
     let endpointUrl;
     if(secondPath) {
       if(secondPath === 'search') {
+        setSearchQuery(query);
         endpointUrl = `https://www.eporner.com/api/v2/video/search/?query=${query}&page=${page}&per_page=60`;
       } else {
+        setSearchQuery('');
         endpointUrl = `https://www.eporner.com/api/v2/video/id/?id=${secondPath}`;
       }
     }
@@ -182,7 +185,13 @@ export default function Eporner ({ userAccount }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Eporner ${videoData.id ? '| ' + videoData.id : ''}`}</h1>
+                <h1>
+                  {prevUrl.current === 'search' ? (
+                    `Eporner | Search ${searchQuery}`
+                  ):(
+                    `Eporner ${videoData.id ? '| ' + videoData.id : ''}`
+                  )}
+                </h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
