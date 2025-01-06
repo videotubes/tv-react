@@ -63,6 +63,7 @@ export default function Compilations ({ userAccount }) {
       }
     }
     else {
+      setSearchQuery('');
       endpointUrl = `${backendVideosUrl}/compilations?page=${page}&per_page=60`;
     }
     try {
@@ -188,7 +189,7 @@ export default function Compilations ({ userAccount }) {
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
                 <h1>
-                  {prevUrl.current === 'search' ? (
+                  {searchQuery ? (
                     `Compilations | Search ${searchQuery}`
                   ):(
                     `Compilations ${videoData.file_code ? '| ' + videoData.file_code : ''}`
