@@ -61,6 +61,7 @@ export default function Eporner ({ userAccount }) {
       }
     }
     else {
+      setSearchQuery('');
       endpointUrl = `https://www.eporner.com/api/v2/video/search/?page=${page}&per_page=60`;
     }
     try {
@@ -186,7 +187,7 @@ export default function Eporner ({ userAccount }) {
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
                 <h1>
-                  {prevUrl.current === 'search' ? (
+                  {searchQuery ? (
                     `Eporner | Search ${searchQuery}`
                   ):(
                     `Eporner ${videoData.id ? '| ' + videoData.id : ''}`
