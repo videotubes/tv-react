@@ -51,7 +51,7 @@ function App() {
     getClientIP();
   }, []);
   
-  // Set theme dark/light trigger by button, the setting saved at localStorage
+  // Load previous selected theme on page load
   const [darkMode, setDarkMode] = useState(() => {
     if (typeof window !== 'undefined') {
       const storedMode = localStorage.getItem('darkMode');
@@ -67,7 +67,7 @@ function App() {
     setDarkMode(isChecked);
   };
 
-  // Load previous selected theme on page load
+  // Set theme dark/light trigger by button, the setting saved at localStorage
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('darkMode', darkMode.toString());
@@ -117,6 +117,7 @@ function App() {
               
               <Route path="/compilations" element={<Compilations userAccount={useActiveAccount} />} />
               <Route path="/compilations/:id" element={<Compilations userAccount={useActiveAccount} />} />
+              <Route path="/compilations/:id/:id" element={<Compilations userAccount={useActiveAccount} />} />
               
               <Route path="/camsoda" element={<Camsoda userAccount={useActiveAccount} />} />
               <Route path="/camsoda/:id" element={<Camsoda userAccount={useActiveAccount} />} />
