@@ -63,6 +63,7 @@ export default function Redtube ({ userAccount }) {
       }
     }
     else {
+      setSearchQuery('');
       endpointUrl = `${backendVideosUrl}/redtube?page=${page}&per_page=60`;
     }
     try {
@@ -187,7 +188,7 @@ export default function Redtube ({ userAccount }) {
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
                 <h1>
-                  {prevUrl.current === 'search' ? (
+                  {searchQuery ? (
                     `Redtube | Search ${searchQuery}`
                   ):(
                     `Redtube ${videoData.video_id ? '| ' + videoData.video_id : ''}`
