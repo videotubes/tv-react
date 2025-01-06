@@ -17,6 +17,7 @@ export default function Compilations ({ userAccount }) {
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   //**************************************** End Of All State ****************************************//
 
@@ -24,11 +25,20 @@ export default function Compilations ({ userAccount }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
+  const prevUrl = useRef(location.hash);
   const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
+
+  function handleChangeCurrentPage(e) {
+    setCurrentPage(e);
+  }
   
+  function handleChangeIsReload(e) {
+    setIsReload(e);
+  }
+
   // Function for notfound
   function notFound () {
     prevIsNotFound.current = true;
@@ -39,23 +49,16 @@ export default function Compilations ({ userAccount }) {
       setVideoData([]);
     }, 1000);
   }
-
-  function handleChangeCurrentPage(e) {
-    setCurrentPage(e);
-  }
-  
-  function handleChangeIsReload(e) {
-    setIsReload(e);
-  }
   
   // Fetch compilations
   const getVideo = async (secondPath, query, page) => {
     let endpointUrl;
     if(secondPath) {
       if(secondPath === 'search') {
-        endpointUrl = `${backendVideosUrl}/compilations?page=${page}&per_page=60&titla=${query}`;
-      }
-      else {
+        setSearchQuery(query);
+        endpointUrl = `${backendVideosUrl}/compilations?page=${page}&per_page=60&search=${query}`;
+      } else {
+        setSearchQuery('');
         endpointUrl = `${backendVideosUrl}/compilations?filecode=${secondPath}`;
       }
     }
@@ -93,11 +96,11 @@ export default function Compilations ({ userAccount }) {
   // Fetch data from API according url path. The source of all data is inside and start from this function
   const fetchData = async () => {
     try {
-      if(currentPath[2]) {
+      if(currentPath[3]) {
         notFound();
       }
       else {
-        if(prevPage.current !== currentPage && !prevIsNotFound.current) {
+        if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
           prevPage.current = currentPage;
           const allVideos = await getVideo('', '', currentPage);
           if(allVideos) {
@@ -108,14 +111,29 @@ export default function Compilations ({ userAccount }) {
         }
         
         if(currentPath[1]) {
-          if(videoData.file_code !== currentPath[1]) {
-            const item = await getVideo(currentPath[1], '', '');
-            if(item && item.compilations.status === 200) {
+          prevUrl.current = currentPath[1];
+          if(currentPath[1] === 'search' && currentPath[2]) {
+            const allVideos = await getVideo('search', currentPath[2], currentPage);
+            if(allVideos) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
-              playVideo(item.compilations.result[0]);
-            } else {
+              setDataVideos(allVideos.compilations.result.files);
+              setTotalPages(Math.ceil(allVideos.compilations.result.results_total / 60));
+            }
+          } else {
+            if(currentPath[2]) {
               notFound();
+            } else {
+              if(videoData.file_code !== currentPath[1]) {
+                const item = await getVideo(currentPath[1], '', '');
+                if(item && item.compilations.status === 200) {
+                  setIsNotFound(false);
+                  prevIsNotFound.current = false;
+                  playVideo(item.compilations.result[0]);
+                } else {
+                  notFound();
+                }
+              }
             }
           }
         } else {
@@ -136,6 +154,10 @@ export default function Compilations ({ userAccount }) {
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {
+    if(prevUrl.current === 'search') {
+      setCurrentPage(1);
+    }
+    
     window.scrollTo({top: 0, behavior: 'smooth'});
     setVideoData(item);
     
@@ -165,7 +187,13 @@ export default function Compilations ({ userAccount }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Compilations ${videoData.file_code ? '| ' + videoData.file_code : ''}`}</h1>
+                <h1>
+                  {prevUrl.current === 'search' ? (
+                    `Compilations | Search ${searchQuery}`
+                  ):(
+                    `Compilations ${videoData.file_code ? '| ' + videoData.file_code : ''}`
+                  )}
+                </h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
@@ -183,7 +211,7 @@ export default function Compilations ({ userAccount }) {
                 <CommentForm platformName={'compilations'} videoId={videoData.file_code} />
               </div>
             </div>
-            <VideoThumbnail isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'compilations'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
+            <VideoThumbnail isSearch={prevUrl.current} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'compilations'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
           </div>
         </div>
       </section>
