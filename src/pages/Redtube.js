@@ -17,6 +17,7 @@ export default function Redtube ({ userAccount }) {
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   //**************************************** End Of All State ****************************************//
 
@@ -54,8 +55,10 @@ export default function Redtube ({ userAccount }) {
     let endpointUrl;
     if(secondPath) {
       if(secondPath === 'search') {
+        setSearchQuery(query);
         endpointUrl = `${backendVideosUrl}/redtube?search=${query}&page=${page}&per_page=60`;
       } else {
+        setSearchQuery('');
         endpointUrl = `${backendVideosUrl}/redtube?id=${secondPath}`;
       }
     }
@@ -183,7 +186,13 @@ export default function Redtube ({ userAccount }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Redtube ${videoData.video_id ? '| ' + videoData.video_id : ''}`}</h1>
+                <h1>
+                  {prevUrl.current === 'search' ? (
+                    `Redtube | Search ${searchQuery}`
+                  ):(
+                    `Redtube ${videoData.video_id ? '| ' + videoData.video_id : ''}`
+                  )}
+                </h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
