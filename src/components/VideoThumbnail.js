@@ -126,6 +126,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                 </button>
                 <Link to={`/${item.platform}/${item.video_id}/`}>
                   <Image
+                    imgKey={item.video_id}
                     src={item.image_url}
                     getFallbackSrc={() => [
                       `/assets/no-image.webp`,
@@ -309,6 +310,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                     {getOnliveStatus && !item.live && (<div className="thumb-overlay">OFFLINE</div>)}
                     <Link to={`/${platform}/${item[videoId]}/`} onClick={() => playVideo(item)}>
                       <Image
+                        imgKey={item[videoId]}
                         src={thumbnailUrl}
                         getFallbackSrc={() => [
                           compilationsFallback,
