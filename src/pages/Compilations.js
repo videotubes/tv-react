@@ -142,7 +142,7 @@ export default function Compilations ({ userAccount }) {
     const playerEl = document.getElementById('show-video');
     const sidebar = document.querySelector('.sidebar');
     const sections = document.querySelectorAll('section');
-    const player = `<iframe id="iframe-player" src="https://vidhidepre.com/embed/${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
+    const player = `<iframe id="iframe-player" src="https://filemoon.to/e/${item.file_code}" width="600" height="500" allowfullscreen></iframe>`
     document.getElementById("video-preview").innerHTML = player;
 
     setTimeout(() => {
@@ -177,7 +177,7 @@ export default function Compilations ({ userAccount }) {
                 </div>
                 <SavedVideos address={address} videoData={videoData} isNotFound={isNotFound} platform={'compilations'} />
                 <div id="video-preview"></div>
-                <DownloadVideo videoUrl={`https://vidhidepre.com/download/${videoData.file_code}`} buttonName={'Download Video'} />
+                <DownloadVideo videoUrl={`https://filemoon.to/download/${videoData.file_code}`} buttonName={'Download Video'} />
               </div>
               <div className="column-2">
                 <CommentForm platformName={'compilations'} videoId={videoData.file_code} />
