@@ -174,7 +174,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
         setIsPagination(false);
       }
       else {
-        let videoId, videoTitle, getThumbnailUrl, viewCount, getOnliveStatus = false, isHaveViewCount = false, isHaveSearchForm = false;
+        let videoId, videoTitle, getThumbnailUrl, getCompilationsFallback, viewCount, getOnliveStatus = false, isHaveViewCount = false, isHaveSearchForm = false;
         
         if(platform === 'camsoda') {
           videoId = 'username';
@@ -182,18 +182,21 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           viewCount = 'connectionCount';
           isHaveViewCount = true;
           getThumbnailUrl = item => item.thumbUrl;
+          getCompilationsFallback = '';
         }
         else if(platform === 'compilations') {
           videoId = 'file_code';
           videoTitle = 'file_code';
           viewCount = 'views';
           isHaveViewCount = true;
-          getThumbnailUrl = item => `https://laving.cc/${item.file_code}_xt.jpg?v=1`;
+          getThumbnailUrl = item => `https://videothumbs.me/${item.file_code}_xt.jpg`;
+          getCompilationsFallback = item => `https://videothumbs.me/${item.file_code}_t.jpg`;
         }
         else if(platform === 'dreamcam') {
           videoId = 'modelNickname';
           videoTitle = 'modelNickname';
           getThumbnailUrl = item => item.modelProfilePhotoUrl;
+          getCompilationsFallback = '';
         }
         else if(platform === 'bongacams') {
           videoId = 'username';
@@ -206,11 +209,13 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
               .replace("{ext}", "jpg"); 
             return url;
           };
+          getCompilationsFallback = '';
         }
         else if(platform === 'xlovecam') {
           videoId = 'name';
           videoTitle = 'name';
           getThumbnailUrl = item => `https:${item.imgLive}`;
+          getCompilationsFallback = '';
         }
         else if(platform === 'cam4') {
           videoId = 'nickname';
@@ -218,6 +223,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           viewCount = 'viewers';
           isHaveViewCount = true;
           getThumbnailUrl = item => item.thumb;
+          getCompilationsFallback = '';
         }
         else if(platform === 'chaturbate') {
           videoId = 'username';
@@ -225,6 +231,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           viewCount = 'num_users';
           isHaveViewCount = true;
           getThumbnailUrl = item => item.image_url;
+          getCompilationsFallback = '';
         }
         else if(platform === 'stripchat') {
           videoId = 'username';
@@ -232,12 +239,14 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           viewCount = 'viewersCount';
           isHaveViewCount = true;
           getThumbnailUrl = item => item.snapshotUrl;
+          getCompilationsFallback = '';
         }
         else if(platform === 'eplay') {
           videoId = 'username';
           videoTitle = 'username';
           getThumbnailUrl = item => item.ss;
           getOnliveStatus = true;
+          getCompilationsFallback = '';
         }
         else if(platform === 'amateur') {
           videoId = 'username';
@@ -250,11 +259,13 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
             const unblured = parts.join('/');
             return unblured;
           };
+          getCompilationsFallback = '';
         }
         else if(platform === 'babestation') {
           videoId = 'Nickname';
           videoTitle = 'Nickname';
           getThumbnailUrl = item => item.Thumbnail;
+          getCompilationsFallback = '';
         }
         else if(platform === 'eporner') {
           videoId = 'id';
@@ -263,6 +274,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           isHaveViewCount = true;
           isHaveSearchForm = true;
           getThumbnailUrl = item => item.default_thumb.src;
+          getCompilationsFallback = '';
         }
         else if(platform === 'redtube') {
           videoId = 'video_id';
@@ -271,6 +283,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           isHaveViewCount = true;
           isHaveSearchForm = true;
           getThumbnailUrl = item => item.thumb;
+          getCompilationsFallback = '';
         }
 
         setVideoThumb(
@@ -289,6 +302,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
               )}
               {visibleResults.map((item, index) => {
                 const thumbnailUrl = getThumbnailUrl(item);
+                const compilationsFallback = getCompilationsFallback(item);
                 return (
                   <div key={index} style={{textAlign: "left"}} className="thumb">
                     {getOnliveStatus && !item.live && (<div className="thumb-overlay">OFFLINE</div>)}
@@ -296,6 +310,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                       <Image
                         src={thumbnailUrl}
                         getFallbackSrc={() => [
+                          compilationsFallback,
                           `/assets/no-image.webp`,
                         ]}
                         alt={item[videoTitle]}
