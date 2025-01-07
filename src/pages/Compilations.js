@@ -190,7 +190,7 @@ export default function Compilations ({ userAccount }) {
                 <>
                 <h1>
                   {searchQuery ? (
-                    `Compilations | Search ${searchQuery}`
+                    `Compilations | Search ${decodeURIComponent(searchQuery)}`
                   ):(
                     `Compilations ${videoData.file_code ? '| ' + videoData.file_code : ''}`
                   )}
