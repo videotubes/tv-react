@@ -47,7 +47,7 @@ export default function Stripchat ({ userAccount }) {
 
   // Fetch stripchat
   const getVideo = async () => {
-    const endpointUrl = `https://go.xlirdr.com/api/models?limit=5000&isNew=1`;
+    const endpointUrl = `https://go.xlirdr.com/api/models?limit=1000&isNew=1`;
 
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
@@ -88,7 +88,7 @@ export default function Stripchat ({ userAccount }) {
         if(allVideos) {
           setIsNotFound(false);
           setDataVideos(allVideos);
-          setTotalPages(Math.ceil(5000 / 60));
+          setTotalPages(Math.ceil(1000 / 60));
         }
         
         if(currentPath[1]) {
