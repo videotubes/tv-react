@@ -8,6 +8,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
   
   const [videoThumb, setVideoThumb] = useState('');
   const [isPagination, setIsPagination] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
   const buttonsPerPage = 5;
@@ -132,7 +133,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                       `/assets/no-image.webp`,
                     ]}
                     alt={item.video_id}
-                    title={item.video_id}                  
+                    title={item.video_id}                   
                   />
                   <span className="thumb-title">
                     <span className="wrap">{item.video_id}</span>
@@ -340,6 +341,28 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
     }
   }, [address, isReload, visibleResults]);
 
+  const handleScroll = () => {
+    if (window.scrollY > 400) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+    
   return (
     <>
       {isLoading ? (
@@ -356,26 +379,35 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
             <div id="video-thumb">
               {videoThumb}
               {isPagination && (
-                <div className="heading center-flex">
-                  <div className="pagination">
-                    <button className="number" onClick={handleFirstPage} disabled={currentPage === 1}>First</button>
-                    <button className="number" onClick={handlePrevPage} disabled={currentPage === 1}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -960 960 960" width="24"><path d="M560-253.847 333.847-480 560-706.153 602.153-664l-184 184 184 184L560-253.847Z"/></svg>
-                    </button>
-                    {visiblePageNumbers.map((pageNumber) => (
-                    <button className="number"
-                      key={pageNumber}
-                      onClick={() => handleClick(pageNumber)}
-                      disabled={currentPage === pageNumber}>
-                      {pageNumber}
-                    </button>
-                    ))}
-                    <button className="number" onClick={handleNextPage} disabled={currentPage === totalPages || totalPages === 0}>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -960 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
-                    </button>
-                    <button className="number" onClick={handleLastPage} disabled={currentPage === totalPages || totalPages === 0}>Last</button>
+                <>
+                  {isVisible && (
+                    <div className="to-top" onClick={scrollToTop}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="18 15 12 9 6 15"></polyline>
+                      </svg>
+                    </div>
+                  )}
+                  <div className="heading center-flex">
+                    <div className="pagination">
+                      <button className="number" onClick={handleFirstPage} disabled={currentPage === 1}>First</button>
+                      <button className="number" onClick={handlePrevPage} disabled={currentPage === 1}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -960 960 960" width="24"><path d="M560-253.847 333.847-480 560-706.153 602.153-664l-184 184 184 184L560-253.847Z"/></svg>
+                      </button>
+                      {visiblePageNumbers.map((pageNumber) => (
+                      <button className="number"
+                        key={pageNumber}
+                        onClick={() => handleClick(pageNumber)}
+                        disabled={currentPage === pageNumber}>
+                        {pageNumber}
+                      </button>
+                      ))}
+                      <button className="number" onClick={handleNextPage} disabled={currentPage === totalPages || totalPages === 0}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24" viewBox="0 -960 960 960" width="24"><path d="m517.847-480-184-184L376-706.153 602.153-480 376-253.847 333.847-296l184-184Z"/></svg>
+                      </button>
+                      <button className="number" onClick={handleLastPage} disabled={currentPage === totalPages || totalPages === 0}>Last</button>
+                    </div>
                   </div>
-                </div>
+                </>
               )}
             </div>
           )}
