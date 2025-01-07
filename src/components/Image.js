@@ -21,6 +21,8 @@ const Image = ({ src, alt, title, getFallbackSrc, imgKey }) => {
         alt={alt}
         title={title}
         onError={handleError}
+        width="214"
+        height="142"
       />
     </LazyLoad>
   );
