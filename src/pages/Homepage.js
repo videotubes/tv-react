@@ -346,7 +346,7 @@ export default function Homepage ({ clientIp }) {
   const apiUrls = [
     `${backendVideosUrl}/compilations?limit=6`,
     'https://www.eporner.com/api/v2/video/search/?per_page=6',
-    `${chaturbateUrl}/?wm=55xr9&limit=500&client_ip=${clientIp}`,
+    `${chaturbateUrl}/?wm=55xr9&limit=6&client_ip=${clientIp}`,
     'https://go.xlirdr.com/api/models?limit=6&isNew=1',
     'https://api.pinklabel.com/api/v1/cams/online.json?aff_id=64ad0d76c17c866d6c664c50&prog=rs&limit=6'
   ];
