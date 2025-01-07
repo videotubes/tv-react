@@ -132,9 +132,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                       `/assets/no-image.webp`,
                     ]}
                     alt={item.video_id}
-                    title={item.video_id}
-                    width="214"
-                    height="142"                    
+                    title={item.video_id}                  
                   />
                   <span className="thumb-title">
                     <span className="wrap">{item.video_id}</span>
@@ -318,8 +316,6 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
                         ]}
                         alt={item[videoTitle]}
                         title={item[videoTitle]}
-                        width="214"
-                        height="142"
                       />
                       <span className="thumb-title">
                         <span className="wrap">{item[videoTitle]}</span>
