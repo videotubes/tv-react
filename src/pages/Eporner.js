@@ -188,7 +188,7 @@ export default function Eporner ({ userAccount }) {
                 <>
                 <h1>
                   {searchQuery ? (
-                    `Eporner | Search ${searchQuery}`
+                    `Eporner | Search ${decodeURIComponent(searchQuery)}`
                   ):(
                     `Eporner ${videoData.id ? '| ' + videoData.id : ''}`
                   )}
