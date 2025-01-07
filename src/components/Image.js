@@ -15,7 +15,7 @@ const Image = ({ src, alt, title, getFallbackSrc, imgKey }) => {
   };
   
   return (
-    <LazyLoad key={imgKey} placeholder={<img src="/assets/tubevideos_placeholder.webp" />}>
+    <LazyLoad key={imgKey} offset={-100} placeholder={<img src="/assets/tubevideos_placeholder.webp" />}>
       <img
         src={src}
         alt={alt}
