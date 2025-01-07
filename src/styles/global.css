@@ -55,6 +55,24 @@ button.tw-connected-wallet {
 .css-1mtmiup:active {
   transform: unset !important;
 }
+.to-top {
+  width: 40px;
+  height: 40px;
+  background: var(--red-bg);
+  opacity: 0.8;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  cursor: pointer;
+  z-index: 9996;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .5s;
+}
+.to-top:hover {
+  opacity: 1;
+}
 pre {
   margin-top: auto;
   margin-bottom: auto;
