@@ -55,9 +55,6 @@ button.tw-connected-wallet {
 .css-1mtmiup:active {
   transform: unset !important;
 }
-.alt-img {
-  font-size: 0 !important;
-}
 .to-top {
   width: 40px;
   height: 40px;
@@ -607,7 +604,7 @@ a.a-ads {
   object-fit: cover;
   aspect-ratio: 4/3;
   width: 100%;
-  height: auto !important;
+  height: 100%;
   cursor: pointer;
   transition: all 0.5s;
 }
