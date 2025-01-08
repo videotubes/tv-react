@@ -189,7 +189,7 @@ export default function Redtube ({ userAccount }) {
                 <>
                 <h1>
                   {searchQuery ? (
-                    `Redtube | Search ${decodeURIComponent(searchQuery)}`
+                    <>Redtube | Search <i>{decodeURIComponent(searchQuery)}</i></>
                   ):(
                     `Redtube ${videoData.video_id ? '| ' + videoData.video_id : ''}`
                   )}
