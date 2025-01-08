@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import DownloadVideo from '../components/DownloadVideo';
@@ -24,6 +24,8 @@ export default function Stripchat ({ userAccount }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
+  const prevPage = useRef(0);
+  const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
 
@@ -37,6 +39,7 @@ export default function Stripchat ({ userAccount }) {
   
   // Function for notfound
   function notFound () {
+    prevIsNotFound.current = false;
     setCurrentPage(1);
     setTimeout(() => {
       setIsNotFound(true);
@@ -46,9 +49,15 @@ export default function Stripchat ({ userAccount }) {
   }
 
   // Fetch stripchat
-  const getVideo = async () => {
-    const endpointUrl = `https://go.xlirdr.com/api/models?limit=1000&isNew=1`;
-
+  const getVideo = async (secondPath, page) => {
+    let endpointUrl, offset;
+    if(secondPath) {
+      endpointUrl = `https://go.xlirdr.com/api/models?modelsList=${secondPath}&limit=1`;
+    }
+    else {
+      const offset = page > 1 ? page * 60 - 60 : 0;
+      endpointUrl = `https://go.xlirdr.com/api/models?limit=60&offset=${offset}`;
+    }
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
       if(!response.ok) {
@@ -63,7 +72,7 @@ export default function Stripchat ({ userAccount }) {
           setIsLoading(false);
         }, 1000);
       }
-      return data.models;
+      return data;
     }
     catch (error) {
       setTimeout(() => {
@@ -84,19 +93,26 @@ export default function Stripchat ({ userAccount }) {
         notFound();
       }
       else {
-        const allVideos = await getVideo();
-        if(allVideos) {
-          setIsNotFound(false);
-          setDataVideos(allVideos);
-          setTotalPages(Math.ceil(1000 / 60));
+        if(prevPage.current !== currentPage && !prevIsNotFound.current) {
+          prevPage.current = currentPage;
+          const allVideos = await getVideo('', currentPage);
+          if(allVideos) {
+            setIsNotFound(false);
+            setDataVideos(allVideos.models);
+            setTotalPages(Math.ceil(allVideos.total / 60));
+            console.log(Math.ceil(allVideos.total / 60))
+            console.log(allVideos.total)
+          }
         }
         
         if(currentPath[1]) {
           if(videoData.username !== currentPath[1]) {
-            const item = allVideos.find(obj => obj.username === currentPath[1]);
-            if(item) {
+            const item = await getVideo(currentPath[1], '');
+            const modelData = item.models[0].username;
+            if(modelData === currentPath[1]) {
               setIsNotFound(false);
-              playVideo(item);
+              prevIsNotFound.current = false;
+              playVideo(item.models[0]);
             } else {
               notFound();
             }
@@ -113,11 +129,9 @@ export default function Stripchat ({ userAccount }) {
 
   useEffect(() => {
     fetchData();
-  }, [pathName]);
+  }, [pathName, currentPage]);
   
-  const startIndex = (currentPage - 1) * 60;
-  const endIndex = startIndex + 60;
-  const visibleResults = dataVideos.slice(startIndex, endIndex);
+  const visibleResults = dataVideos;
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {
