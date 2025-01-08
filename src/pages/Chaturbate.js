@@ -26,7 +26,6 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
   const prevUrl = useRef(location.hash);
-  const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
@@ -52,46 +51,63 @@ export default function Chaturbate ({ userAccount, clientIp }) {
 
   // Fetch chaturbate
   const getVideo = async (secondPath, query, page) => {
-    let endpointUrl, offset;
-    if(page > 1) {
-      offset = page * 60 - 60;
-    } else {
-      offset = 0;
-    }
-    if(secondPath) {
-      if(secondPath === 'search') {
-        setSearchQuery(query);
-        endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&tag=${query}&client_ip=${clientIp}`;
-      } else {
-        setSearchQuery('');
-        endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&client_ip=${clientIp}`;
-      }
-    } else {
-      setSearchQuery('');
-      endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&client_ip=${clientIp}`;
-    }
+    const limit = 500;
+    const totalResults = 1000;
+    let allResults = [];
+    let offset = 0;
+    let endpointUrl;
+
     try {
-      const response = await fetch(endpointUrl, {cache: 'no-store'});
-      if(!response.ok) {
-        setDataVideos([]);
-        setIsLoading(false);
-        return;
+      while (offset < totalResults) {
+        if (secondPath) {
+          if (secondPath === 'search') {
+            setSearchQuery(query);
+            endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=${limit}&offset=${offset}&tag=${query}&client_ip=${clientIp}`;
+          } else {
+            setSearchQuery('');
+            endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=${limit}&offset=${offset}&client_ip=${clientIp}`;
+          }
+        } else {
+          setSearchQuery('');
+          endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=${limit}&offset=${offset}&client_ip=${clientIp}`;
+        }
+
+        const response = await fetch(endpointUrl, { cache: 'no-store' });
+        if (!response.ok) {
+          setDataVideos([]);
+          setIsLoading(false);
+          return [];
+        }
+
+        const data = await response.json();
+
+        if (data.results) {
+          allResults = [...allResults, ...data.results];
+        }
+
+        offset += limit;
+
+        if (data.results.length < limit) {
+          break;
+        }
       }
-      const data =  await response.json();
-      if(data) {
+
+      if (allResults.length > 0) {
         setIsReload(false);
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
       }
-      return data;
+
+      return allResults;
+
     } catch (error) {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
       throw new Error('Failed fetch chaturbate');
     }
-  }
+  };
 
 
 
@@ -105,12 +121,11 @@ export default function Chaturbate ({ userAccount, clientIp }) {
       } else {
         let allVideos;
         if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
-          prevPage.current = currentPage;
           allVideos = await getVideo('', '', currentPage);
           if(allVideos) {
             setIsNotFound(false);
-            setDataVideos(allVideos.results);
-            setTotalPages(Math.ceil(allVideos.count / 60));
+            setDataVideos(allVideos);
+            setTotalPages(Math.ceil(allVideos.length / 60));
           }
         }
         
@@ -121,15 +136,15 @@ export default function Chaturbate ({ userAccount, clientIp }) {
             if(allVideos) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
-              setDataVideos(allVideos.results);
-              setTotalPages(Math.ceil(allVideos.count / 60));
+              setDataVideos(allVideos);
+              setTotalPages(Math.ceil(allVideos.length / 60));
             }
           } else {
             if(currentPath[2]) {
               notFound();
             } else {
               if(videoData.username !== currentPath[1]) {
-                const item = allVideos.results.find(obj => obj.username === currentPath[1]);
+                const item = allVideos.find(obj => obj.username === currentPath[1]);
                 if(item) {
                   setIsNotFound(false);
                   playVideo(item);
@@ -152,9 +167,11 @@ export default function Chaturbate ({ userAccount, clientIp }) {
     if (clientIp) {
       fetchData();
     }
-  }, [pathName, currentPage, clientIp]);
+  }, [pathName, clientIp]);
 
-  const visibleResults = dataVideos;
+  const startIndex = (currentPage - 1) * 60;
+  const endIndex = startIndex + 60;
+  const visibleResults = dataVideos.slice(startIndex, endIndex);
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {

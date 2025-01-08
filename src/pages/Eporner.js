@@ -24,7 +24,6 @@ export default function Eporner ({ userAccount }) {
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
   const prevUrl = useRef(location.hash);
-  const prevPage = useRef(0);
   const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
@@ -97,7 +96,6 @@ export default function Eporner ({ userAccount }) {
         notFound();
       } else {
         if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
-          prevPage.current = currentPage;
           const allVideos = await getVideo('', '', currentPage);
           if(allVideos) {
             setIsNotFound(false);
