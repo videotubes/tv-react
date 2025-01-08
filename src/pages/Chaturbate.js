@@ -50,7 +50,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   }
 
   // Fetch chaturbate
-  const getVideo = async (secondPath, query, page) => {
+  const getVideo = async (secondPath, query) => {
     const limit = 500;
     const totalResults = 1000;
     let allResults = [];
@@ -121,7 +121,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
       } else {
         let allVideos;
         if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
-          allVideos = await getVideo('', '', currentPage);
+          allVideos = await getVideo('', '');
           if(allVideos) {
             setIsNotFound(false);
             setDataVideos(allVideos);
@@ -132,7 +132,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
         if(currentPath[1]) {
           prevUrl.current = currentPath[1];
           if(currentPath[1] === 'search' && currentPath[2]) {
-            allVideos = await getVideo('search', currentPath[2], currentPage);
+            allVideos = await getVideo('search', currentPath[2]);
             if(allVideos) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
