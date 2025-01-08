@@ -576,10 +576,12 @@ a.a-ads {
 .thumb-title svg {
   vertical-align: sub;
 }
-.thumb a {
+.lazyload-wrapper {
   width: 100%;
   height: 100%;
   aspect-ratio: 4 / 3;
+}
+.thumb a {
   display: flex;
   flex-direction: column-reverse;
   position: relative;
