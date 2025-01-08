@@ -59,8 +59,7 @@ export default function Eporner ({ userAccount }) {
         setSearchQuery('');
         endpointUrl = `https://www.eporner.com/api/v2/video/id/?id=${secondPath}`;
       }
-    }
-    else {
+    } else {
       setSearchQuery('');
       endpointUrl = `https://www.eporner.com/api/v2/video/search/?page=${page}&per_page=60`;
     }
@@ -79,8 +78,7 @@ export default function Eporner ({ userAccount }) {
         }, 1000);
       }
       return data;
-    }
-    catch (error) {
+    } catch (error) {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
@@ -97,8 +95,7 @@ export default function Eporner ({ userAccount }) {
     try {
       if(currentPath[3]) {
         notFound();
-      }
-      else {
+      } else {
         if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
           prevPage.current = currentPage;
           const allVideos = await getVideo('', '', currentPage);
@@ -139,8 +136,7 @@ export default function Eporner ({ userAccount }) {
           setVideoData([]);
         }
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
