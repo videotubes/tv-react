@@ -56,11 +56,7 @@ export default function Eplay ({ userAccount }) {
       endpointUrl = `https://search-cf.eplay.com/channels?size=1&exactMatch=true&username=${secondPath}`;
     }
     else {
-      if(page > 1) {
-        offset = page * 60 - 60;
-      } else {
-        offset = 0;
-      }
+      const offset = page > 1 ? page * 60 - 60 : 0;
       endpointUrl = `https://search-cf.eplay.com/channels?size=60&from=${offset}&fields=activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`;
     }
     try {
