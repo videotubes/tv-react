@@ -130,6 +130,7 @@ function App() {
               
               <Route path="/chaturbate" element={<Chaturbate userAccount={useActiveAccount} clientIp={clientIp} />} />
               <Route path="/chaturbate/:id" element={<Chaturbate userAccount={useActiveAccount} clientIp={clientIp} />} />
+              <Route path="/chaturbate/:id/:id" element={<Chaturbate userAccount={useActiveAccount} clientIp={clientIp} />} />
               
               <Route path="/stripchat" element={<Stripchat userAccount={useActiveAccount} />} />
               <Route path="/stripchat/:id" element={<Stripchat userAccount={useActiveAccount} />} />
