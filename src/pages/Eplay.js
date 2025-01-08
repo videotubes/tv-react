@@ -114,7 +114,7 @@ export default function Eplay ({ userAccount }) {
             if(item && item.total > 0) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
-              playVideo(item);
+              playVideo(item.results[0]);
             } else {
               notFound();
             }
