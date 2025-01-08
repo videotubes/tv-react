@@ -21,31 +21,31 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
   const visiblePageNumbers = pageNumbers.slice(startButtonIndex, endButtonIndex);
   
   const handleFirstPage = () => {
-    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay' || platform === 'chaturbate') {
+    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay') {
       onChangeIsReload(true);
     }
     onChangeCurrentPage(1);
   };
   const handleLastPage = () => {
-    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay' || platform === 'chaturbate') {
+    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay') {
       onChangeIsReload(true);
     }
     onChangeCurrentPage(totalPages);
   };
   const handleClick = (pageNumber) => {
-    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay' || platform === 'chaturbate') {
+    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay') {
       onChangeIsReload(true);
     }
     onChangeCurrentPage(pageNumber);
   };
   const handleNextPage = () => {
-    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay' || platform === 'chaturbate') {
+    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay') {
       onChangeIsReload(true);
     }
     onChangeCurrentPage((prevPage) => prevPage + 1)
   };
   const handlePrevPage = () => {
-    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay' || platform === 'chaturbate') {
+    if(platform === 'compilations' || platform === 'eporner' || platform === 'camsoda' || platform === 'redtube' || platform === 'babestation' || platform === 'eplay') {
       onChangeIsReload(true);
     }
     onChangeCurrentPage((prevPage) => prevPage - 1);
