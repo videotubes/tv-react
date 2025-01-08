@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import CommentForm from '../components/CommentForm';
 import DownloadVideo from '../components/DownloadVideo';
@@ -17,6 +17,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   
   //**************************************** End Of All State ****************************************//
 
@@ -24,6 +25,9 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
+  const prevUrl = useRef(location.hash);
+  const prevPage = useRef(0);
+  const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
 
@@ -37,6 +41,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   
   // Function for notfound
   function notFound () {
+    prevIsNotFound.current = false;
     setCurrentPage(1);
     setTimeout(() => {
       setIsNotFound(true);
@@ -45,9 +50,26 @@ export default function Chaturbate ({ userAccount, clientIp }) {
     }, 1000);
   }
 
-  // Fetch dreamcam
-  const getVideo = async () => {
-    const endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=500&client_ip=${clientIp}`;
+  // Fetch chaturbate
+  const getVideo = async (secondPath, query, page) => {
+    let endpointUrl, offset;
+    if(page > 1) {
+      offset = page * 60 - 60;
+    } else {
+      offset = 0;
+    }
+    if(secondPath) {
+      if(secondPath === 'search') {
+        setSearchQuery(query);
+        endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&tag=${query}&client_ip=${clientIp}`;
+      } else {
+        setSearchQuery('');
+        endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&client_ip=${clientIp}`;
+      }
+    } else {
+      setSearchQuery('');
+      endpointUrl = `${chaturbateUrl}/?wm=55xr9&limit=60&offset=${offset}&client_ip=${clientIp}`;
+    }
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
       if(!response.ok) {
@@ -56,15 +78,14 @@ export default function Chaturbate ({ userAccount, clientIp }) {
         return;
       }
       const data =  await response.json();
-      if(data.results) {
+      if(data) {
         setIsReload(false);
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
       }
-      return data.results;
-    }
-    catch (error) {
+      return data;
+    } catch (error) {
       setTimeout(() => {
         setIsLoading(false);
       }, 1000);
@@ -79,33 +100,50 @@ export default function Chaturbate ({ userAccount, clientIp }) {
   // Fetch data from API according url path. The source of all data is inside and start from this function
   const fetchData = async () => {
     try {
-      if(currentPath[2]) {
+      if(currentPath[3]) {
         notFound();
-      }
-      else {
-        const allVideos = await getVideo();
-        if(allVideos) {
-          setIsNotFound(false);
-          setDataVideos(allVideos);
-          setTotalPages(Math.ceil(allVideos.length / 60));
+      } else {
+        let allVideos;
+        if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
+          prevPage.current = currentPage;
+          allVideos = await getVideo('', '', currentPage);
+          if(allVideos) {
+            setIsNotFound(false);
+            setDataVideos(allVideos.results);
+            setTotalPages(Math.ceil(allVideos.count / 60));
+          }
         }
         
         if(currentPath[1]) {
-          if(videoData.username !== currentPath[1]) {
-            const item = allVideos.find(obj => obj.username === currentPath[1]);
-            if(item) {
+          prevUrl.current = currentPath[1];
+          if(currentPath[1] === 'search' && currentPath[2]) {
+            allVideos = await getVideo('search', currentPath[2], currentPage);
+            if(allVideos) {
               setIsNotFound(false);
-              playVideo(item);
-            } else {
+              prevIsNotFound.current = false;
+              setDataVideos(allVideos.results);
+              setTotalPages(Math.ceil(allVideos.count / 60));
+            }
+          } else {
+            if(currentPath[2]) {
               notFound();
+            } else {
+              if(videoData.username !== currentPath[1]) {
+                const item = allVideos.results.find(obj => obj.username === currentPath[1]);
+                if(item) {
+                  setIsNotFound(false);
+                  playVideo(item);
+                } else {
+                  notFound();
+                }
+              }
             }
           }
         } else {
           setVideoData([]);
         }
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
@@ -114,14 +152,16 @@ export default function Chaturbate ({ userAccount, clientIp }) {
     if (clientIp) {
       fetchData();
     }
-  }, [pathName, clientIp]);
+  }, [pathName, currentPage, clientIp]);
 
-  const startIndex = (currentPage - 1) * 60;
-  const endIndex = startIndex + 60;
-  const visibleResults = dataVideos.slice(startIndex, endIndex);
+  const visibleResults = dataVideos;
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {
+    if(prevUrl.current === 'search') {
+      setCurrentPage(1);
+    }
+    
     window.scrollTo({top: 0, behavior: 'smooth'});
     setVideoData(item);
     
@@ -151,7 +191,13 @@ export default function Chaturbate ({ userAccount, clientIp }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Chaturbate ${videoData.username ? '| ' + videoData.username : ''}`}</h1>
+                <h1>
+                  {searchQuery ? (
+                    <>Chaturbate | Search <i>{decodeURIComponent(searchQuery)}</i></>
+                  ):(
+                    `Chaturbate ${videoData.username ? '| ' + videoData.username : ''}`
+                  )}
+                </h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
@@ -170,7 +216,7 @@ export default function Chaturbate ({ userAccount, clientIp }) {
                 <CommentForm platformName={'chaturbate'} videoId={videoData.username} />
               </div>
             </div>
-            <VideoThumbnail isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'chaturbate'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
+            <VideoThumbnail isSearch={prevUrl.current} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'chaturbate'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
           </div>
         </div>
       </section>
