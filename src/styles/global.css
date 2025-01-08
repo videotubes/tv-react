@@ -55,6 +55,9 @@ button.tw-connected-wallet {
 .css-1mtmiup:active {
   transform: unset !important;
 }
+.alt-img {
+  font-size: 0 !important;
+}
 .to-top {
   width: 40px;
   height: 40px;
