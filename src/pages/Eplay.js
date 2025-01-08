@@ -50,19 +50,18 @@ export default function Eplay ({ userAccount }) {
   }
 
   // Fetch eplay
-  const getVideo = async (username, page) => {
-    let endpointUrl;
-    let startPage;
-    if(username) {
-      endpointUrl = `https://search-cf.eplay.com/channels?size=1&exactMatch=true&username=${username}`;
+  const getVideo = async (secondPath, page) => {
+    let endpointUrl, offset;
+    if(secondPath) {
+      endpointUrl = `https://search-cf.eplay.com/channels?size=1&exactMatch=true&username=${secondPath}`;
     }
     else {
       if(page > 1) {
-        startPage = page * 60 - 60;
+        offset = page * 60 - 60;
       } else {
-        startPage = 0;
+        offset = 0;
       }
-      endpointUrl = `https://search-cf.eplay.com/channels?size=60&from=${startPage}&fields=activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`;
+      endpointUrl = `https://search-cf.eplay.com/channels?size=60&from=${offset}&fields=activityTags,avatar,channelId,displayName,gameTags,id,jpeg,keyclub,live,manifest,offline,previews,ss,ssTime,username,vipGame,nudity`;
     }
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
