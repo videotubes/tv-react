@@ -73,7 +73,7 @@ export default function Babestation ({ userAccount }) {
           setIsLoading(false);
         }, 1000);
       }
-      return data.babestation;
+      return data;
     }
     catch (error) {
       setTimeout(() => {
@@ -99,8 +99,8 @@ export default function Babestation ({ userAccount }) {
           const allVideos = await getVideo('', currentPage);
           if(allVideos) {
             setIsNotFound(false);
-            setDataVideos(allVideos.streamate);
-            setTotalPages(allVideos.pagination.last_page);
+            setDataVideos(allVideos.babestation.streamate);
+            setTotalPages(allVideos.babestation.pagination.last_page);
           }
         }
         
@@ -110,7 +110,7 @@ export default function Babestation ({ userAccount }) {
             if(item && item.success === true) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
-              playVideo(item);
+              playVideo(item.babestation);
             } else {
               notFound();
             }
@@ -135,7 +135,7 @@ export default function Babestation ({ userAccount }) {
   const playVideo = async (item) => {
     window.scrollTo({top: 0, behavior: 'smooth'});
     setVideoData(item);
-
+    
     const playerEl = document.getElementById('show-video');
     const sidebar = document.querySelector('.sidebar');
     const sections = document.querySelectorAll('section');
@@ -159,14 +159,22 @@ export default function Babestation ({ userAccount }) {
         console.error(error);
       }
     }
-    const streamUrl = await getServer();
+    
+    let streamUrl, playerPoster;
+    if (item['mp4-hls']) {
+      streamUrl = item['mp4-hls']['manifest'];
+      playerPoster = item.jpeg.encodings[0].location;
+    } else {
+      streamUrl = await getServer();
+      playerPoster = item.Thumbnail;
+    }
     const videoPlayer = videojs('video-player');
     
     videoPlayer.src({
       src: streamUrl,
       type: 'application/x-mpegURL'
     });
-    videoPlayer.poster(item.Thumbnail);
+    videoPlayer.poster(playerPoster);
     videoPlayer.on('loadedmetadata', () => {
       videoPlayer.play().catch((e) => {
         console.log(e);
