@@ -100,8 +100,6 @@ export default function Stripchat ({ userAccount }) {
             setIsNotFound(false);
             setDataVideos(allVideos.models);
             setTotalPages(Math.ceil(allVideos.total / 60));
-            console.log(Math.ceil(allVideos.total / 60))
-            console.log(allVideos.total)
           }
         }
         
