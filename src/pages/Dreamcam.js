@@ -47,7 +47,7 @@ export default function Dreamcam ({ userAccount }) {
 
   // Fetch dreamcam
   const getVideo = async () => {
-    const endpointUrl = `https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=128&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false`;
+    const endpointUrl = `https://bss.dreamcamtrue.com/api/clients/v1/broadcasts?partnerId=dreamcam_oauth2&limit=200&offset=0&show-offline=false&tag-categories=girls&stream-types=video2D,video3D&include-tags=false&include-tip-menu=false`;
     try {
       const response = await fetch(endpointUrl, {cache: 'no-store'});
       if(!response.ok) {
@@ -137,7 +137,7 @@ export default function Dreamcam ({ userAccount }) {
       src: item.streams[1].url,
       type: 'application/x-mpegURL'
     });
-    videoPlayer.poster(item.modelProfilePhotoUrl);
+    videoPlayer.poster(item.thumbnailsUrl.preview2D);
     videoPlayer.on('loadedmetadata', () => {
       videoPlayer.play().catch((e) => {
         console.log(e);
