@@ -156,7 +156,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
     }
     else {
       if(visibleResults.length === 0) {
-        if(isSearch === 'search' && (platform === 'eporner' || platform === 'redtube' || platform === 'compilations' || platform === 'chaturbate')) {
+        if(isSearch === 'search' && (platform === 'eporner' || platform === 'redtube' || platform === 'compilations' || platform === 'chaturbate' || platform === 'camsoda')) {
           setVideoThumb(
             <>
               <form className="form-inline" onSubmit={searchVid}>
@@ -181,6 +181,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
           videoTitle = 'username';
           viewCount = 'connectionCount';
           isHaveViewCount = true;
+          isHaveSearchForm = true;
           getThumbnailUrl = item => item.thumbUrl;
           getCompilationsFallback = item => ('');
         }
