@@ -196,7 +196,7 @@ export default function VideoThumbnail ({ deleteThis, address, isSearch, isNotFo
         else if(platform === 'dreamcam') {
           videoId = 'modelNickname';
           videoTitle = 'modelNickname';
-          getThumbnailUrl = item => item.modelProfilePhotoUrl;
+          getThumbnailUrl = item => item.thumbnailsUrl.preview2D;
           getCompilationsFallback = item => ('');
         }
         else if(platform === 'bongacams') {
