@@ -17,6 +17,7 @@ export default function Camsoda ({ userAccount }) {
   const [isReload, setIsReload] = useState(false);
   const [videoData, setVideoData] = useState([]);
   const [isNotFound, setIsNotFound] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   //**************************************** End Of All State ****************************************//
 
@@ -24,7 +25,7 @@ export default function Camsoda ({ userAccount }) {
   const location = useLocation();
   const pathName = location.pathname;
   const currentPath = pathName.split('/').filter(Boolean);
-  const prevPage = useRef(0);
+  const prevUrl = useRef(location.hash);
   const prevIsNotFound = useRef(isNotFound);
   const account = userAccount();
   const address = account ? account.address : undefined;
@@ -49,12 +50,19 @@ export default function Camsoda ({ userAccount }) {
   }
 
   // Fetch camsoda
-  const getVideo = async (secondPath, page) => {
+  const getVideo = async (secondPath, query, page) => {
     let endpointUrl;
     if(secondPath) {
-      endpointUrl = `https://www.camsoda.com/api/v1/chat/react/${secondPath}`;
+      if(secondPath === 'search') {
+        setSearchQuery(query);
+        endpointUrl = `https://www.camsoda.com/api/v1/browse/react/girls/tag/${query}?gender-hide=m,t&p=${page}`;
+      } else {
+        setSearchQuery('');
+        endpointUrl = `https://www.camsoda.com/api/v1/chat/react/${secondPath}`;
+      }
     }
     else {
+      setSearchQuery('');
       endpointUrl = `https://www.camsoda.com/api/v1/browse/react?gender-hide=m,t&p=${page}`;
     }
     try {
@@ -88,13 +96,12 @@ export default function Camsoda ({ userAccount }) {
   // Fetch data from API according url path. The source of all data is inside and start from this function
   const fetchData = async () => {
     try {
-      if(currentPath[2]) {
+      if(currentPath[3]) {
         notFound();
       }
       else {
-        if(prevPage.current !== currentPage && !prevIsNotFound.current) {
-          prevPage.current = currentPage;
-          const allVideos = await getVideo('', currentPage);
+        if(currentPath[1] !== 'search' && !prevIsNotFound.current) {
+          const allVideos = await getVideo('', '', currentPage);
           if(allVideos) {
             setIsNotFound(false);
             setDataVideos(allVideos.userList);
@@ -103,14 +110,29 @@ export default function Camsoda ({ userAccount }) {
         }
         
         if(currentPath[1]) {
-          if(videoData.username !== currentPath[1]) {
-            const item = await getVideo(currentPath[1], '');
-            if(item && !item.error) {
+          prevUrl.current = currentPath[1];
+          if(currentPath[1] === 'search' && currentPath[2]) {
+            const allVideos = await getVideo('search', currentPath[2], currentPage);
+            if(allVideos) {
               setIsNotFound(false);
               prevIsNotFound.current = false;
-              playVideo(item);
-            } else {
+              setDataVideos(allVideos.userList);
+              setTotalPages(Math.ceil(allVideos.totalCount / 60));
+            }
+          } else {
+            if(currentPath[2]) {
               notFound();
+            } else {
+              if(videoData.username !== currentPath[1]) {
+                const item = await getVideo(currentPath[1], '');
+                if(item && !item.error) {
+                  setIsNotFound(false);
+                  prevIsNotFound.current = false;
+                  playVideo(item);
+                } else {
+                  notFound();
+                }
+              }
             }
           }
         } else {
@@ -131,6 +153,10 @@ export default function Camsoda ({ userAccount }) {
 
   // Function that trigger on clicked video thumb for play a video
   const playVideo = async (item) => {
+    if(prevUrl.current === 'search') {
+      setCurrentPage(1);
+    }
+    
     window.scrollTo({top: 0, behavior: 'smooth'});
     setVideoData(item);
 
@@ -201,7 +227,13 @@ export default function Camsoda ({ userAccount }) {
             <div className="heading">
               {isNotFound ? (<><h1>Not Found</h1><h2 className="uid">Decentralized Streaming Videos</h2></>):(
                 <>
-                <h1>{`Camsoda ${videoData.username ? '| ' + videoData.username : ''}`}</h1>
+                <h1>
+                  {searchQuery ? (
+                    <>Camsoda | Search <i>{decodeURIComponent(searchQuery)}</i></>
+                  ):(
+                    `Camsoda ${videoData.username ? '| ' + videoData.username : ''}`
+                  )}
+                </h1>
                 <h2 className="uid">{`${isNotFound ? 'Not Found' : 'Decentralized Streaming Videos'}`}</h2>
                 </>
               )}
@@ -220,7 +252,7 @@ export default function Camsoda ({ userAccount }) {
                 <CommentForm platformName={'camsoda'} videoId={videoData.username} />
               </div>
             </div>
-            <VideoThumbnail isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'camsoda'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
+            <VideoThumbnail isSearch={prevUrl.current} isNotFound={isNotFound} isLoading={isLoading} onChangeCurrentPage={handleChangeCurrentPage} onChangeIsReload={handleChangeIsReload} playVideo={playVideo} isReload={isReload} visibleResults={visibleResults} videoData={videoData} platform={'camsoda'} currentPage={currentPage} totalPages={totalPages} handleChangeIsReload={handleChangeIsReload} />
           </div>
         </div>
       </section>
