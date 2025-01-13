@@ -121,6 +121,7 @@ function App() {
               
               <Route path="/camsoda" element={<Camsoda userAccount={useActiveAccount} />} />
               <Route path="/camsoda/:id" element={<Camsoda userAccount={useActiveAccount} />} />
+              <Route path="/camsoda/:id/:id" element={<Camsoda userAccount={useActiveAccount} />} />
               
               <Route path="/dreamcam" element={<Dreamcam userAccount={useActiveAccount} />} />
               <Route path="/dreamcam/:id" element={<Dreamcam userAccount={useActiveAccount} />} />
